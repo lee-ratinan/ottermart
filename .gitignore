@@ -1,0 +1,11 @@
+.idea/*
+.env
+
+#codeigniter 4
+writable/cache/*
+writable/debugbar/*
+writable/logs/*
+writable/session/*
+writable/uploads/*
+vendor/*
+/composer.lock
