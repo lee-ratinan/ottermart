@@ -19,5 +19,7 @@ return [
         'subtitle'      => 'You may search for the store you would like to visit.',
         'business-name' => 'Business Name',
         'search'        => 'Search',
+        'results'       => 'Search results for: {0}',
+        'view-more'     => 'View store'
     ]
 ];

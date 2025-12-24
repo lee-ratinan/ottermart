@@ -13,15 +13,33 @@
                             <form method="get">
                                 <div class="mx-auto" style="max-width:400px">
                                     <label for="business-name"><?= lang('System.home.business-name') ?></label>
-                                    <input type="text" class="form-control" name="business-name" id="business-name" placeholder="<?= lang('System.home.business-name') ?>" required="" autocomplete="off">
+                                    <input type="text" class="form-control" name="business-name" id="business-name" placeholder="<?= lang('System.home.business-name') ?>" required="" value="<?= @$results['query'] ?>" autocomplete="off">
                                     <button type="submit" class="btn-submit">
                                         <span><?= lang('System.home.search') ?></span>
                                         <i class="bi bi-arrow-right"></i>
                                     </button>
                                 </div>
                             </form>
-                            <?php if (isset($results)) : ?>
-                                <h3><?= lang('System.home.results') ?></h3>
+                            <?php if (!empty($results)) : ?>
+                                <h3 class="my-5"><?= lang('System.home.results', [$results['query']]) ?></h3>
+                                <?php foreach ($results['results'] as $result) : ?>
+                                <div class="card my-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-4 col-lg-3 col-xl-2">
+                                            <?php if (!empty($result['businessLogo'])) : ?>
+                                                <img src="<?= $result['businessLogo'] ?>" class="img-fluid rounded" alt="<?= $result['name'] ?>">
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-md-8 col-lg-9 col-xl-10">
+                                            <div class="card-body ps-5">
+                                                <h5 class="card-title"><?= $result['name'] ?></h5>
+                                                <p class="card-text"><small class="text-body-secondary"><?= $result['businessType'] ?></small></p>
+                                                <a href="<?= $result['link'] ?>" class="stretched-link"><?= lang('System.home.view-more') ?></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
                     </div>
