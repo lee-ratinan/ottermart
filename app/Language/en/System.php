@@ -15,7 +15,7 @@ return [
         'th-th' => 'ประเทศไทย (ภาษาไทย)',
     ],
     'home'                 => [
-        'title'         => 'Welcome to OtterNova!',
+        'title'         => 'Welcome to OtterNova Marketplace!',
         'subtitle'      => 'You may search for the store you would like to visit.',
         'business-name' => 'Business Name',
         'search'        => 'Search',
