@@ -20,6 +20,10 @@ return [
         'business-name' => 'Business Name',
         'search'        => 'Search',
         'results'       => 'Search results for: {0}',
+        'not-found'     => 'Sorry, cannot find what you are looking for.',
         'view-more'     => 'View store'
+    ],
+    'store'                => [
+        'branches' => 'Branches'
     ]
 ];

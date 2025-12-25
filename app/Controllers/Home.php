@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Config\Services;
+use CodeIgniter\Exceptions\PageNotFoundException;
+use Config\Cache;
 use RuntimeException;
 
 class Home extends BaseController
@@ -74,13 +77,28 @@ class Home extends BaseController
 
     public function shop_home(string $slug): string
     {
-        $data = [
-            'page_title'  => '[page title]',
-            'description' => lang('System.description'),
-            'keywords'    => lang('System.keywords'),
+        $cache     = Services::cache();
+        $locale    = $this->splitLocale();
+        $lang      = $locale['languageCode'];
+        $cacheKey  = 'business-' . $lang . '-' . $slug;
+        if ($cache->get($cacheKey)) {
+            $business = $cache->get($cacheKey);
+        } else {
+            $results = $this->callApi('business/retrieve?business-slug=' . urlencode($slug));
+            if (empty($results['business'])) {
+                throw new PageNotFoundException();
+            }
+            $business = $results['business'];
+            $cache->save($cacheKey, $business, 3600);
+        }
+        $data  = [
+            'page_title'  => $business['business_name'],
+            'description' => $business['mart_meta_description'],
+            'keywords'    => $business['mart_meta_keywords'],
             'url_part'    => '@' . $slug,
             'locale'      => $this->request->getLocale(),
             'slug'        => $slug,
+            'business'    => $business
         ];
         return view('store_front', $data);
     }
@@ -95,6 +113,6 @@ class Home extends BaseController
             'locale'      => $this->request->getLocale(),
             'slug'        => $slug,
         ];
-        return view('store_main', $data);
+        return view('store_booking', $data);
     }
 }

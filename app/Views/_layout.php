@@ -18,8 +18,12 @@ $country      = $locale_split[1];
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:type" content="website" />
     <!-- Favicons -->
-    <link href="<?= base_url('assets/img/favicon.png') ?>" rel="icon">
-    <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+    <?php if (!empty($business['business_logo'])) : ?>
+        <link href="<?= $business['business_logo'] ?>" rel="icon">
+    <?php else: ?>
+        <link href="<?= base_url('assets/img/favicon.png') ?>" rel="icon">
+        <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+    <?php endif ?>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -96,12 +100,13 @@ $country      = $locale_split[1];
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
-            <?php if (isset($business)) : ?>
-                (business logo)
+            <?php if (!empty($business['business_logo'])) : ?>
+                <img src="<?= $business['business_logo'] ?>" alt="<?= lang('System.site-name') ?>">
+                <h1 class="sitename"><?= $page_title ?></h1>
             <?php else: ?>
                 <img src="<?= base_url('assets/img/logo-dark.png') ?>" alt="<?= lang('System.site-name') ?>">
+                <h1 class="sitename"><?= lang('System.site-name') ?></h1>
             <?php endif; ?>
-            <h1 class="sitename"><?= lang('System.site-name') ?></h1>
         </a>
         <nav id="navmenu" class="navmenu">
             <ul>
@@ -153,8 +158,8 @@ $country      = $locale_split[1];
     <div class="container copyright text-center mt-4">
         <p>
             <?= lang('System.copyright-message', [date('Y')]) ?>
-            | <a href="<?= getenv('main_site') . '/' . $locale ?>/terms-and-conditions"><?= lang('System.terms-and-conditions') ?></a>
-            | <a href="<?= getenv('main_site') . '/' . $locale ?>/privacy-policy"><?= lang('System.privacy-policy') ?></a>
+            | <a href="<?= getenv('main_site') . $locale ?>/terms-and-conditions"><?= lang('System.terms-and-conditions') ?></a>
+            | <a href="<?= getenv('main_site') . $locale ?>/privacy-policy"><?= lang('System.privacy-policy') ?></a>
         </p>
     </div>
 </footer>
