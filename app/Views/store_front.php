@@ -20,16 +20,23 @@
                 <p><?= $business['mart_store_intro_paragraph'] ?></p>
             </div>
             <div class="container">
-                <?php
-                $links = [
-                    'services' => base_url($locale . '/@' . $business['business_slug'] . '/services'),
-                    'products' => base_url($locale . '/@' . $business['business_slug'] . '/products')
-                ];
-                ?>
                 <div class="row">
                     <div class="col-12">
                         <?php if (!empty($business['services'])) : ?>
-                            <h2><?= lang('System.store.services') ?></h2>
+                            <a class="btn btn-outline-dark" href="#services"><?= lang('System.store.services') ?></a>
+                        <?php endif; ?>
+                        <?php if (!empty($business['products'])) : ?>
+                            <a class="btn btn-outline-dark" href="#products"><?= lang('System.store.products') ?></a>
+                        <?php endif; ?>
+                        <?php if (!empty($business['branches'])) : ?>
+                            <a class="btn btn-outline-dark" href="#branches"><?= lang('System.store.branches') ?></a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <?php if (!empty($business['services'])) : ?>
+                            <h2 class="pt-5" id="services"><?= lang('System.store.services') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['services'] as $service) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
@@ -40,7 +47,7 @@
                             <hr />
                         <?php endif; ?>
                         <?php if (!empty($business['products'])) : ?>
-                            <h2><?= lang('System.store.products') ?></h2>
+                            <h2 class="pt-5" id="products"><?= lang('System.store.products') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['products'] as $product) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
@@ -51,7 +58,7 @@
                             <hr />
                         <?php endif; ?>
                         <?php if (!empty($business['branches'])) : ?>
-                            <h2><?= lang('System.store.branches') ?></h2>
+                            <h2 class="pt-5" id="branches"><?= lang('System.store.branches') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['branches'] as $branch) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">

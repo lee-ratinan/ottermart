@@ -24,6 +24,8 @@ return [
         'view-more'     => 'View store'
     ],
     'store'                => [
+        'services' => 'Services',
+        'products' => 'Products',
         'branches' => 'Branches'
     ]
 ];

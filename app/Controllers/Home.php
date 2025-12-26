@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use CodeIgniter\Config\Services;
 use CodeIgniter\Exceptions\PageNotFoundException;
-use Config\Cache;
 use RuntimeException;
 
 class Home extends BaseController

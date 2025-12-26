@@ -24,6 +24,8 @@ return [
         'view-more'     => 'ดูร้านค้า'
     ],
     'store'                => [
+        'services' => 'บริการ',
+        'products' => 'สินค้า',
         'branches' => 'สาขา'
     ]
 ];
