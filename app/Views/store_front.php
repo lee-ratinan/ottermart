@@ -10,8 +10,14 @@
             <div class="container section-title" data-aos="fade-up">
                 <div class="small mt-5"><?= $business['type_name'] ?></div>
                 <h2 class="mt-3"><?= $business['business_name'] ?></h2>
+                <div class="my-3">
+                    <?php foreach ($business['social_media'] as $social_key => $social_link) : ?>
+                        <?php if (!empty($social_link)) : ?>
+                            <a class="btn btn-outline-dark mx-2" href="<?= $social_link ?>" target="_blank"><i class="fa-brands fa-<?= $social_key ?>"></i></a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
                 <p><?= $business['mart_store_intro_paragraph'] ?></p>
-                <div class="mt-5">(social links)</div>
             </div>
             <div class="container">
                 <?php
@@ -22,6 +28,28 @@
                 ?>
                 <div class="row">
                     <div class="col-12">
+                        <?php if (!empty($business['services'])) : ?>
+                            <h2><?= lang('System.store.services') ?></h2>
+                            <div class="row">
+                                <?php foreach ($business['services'] as $service) : ?>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <pre><?php print_r($service) ?></pre>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <hr />
+                        <?php endif; ?>
+                        <?php if (!empty($business['products'])) : ?>
+                            <h2><?= lang('System.store.products') ?></h2>
+                            <div class="row">
+                                <?php foreach ($business['products'] as $product) : ?>
+                                    <div class="col-12 col-md-6 col-lg-4">
+                                        <pre><?php print_r($product) ?></pre>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <hr />
+                        <?php endif; ?>
                         <?php if (!empty($business['branches'])) : ?>
                             <h2><?= lang('System.store.branches') ?></h2>
                             <div class="row">
@@ -32,8 +60,7 @@
                                             <p>
                                                 <?= $branch['branch_address'] ?><br>
                                                 <?= $branch['subdivision'] ?><br>
-                                                <?= $business['country_code'] ?> <?= $branch['branch_postal_code'] ?>
-                                                <br>
+                                                <?= $business['country'] ?> <?= $branch['branch_postal_code'] ?>
                                             </p>
                                         <?php else : ?>
                                             <p><?= lang('System.store.this-is-online') ?></p>
@@ -41,6 +68,7 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div>
+                            <hr />
                         <?php endif; ?>
                     </div>
                 </div>
