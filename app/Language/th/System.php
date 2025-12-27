@@ -23,9 +23,21 @@ return [
         'not-found'     => 'ขออภัย ไม่พบผลการค้นหาที่คุณต้องการ',
         'view-more'     => 'ดูร้านค้า'
     ],
+    'pricing'              => [
+        'from' => 'ราคาเริ่มจาก {0}'
+    ],
     'store'                => [
-        'services' => 'บริการ',
-        'products' => 'สินค้า',
-        'branches' => 'สาขา'
+        'view-more'            => 'ดูเพิ่มเติม',
+        'services'             => 'บริการ',
+        'products'             => 'สินค้า',
+        'branches'             => 'สาขา',
+        'services-unavailable' => 'ขออภัย ยังไม่มีบริการสำหรับธุรกิจนี้',
+        'service-unavailable'  => 'ขออภัย บริการนี้ยังไม่พร้อมให้บริการ',
+        'products-unavailable' => 'ขออภัย ยังไม่มีสินค้าสำหรับธุรกิจนี้',
+        'product-unavailable'  => 'ขออภัย สินค้านี้ยังไม่พร้อมให้บริการ',
+        'branches-unavailable' => 'ขออภัย ไม่มีข้อมูลสาขาสำหรับธุรกิจนี้',
+        'tag-new'              => 'ใหม่',
+        'tag-popular'          => 'ยอดนิยม',
+        'tag-recommended'      => 'แนะนำ',
     ]
 ];

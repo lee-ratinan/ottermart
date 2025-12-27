@@ -23,9 +23,21 @@ return [
         'not-found'     => 'Sorry, cannot find what you are looking for.',
         'view-more'     => 'View store'
     ],
+    'pricing'              => [
+        'from' => 'From {0}'
+    ],
     'store'                => [
-        'services' => 'Services',
-        'products' => 'Products',
-        'branches' => 'Branches'
+        'view-more'            => 'View more',
+        'services'             => 'Services',
+        'products'             => 'Products',
+        'branches'             => 'Branches',
+        'services-unavailable' => 'Sorry, there are no services available at the moment.',
+        'service-unavailable'  => 'Sorry, this service is not available at the moment.',
+        'products-unavailable' => 'Sorry, there are no products available at the moment.',
+        'product-unavailable'  => 'Sorry, this product is not available at the moment.',
+        'branches-unavailable' => 'Sorry, there are no branches information at the moment.',
+        'tag-new'              => 'NEW',
+        'tag-popular'          => 'Popular',
+        'tag-recommended'      => 'Recommended',
     ]
 ];
