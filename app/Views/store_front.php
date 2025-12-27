@@ -50,7 +50,9 @@
                                             <?php endif; ?>
                                             <div class="card-body">
                                                 <h3><?= $service['service_name'] ?></h3>
-                                                <p>desc!!!<?= @$service['service_description'] ?></p>
+                                                <?php if (!empty($service['service_description'])) : ?>
+                                                    <p><?= $service['service_description'] ?></p>
+                                                <?php endif; ?>
                                                 <p><?= lang('System.pricing.from', [$service['price_active_lowest']]) ?></p>
                                                 <?php if ('A' == $service['is_active']) : ?>
                                                     <a class="btn btn-dark stretched-link" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= lang('System.store.view-more') ?></a>
@@ -81,7 +83,9 @@
                                                     <div class="badge text-bg-danger"><?= lang('System.store.tag-' . $product['product_tag']) ?></div>
                                                 <?php endif; ?>
                                                 <h3><?= $product['product_name'] ?></h3>
-                                                <p>desc!!!<?= @$product['product_description'] ?></p>
+                                                <?php if (!empty($product['product_description'])) : ?>
+                                                    <p><?= $product['product_description'] ?></p>
+                                                <?php endif; ?>
                                                 <p><?= lang('System.pricing.from', [$product['price_active_lowest']]) ?></p>
                                                 <?php if ('A' == $product['is_active']) : ?>
                                                     <a class="btn btn-dark stretched-link" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= lang('System.store.view-more') ?></a>
