@@ -102,6 +102,55 @@ class Home extends BaseController
         return view('store_front', $data);
     }
 
+    public function shop_info_page(string $shop_slug, string $info_type, string $product_slug): string
+    {
+        $cache     = Services::cache();
+        $locale    = $this->splitLocale();
+        $lang      = $locale['languageCode'];
+        $cacheKey  = 'business-' . $lang . '-' . $shop_slug;
+        if ($cache->get($cacheKey)) {
+            $business = $cache->get($cacheKey);
+        } else {
+            $results = $this->callApi('business/retrieve?business-slug=' . urlencode($shop_slug));
+            if (empty($results['business'])) {
+                throw new PageNotFoundException();
+            }
+            $business = $results['business'];
+            $cache->save($cacheKey, $business, 3600);
+        }
+        if (!in_array($info_type, ['products', 'services'])) {
+            throw new PageNotFoundException();
+        }
+        $key = 'service_slug';
+        if ('products' == $info_type) {
+            $key = 'product_slug';
+        }
+        $target_item = [];
+        foreach ($business[$info_type] as $item) {
+            if ($product_slug == $item[$key]) {
+                $target_item = $item;
+                break;
+            }
+        }
+        if (empty($target_item)) {
+            throw new PageNotFoundException();
+        }
+        unset($business['products']);
+        unset($business['services']);
+        $data  = [
+            'page_title'  => $business['business_name'],
+            'description' => $business['mart_meta_description'],
+            'keywords'    => $business['mart_meta_keywords'],
+            'url_part'    => '@' . $shop_slug . '/' . $info_type . '/' . $product_slug,
+            'locale'      => $this->request->getLocale(),
+            'slug'        => $shop_slug,
+            'business'    => $business,
+            'type'        => $info_type,
+            $info_type    => $target_item
+        ];
+        return view('store_info_page', $data);
+    }
+
     public function shop_booking(string $slug): string
     {
         $data = [
