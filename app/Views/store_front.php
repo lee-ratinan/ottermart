@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row">
+                <div class="row my-3">
                     <div class="col-12 text-center">
                         <button class="btn btn-dark btn-tab" data-target="services"><?= lang('System.store.services') ?></button>
                         <button class="btn btn-outline-dark btn-tab" data-target="products"><?= lang('System.store.products') ?></button>
@@ -40,11 +40,11 @@
                 <div class="row">
                     <div class="col-12 tab-content" id="tab-section-services">
                         <?php if (!empty($business['services'])) : ?>
-                            <h2 class="pt-5" id="services"><?= lang('System.store.services') ?></h2>
+                            <h2 class="pt-5 mb-3" id="services"><?= lang('System.store.services') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['services'] as $service) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card rounded-bottom-0">
+                                        <div class="card <?= (empty($service['service_image']) ? 'rounded-0' : 'rounded-bottom-0') ?>">
                                             <?php if (!empty($service['service_image'])) : ?>
                                                 <img class="card-img-top" src="<?= $service['service_image'] ?>" alt="<?= $service['service_name'] ?>">
                                             <?php endif; ?>
@@ -70,11 +70,11 @@
                     </div>
                     <div class="col-12 tab-content" id="tab-section-products" style="display: none">
                         <?php if (!empty($business['products'])) : ?>
-                            <h2 class="pt-5" id="products"><?= lang('System.store.products') ?></h2>
+                            <h2 class="pt-5 mb-3" id="products"><?= lang('System.store.products') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['products'] as $product) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card rounded-bottom-0">
+                                        <div class="card <?= (empty($product['product_image']) ? 'rounded-0' : 'rounded-bottom-0') ?>">
                                             <?php if (!empty($product['product_image'])) : ?>
                                                 <img class="card-img-top" src="<?= $product['product_image'] ?>" alt="<?= $product['product_name'] ?>">
                                             <?php endif; ?>
@@ -103,20 +103,45 @@
                     </div>
                     <div class="col-12 tab-content" id="tab-section-branches" style="display: none">
                         <?php if (!empty($business['branches'])) : ?>
-                            <h2 class="pt-5" id="branches"><?= lang('System.store.branches') ?></h2>
+                            <h2 class="pt-5 mb-3" id="branches"><?= lang('System.store.branches') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['branches'] as $branch) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <h3><?= $branch['branch_name'] ?></h3>
-                                        <?php if ('PHYSICAL' == $branch['branch_type']) : ?>
-                                            <p>
-                                                <?= $branch['branch_address'] ?><br>
-                                                <?= $branch['subdivision'] ?><br>
-                                                <?= $business['country'] ?> <?= $branch['branch_postal_code'] ?>
-                                            </p>
-                                        <?php else : ?>
-                                            <p><?= lang('System.store.this-is-online') ?></p>
-                                        <?php endif; ?>
+                                        <div class="card rounded-0">
+                                            <div class="card-body">
+                                                <h3><?= $branch['branch_name'] ?></h3>
+                                                <?php if ('PHYSICAL' == $branch['branch_type']) : ?>
+                                                    <p>
+                                                        <?= $branch['branch_address'] ?><br>
+                                                        <?= $branch['subdivision'] ?><br>
+                                                        <?= $business['country'] ?> <?= $branch['branch_postal_code'] ?>
+                                                    </p>
+                                                <?php else : ?>
+                                                    <p><?= lang('System.store.this-is-online') ?></p>
+                                                <?php endif; ?>
+                                                <?php if (!empty($branch['hours'])) : ?>
+                                                    <h4><?= lang('System.store.opening-hours') ?></h4>
+                                                    <p><?= lang('System.store.opening-hours-timezone', [get_timezone($branch['timezone_code'], $locale)]) ?></p>
+                                                    <ul>
+                                                        <?php foreach ($branch['hours'] as $day => $hour) : ?>
+                                                            <li><?= lang('System.store.opening-hours-day', [lang('System.store.days.' . $day), format_hours($hour['opening_hours'], $locale), format_hours($hour['closing_hours'], $locale)]) ?></li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php endif; ?>
+                                                <?php if (!empty($branch['modified_hours'])) : ?>
+                                                    <h4><?= lang('System.store.modified-hours') ?></h4>
+                                                    <ul>
+                                                        <?php foreach ($branch['modified_hours'] as $hour) : ?>
+                                                            <?php if (empty($hour['opening_hours']) && empty($hour['closing_hours'])) : ?>
+                                                                <li><?= lang('System.store.modified-hour-closed-today', [format_date($hour['date'], $locale)]) ?></li>
+                                                            <?php else: ?>
+                                                                <li><?= lang('System.store.modified-hour-changed-today', [format_date($hour['date'], $locale), format_hours($hour['opening_hours'], $locale), format_hours($hour['closing_hours'], $locale)]) ?></li>
+                                                            <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </ul>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
