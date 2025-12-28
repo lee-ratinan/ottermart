@@ -56,6 +56,53 @@ class Home extends BaseController
         ];
     }
 
+    private function get_business_info(string $slug): array
+    {
+        $locale    = $this->splitLocale();
+        $lang      = $locale['languageCode'];
+        $cacheKey  = 'business-' . $lang . '-' . $slug;
+        $cache = Services::cache();
+        if ($cache->get($cacheKey)) {
+            return $cache->get($cacheKey);
+        }
+        $results = $this->callApi('business/retrieve?business-slug=' . urlencode($slug));
+        if (empty($results['business'])) {
+            throw new PageNotFoundException();
+        }
+        $business = $results['business'];
+        // slug => id
+        $service_slugs = [];
+        $product_slugs = [];
+        $service_variant_slugs = [];
+        $product_variant_slugs = [];
+        if ($business['services']) {
+            foreach ($business['services'] as $service) {
+                $service_slugs[$service['service_slug']] = $service['id'];
+                if (isset($service['variants'])) {
+                    foreach ($service['variants'] as $variant) {
+                        $service_variant_slugs[$variant['variant_slug']] = $variant['id'];
+                    }
+                }
+            }
+        }
+        if ($business['products']) {
+            foreach ($business['products'] as $product) {
+                $product_slugs[$product['product_slug']] = $product['id'];
+                if (isset($product['variants'])) {
+                    foreach ($product['variants'] as $variant) {
+                        $product_variant_slugs[$variant['variant_slug']] = $variant['id'];
+                    }
+                }
+            }
+        }
+        $business['service_slugs']         = $service_slugs;
+        $business['service_variant_slugs'] = $service_variant_slugs;
+        $business['product_slugs']         = $product_slugs;
+        $business['product_variant_slugs'] = $product_variant_slugs;
+        $cache->save($cacheKey, $business, 3600);
+        return $business;
+    }
+
     public function index(): string
     {
         $query   = $this->request->getGet('business-name');
@@ -76,21 +123,8 @@ class Home extends BaseController
 
     public function shop_home(string $slug): string
     {
-        $cache     = Services::cache();
-        $locale    = $this->splitLocale();
-        $lang      = $locale['languageCode'];
-        $cacheKey  = 'business-' . $lang . '-' . $slug;
-        if ($cache->get($cacheKey)) {
-            $business = $cache->get($cacheKey);
-        } else {
-            $results = $this->callApi('business/retrieve?business-slug=' . urlencode($slug));
-            if (empty($results['business'])) {
-                throw new PageNotFoundException();
-            }
-            $business = $results['business'];
-            $cache->save($cacheKey, $business, 3600);
-        }
-        $data  = [
+        $business  = $this->get_business_info($slug);
+        $data      = [
             'page_title'  => $business['business_name'],
             'description' => $business['mart_meta_description'],
             'keywords'    => $business['mart_meta_keywords'],
@@ -104,34 +138,12 @@ class Home extends BaseController
 
     public function shop_info_page(string $shop_slug, string $info_type, string $product_slug): string
     {
-        $cache     = Services::cache();
-        $locale    = $this->splitLocale();
-        $lang      = $locale['languageCode'];
-        $cacheKey  = 'business-' . $lang . '-' . $shop_slug;
-        if ($cache->get($cacheKey)) {
-            $business = $cache->get($cacheKey);
-        } else {
-            $results = $this->callApi('business/retrieve?business-slug=' . urlencode($shop_slug));
-            if (empty($results['business'])) {
-                throw new PageNotFoundException();
-            }
-            $business = $results['business'];
-            $cache->save($cacheKey, $business, 3600);
-        }
         if (!in_array($info_type, ['products', 'services'])) {
             throw new PageNotFoundException();
         }
-        $key = 'service_slug';
-        if ('products' == $info_type) {
-            $key = 'product_slug';
-        }
-        $target_item = [];
-        foreach ($business[$info_type] as $item) {
-            if ($product_slug == $item[$key]) {
-                $target_item = $item;
-                break;
-            }
-        }
+        $business    = $this->get_business_info($shop_slug);
+        $key         = ('products' == $info_type ? 'product_slugs' : 'service_slugs');
+        $target_item = $business[$info_type][$business[$key][$product_slug]];
         if (empty($target_item)) {
             throw new PageNotFoundException();
         }

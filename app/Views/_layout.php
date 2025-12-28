@@ -115,7 +115,7 @@ $country      = $locale_split[1];
                 <?php else: ?>
                     <li><a href="<?= getenv('main_site') . $locale ?>"><?= lang('System.main-site') ?></a></li>
                 <?php endif; ?>
-                <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. $locale) ?></a></li>
+                <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. substr($locale, 3)) ?></a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -148,10 +148,18 @@ $country      = $locale_split[1];
             <div class="col-lg-4 col-md-6 footer-links">
                 <h4><?= lang('System.locales.title') ?></h4>
                 <p>
-                    <span class="fi fi-th"></span> &nbsp; ประเทศไทย <span class="bi bi-dot"></span> Thailand<br>
-                    <span class="bi bi-chat-dots mx-2"></span>
-                    <a href="<?= base_url('th-th/' . $url_part) ?>">ภาษาไทย</a> <span class="bi bi-dot"></span>
-                    <a href="<?= base_url('en-th/' . $url_part) ?>">English</a>
+                    <?php
+                    $links         = [];
+                    $country_code  = substr($locale, 3);
+                    $country_array = [
+                        'th' => ['th', 'en']
+                    ];
+                    echo '<span class="fi fi-' . $country_code . '"></span> &nbsp; ';
+                    foreach ($country_array[$country_code] as $language_code) {
+                        $links[] = '<a href="' . base_url($language_code . '-' . $country_code . '/' . $url_part) . '">' . lang('System.locales.' . $language_code) . '</a>';
+                    }
+                    echo implode('<span class="bi bi-dot"></span>', $links);
+                    ?>
                 </p>
             </div>
         </div>

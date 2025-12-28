@@ -10,9 +10,9 @@ return [
     'terms-and-conditions' => 'Terms & Conditions',
     'privacy-policy'       => 'Privacy Policy',
     'locales'              => [
-        'title' => '<i class="bi bi-globe"></i> Change Country',
-        'en-th' => 'Thailand (English)',
-        'th-th' => 'ประเทศไทย (ภาษาไทย)',
+        'title' => '<i class="bi bi-globe"></i> Change Language',
+        'en'    => 'English',
+        'th'    => 'ภาษาไทย',
     ],
     'home'                 => [
         'title'         => 'Welcome to OtterNova Marketplace!',
@@ -24,7 +24,8 @@ return [
         'view-more'     => 'View store'
     ],
     'pricing'              => [
-        'from' => 'From {0}'
+        'from'   => 'From {0}',
+        'actual' => 'Price: <b style="font-size:1.4em">{0}</b>',
     ],
     'store'                => [
         'view-more'            => 'View more',
@@ -36,8 +37,14 @@ return [
         'products-unavailable' => 'Sorry, there are no products available at the moment.',
         'product-unavailable'  => 'Sorry, this product is not available at the moment.',
         'branches-unavailable' => 'Sorry, there are no branches information at the moment.',
+        'option-unavailable'   => 'Sorry, this option is not available at the moment.',
         'tag-new'              => 'NEW',
         'tag-popular'          => 'Popular',
         'tag-recommended'      => 'Recommended',
+        'duration'             => 'Duration: <b>{0}</b>',
+        'find-sessions'        => 'Find sessions',
+        'find-available-slots' => 'Find available slots',
+        'add-to-cart'          => 'Add to Cart',
+        'out-of-stock'         => 'Sorry, this variant is out of stock.',
     ]
 ];

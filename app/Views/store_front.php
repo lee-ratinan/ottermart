@@ -8,8 +8,8 @@
         .btn-dark:hover {filter: brightness(0.9);}
         .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
         .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important;}
+        .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+        .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
     </style>
     <main class="main">
         <section class="section mt-5">
@@ -55,7 +55,7 @@
                                                 <?php endif; ?>
                                                 <p><?= lang('System.pricing.from', [$service['price_active_lowest']]) ?></p>
                                                 <?php if ('A' == $service['is_active']) : ?>
-                                                    <a class="btn btn-dark stretched-link" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= lang('System.store.view-more') ?></a>
+                                                    <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= lang('System.store.view-more') ?></a>
                                                 <?php else: ?>
                                                     <?= lang('System.store.service-unavailable') ?>
                                                 <?php endif; ?>
@@ -88,7 +88,7 @@
                                                 <?php endif; ?>
                                                 <p><?= lang('System.pricing.from', [$product['price_active_lowest']]) ?></p>
                                                 <?php if ('A' == $product['is_active']) : ?>
-                                                    <a class="btn btn-dark stretched-link" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= lang('System.store.view-more') ?></a>
+                                                    <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= lang('System.store.view-more') ?></a>
                                                 <?php else: ?>
                                                     <?= lang('System.store.product-unavailable') ?>
                                                 <?php endif; ?>

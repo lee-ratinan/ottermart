@@ -10,9 +10,9 @@ return [
     'terms-and-conditions' => 'เงื่อนไขการใช้งาน',
     'privacy-policy'       => 'นโยบายความเป็นส่วนตัว',
     'locales'              => [
-        'title' => '<i class="bi bi-globe"></i> เปลี่ยนประเทศ',
-        'en-th' => 'Thailand (English)',
-        'th-th' => 'ประเทศไทย (ภาษาไทย)',
+        'title' => '<i class="bi bi-globe"></i> เปลี่ยนภาษา',
+        'en'    => 'English',
+        'th'    => 'ภาษาไทย',
     ],
     'home'                 => [
         'title'         => 'ยินดีต้อนรับสู่มาร์เก็ตเพลส OtterNova',
@@ -24,7 +24,8 @@ return [
         'view-more'     => 'ดูร้านค้า'
     ],
     'pricing'              => [
-        'from' => 'ราคาเริ่มจาก {0}'
+        'from'   => 'ราคาเริ่มจาก {0}',
+        'actual' => 'ราคา: <b style="font-size:1.4em">{0}</b>',
     ],
     'store'                => [
         'view-more'            => 'ดูเพิ่มเติม',
@@ -36,8 +37,14 @@ return [
         'products-unavailable' => 'ขออภัย ยังไม่มีสินค้าสำหรับธุรกิจนี้',
         'product-unavailable'  => 'ขออภัย สินค้านี้ยังไม่พร้อมให้บริการ',
         'branches-unavailable' => 'ขออภัย ไม่มีข้อมูลสาขาสำหรับธุรกิจนี้',
+        'option-unavailable'   => 'ขออภัย ตัวเลือกนี้ไม่สามารถเลือกได้ในตอนนี้',
         'tag-new'              => 'ใหม่',
         'tag-popular'          => 'ยอดนิยม',
         'tag-recommended'      => 'แนะนำ',
+        'duration'             => 'ระยะเวลา: <b>{0}</b>',
+        'find-sessions'        => 'ค้นหาเซสชั่นของบริการนี้',
+        'find-available-slots' => 'จองบริการนี้',
+        'add-to-cart'          => 'หยิบใส่ตะกร้า',
+        'out-of-stock'         => 'ขออภัย สินค้าหมด',
     ]
 ];
