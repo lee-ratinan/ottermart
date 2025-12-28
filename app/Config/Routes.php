@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/@(:segment)/booking', 'Home::shop_booking/$1');
+$routes->get('/@(:segment)/clear-cache', 'Home::clear_cache/$1');
 $routes->get('/@(:segment)/(:segment)/(:segment)', 'Home::shop_info_page/$1/$2/$3');
 $routes->get('/@(:segment)', 'Home::shop_home/$1');
 $routes->group('{locale}', ['filter' => 'localeGuard'], static function($routes) {

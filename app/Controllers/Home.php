@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Config\Services;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\ResponseInterface;
 use RuntimeException;
 
 class Home extends BaseController
@@ -101,6 +102,28 @@ class Home extends BaseController
         $business['product_variant_slugs'] = $product_variant_slugs;
         $cache->save($cacheKey, $business, 3600);
         return $business;
+    }
+
+    public function clear_cache(string $slug): ResponseInterface
+    {
+        $cache     = Services::cache();
+        $languages = ['en', 'th'];
+        $statuses  = [];
+        foreach ($languages as $language) {
+            $cacheKey  = 'business-' . $language . '-' . $slug;
+            if ($cache->get($cacheKey)) {
+                if ($cache->delete($cacheKey)) {
+                    $statuses[] = 'deleted: ' . $cacheKey;
+                } else {
+                    $statuses[] = 'error deleting: ' . $cacheKey;
+                }
+            } else {
+                $statuses[] = 'not found: ' . $cacheKey;
+            }
+        }
+        return $this->response->setJSON([
+            'statuses' => $statuses,
+        ]);
     }
 
     public function index(): string
