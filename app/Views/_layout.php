@@ -115,7 +115,7 @@ $country      = $locale_split[1];
                 <?php else: ?>
                     <li><a href="<?= getenv('main_site') . $locale ?>"><?= lang('System.main-site') ?></a></li>
                 <?php endif; ?>
-                <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. substr($locale, 3)) ?></a></li>
+                <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. substr($locale, 0, 2)) ?></a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
