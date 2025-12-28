@@ -44,6 +44,7 @@ return [
         'duration'             => 'Duration: <b>{0}</b>',
         'find-sessions'        => 'Find sessions',
         'find-available-slots' => 'Find available slots',
+        'quantity'             => 'Quantity',
         'add-to-cart'          => 'Add to Cart',
         'out-of-stock'         => 'Sorry, this variant is out of stock.',
     ]

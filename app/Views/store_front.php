@@ -44,7 +44,7 @@
                             <div class="row">
                                 <?php foreach ($business['services'] as $service) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card">
+                                        <div class="card rounded-bottom-0">
                                             <?php if (!empty($service['service_image'])) : ?>
                                                 <img class="card-img-top" src="<?= $service['service_image'] ?>" alt="<?= $service['service_name'] ?>">
                                             <?php endif; ?>
@@ -74,7 +74,7 @@
                             <div class="row">
                                 <?php foreach ($business['products'] as $product) : ?>
                                     <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card">
+                                        <div class="card rounded-bottom-0">
                                             <?php if (!empty($product['product_image'])) : ?>
                                                 <img class="card-img-top" src="<?= $product['product_image'] ?>" alt="<?= $product['product_name'] ?>">
                                             <?php endif; ?>

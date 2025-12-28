@@ -59,7 +59,11 @@
                                                                 <?php endif; ?>
                                                             </p>
                                                             <?php if (0 < $variant['inventory_count']) : ?>
-                                                                <a class="btn btn-dark w-100" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart/' . $products['product_slug'] . '/' . $variant['variant_slug']) ?>"><?= lang('System.store.add-to-cart') ?></a>
+                                                                <div class="input-group mb-2">
+                                                                    <span class="input-group-text"><label for="quantity-<?= $variant['variant_slug'] ?>"><?= lang('System.store.quantity') ?></label></span>
+                                                                    <input type="number" class="form-control" id="quantity-<?= $variant['variant_slug'] ?>" name="quantity" value="1" min="1" max="<?= min(10, $variant['inventory_count']) ?>" />
+                                                                </div>
+                                                                <a class="btn btn-dark w-100" data-variant-slug="<?= $variant['variant_slug'] ?>" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart/' . $products['product_slug'] . '/' . $variant['variant_slug']) ?>"><?= lang('System.store.add-to-cart') ?></a>
                                                             <?php else: ?>
                                                                 <p class="alert alert-danger py-2 px-3"><?= lang('System.store.out-of-stock') ?></p>
                                                             <?php endif; ?>

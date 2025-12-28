@@ -44,6 +44,7 @@ return [
         'duration'             => 'ระยะเวลา: <b>{0}</b>',
         'find-sessions'        => 'ค้นหาเซสชั่นของบริการนี้',
         'find-available-slots' => 'จองบริการนี้',
+        'quantity'             => 'จำนวน',
         'add-to-cart'          => 'หยิบใส่ตะกร้า',
         'out-of-stock'         => 'ขออภัย สินค้าหมด',
     ]
