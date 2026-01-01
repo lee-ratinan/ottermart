@@ -186,16 +186,38 @@ class Home extends BaseController
         return view('store_info_page', $data);
     }
 
-    public function shop_booking(string $slug): string
+    public function service_booking_slots(string $slug, string $service_slug, string $variant_slug): string
     {
-        $data = [
-            'page_title'  => '[page title]',
-            'description' => lang('System.description'),
-            'keywords'    => lang('System.keywords'),
-            'url_part'    => '@' . $slug . '/booking',
-            'locale'      => $this->request->getLocale(),
+        $business = $this->get_business_info($slug);
+        $locale   = $this->request->getLocale();
+        $data     = [
+            'page_title'  => $business['business_name'],
+            'description' => $business['mart_meta_description'],
+            'keywords'    => $business['mart_meta_keywords'],
+            'url_part'    => '@' . $slug . '/service-booking/' . $service_slug . '/' . $variant_slug . '/slots',
+            'locale'       => $locale,
             'slug'        => $slug,
+            'schedule_url' => getenv('otterplex_url') . str_replace('-', '/', $locale) . '/service/xxxx-retrieve/' . $variant_slug
         ];
-        return view('store_booking', $data);
+        return view('service_booking_slots', $data);
+    }
+
+    public function service_booking_schedules(string $slug, string $service_slug, string $variant_slug): string
+    {
+        $business = $this->get_business_info($slug);
+        $locale   = $this->request->getLocale();
+        $data     = [
+            'page_title'  => $business['business_name'],
+            'description' => $business['mart_meta_description'],
+            'keywords'    => $business['mart_meta_keywords'],
+            'url_part'     => '@' . $slug . '/service-booking/' . $service_slug . '/' . $variant_slug . '/schedules',
+            'locale'       => $locale,
+            'slug'         => $slug,
+            'service_slug' => $service_slug,
+            'variant_slug' => $variant_slug,
+            'business'     => $business,
+            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/session-retrieve/' . $variant_slug
+        ];
+        return view('service_booking_schedules', $data);
     }
 }

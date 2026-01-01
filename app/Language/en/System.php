@@ -25,7 +25,7 @@ return [
     ],
     'pricing'              => [
         'from'   => 'From {0}',
-        'actual' => 'Price: <b style="font-size:1.4em">{0}</b>',
+        'actual' => 'Price: <b style="font-size:1.4em">{0}</b>'
     ],
     'store'                => [
         'view-more'                   => 'View more',
@@ -62,5 +62,20 @@ return [
         ],
         'modified-hour-closed-today'  => '{0} - closed',
         'modified-hour-changed-today' => '{0} - opens {1} - {2}'
+    ],
+    'form'                 => [
+        'filter' => [
+            'filter'    => 'Filter',
+            'date_from' => 'From',
+            'date_to'   => 'To',
+            'branch_id' => 'Branch',
+        ]
+    ],
+    'results'              => [
+        'not-found' => 'Sorry, there are no results for your search.',
+        'price'     => 'Price',
+        'branch'    => 'Branch',
+        'sessions'  => 'Sessions',
+        'capacity'  => 'Capacity',
     ]
 ];

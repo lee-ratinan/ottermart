@@ -62,5 +62,20 @@ return [
         ],
         'modified-hour-closed-today'  => '{0} - ปิด',
         'modified-hour-changed-today' => '{0} - เปิดเวลา {1} - {2}'
+    ],
+    'form'                 => [
+        'filter' => [
+            'filter'    => 'ค้นหา',
+            'date_from' => 'จากวันที่',
+            'date_to'   => 'ถึงวันที่',
+            'branch_id' => 'สาขา',
+        ]
+    ],
+    'results'              => [
+        'not-found' => 'ขออภัย ไม่พบรายการที่คุณค้นหา',
+        'price'     => 'ราคา',
+        'branch'    => 'สาขา',
+        'sessions'  => 'เซสชั่น',
+        'capacity'  => 'ความจุ',
     ]
 ];
