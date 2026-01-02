@@ -191,13 +191,16 @@ class Home extends BaseController
         $business = $this->get_business_info($slug);
         $locale   = $this->request->getLocale();
         $data     = [
-            'page_title'  => $business['business_name'],
-            'description' => $business['mart_meta_description'],
-            'keywords'    => $business['mart_meta_keywords'],
-            'url_part'    => '@' . $slug . '/service-booking/' . $service_slug . '/' . $variant_slug . '/slots',
+            'page_title'   => $business['business_name'],
+            'description'  => $business['mart_meta_description'],
+            'keywords'     => $business['mart_meta_keywords'],
+            'url_part'     => '@' . $slug . '/service-booking/' . $service_slug . '/' . $variant_slug . '/slots',
             'locale'       => $locale,
-            'slug'        => $slug,
-            'schedule_url' => getenv('otterplex_url') . str_replace('-', '/', $locale) . '/service/xxxx-retrieve/' . $variant_slug
+            'slug'         => $slug,
+            'service_slug' => $service_slug,
+            'variant_slug' => $variant_slug,
+            'business'     => $business,
+            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/slot-retrieve/' . $variant_slug
         ];
         return view('service_booking_slots', $data);
     }
@@ -207,9 +210,9 @@ class Home extends BaseController
         $business = $this->get_business_info($slug);
         $locale   = $this->request->getLocale();
         $data     = [
-            'page_title'  => $business['business_name'],
-            'description' => $business['mart_meta_description'],
-            'keywords'    => $business['mart_meta_keywords'],
+            'page_title'   => $business['business_name'],
+            'description'  => $business['mart_meta_description'],
+            'keywords'     => $business['mart_meta_keywords'],
             'url_part'     => '@' . $slug . '/service-booking/' . $service_slug . '/' . $variant_slug . '/schedules',
             'locale'       => $locale,
             'slug'         => $slug,
