@@ -45,15 +45,11 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                         <h6><?= lang('System.form.filter.filter') ?></h6>
                         <?php
                         $min = date('Y-m-d');
-                        $max = date('Y-m-d', strtotime('+90 day'));
+                        $max = date('Y-m-d', strtotime('+' . $business['allow_advance_booking'] . ' days'));
                         ?>
                         <div class="mb-3">
-                            <label for="date_from" class="form-label"><?= lang('System.form.filter.date_from') ?></label>
-                            <input type="date" class="form-control" id="date_from" name="date_from" value="" min="<?= $min ?>" max="<?= $max ?>">
-                        </div>
-                        <div class="mb-3">
-                            <label for="date_to" class="form-label"><?= lang('System.form.filter.date_to') ?></label>
-                            <input type="date" class="form-control" id="date_to" name="date_to" value="" min="<?= $min ?>" max="<?= $max ?>">
+                            <label for="selected_date" class="form-label"><?= lang('System.form.filter.date_from') ?></label>
+                            <input type="date" class="form-control" id="selected_date" name="selected_date" value="" min="<?= $min ?>" max="<?= $max ?>">
                         </div>
                         <div class="mb-3">
                             <label for="branch_id" class="form-label"><?= lang('System.form.filter.branch_id') ?></label>
