@@ -77,5 +77,6 @@ return [
         'branch'    => 'Branch',
         'sessions'  => 'Sessions',
         'capacity'  => 'Capacity',
+        'btn-book'  => 'Book',
     ]
 ];

@@ -21,7 +21,7 @@ $routes->group('{locale}', ['filter' => 'localeGuard'], static function($routes)
     $routes->get('@(:segment)/service-booking/(:segment)/(:segment)/slots', 'Home::service_booking_slots/$1/$2/$3'); // @(biz slug)/service-booking/(service slug)/(variant slug)/slots
     $routes->get('@(:segment)/service-booking/(:segment)/(:segment)/schedules', 'Home::service_booking_schedules/$1/$2/$3'); // @(biz slug)/service-booking/(service slug)/(variant slug)/schedules
     // APIs
-    $routes->post('@(:segment)/add-to-cart', 'Home::add_to_cart/$1'); // (@(big slug)/add-to-cart
+    $routes->post('@(:segment)/add-to-cart', 'Home::add_to_cart/$1'); // (@(biz slug)/add-to-cart
     // CHECKOUT
     $routes->get('@(:segment)/checkout', 'Home::checkout/$1'); // @(biz slug)/checkout
     // INFO

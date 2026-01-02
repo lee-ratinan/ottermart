@@ -77,5 +77,6 @@ return [
         'branch'    => 'สาขา',
         'sessions'  => 'เซสชั่น',
         'capacity'  => 'ความจุ',
+        'btn-book'  => 'จอง'
     ]
 ];

@@ -73,7 +73,7 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                     <div class="col-12 col-md-6 col-lg-8 col-xl-9">
                         <h3><?= $service['service_name'] ?> / <?= $variant['variant_name'] ?></h3>
                         <hr/>
-                        <div id="session-results"></div>
+                        <div class="row" id="session-results"></div>
                     </div>
                 </div>
             </div>
@@ -105,9 +105,9 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                                 template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.price') ?></b></div><div class="col-6" id="result-actual-price"><?= format_price($variant['price_active'], $business['currency_code']) ?></div></div>';
                                 template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.branch') ?></b></div><div class="col-6" id="result-branch">' + data.branch_name + '</div></div>';
                                 template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.capacity') ?></b></div><div class="col-6" id="result-capacity">' + data.session_capacity + '</div></div>';
-                                template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.sessions') ?></b></div><div class="col-6" id="result-sessions">' + timings + '</div></div>';
-                                template += 'ID: ' + data.link_id;
-                                $('#session-results').append('<div class="card mb-3"><div class="card-body">' + template + '</div></div>');
+                                template += '<div class="row"><div class="col-12 text-center"><b><?= lang('System.results.sessions') ?></b><br>' + timings + '</div></div>';
+                                template += '<div class="row"><div class="col-12"><a class="btn btn-outline-dark w-100 mt-3" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/checkout') ?>?sid=' + data.link_id + '"><?= lang('System.results.btn-book') ?></a></div></div>';
+                                $('#session-results').append('<div class="col-12 col-lg-6"><div class="card mb-3"><div class="card-body">' + template + '</div></div></div>');
                             });
                         } else {
                             $('#session-results').html('<div class="my-5 text-center"><?= lang('System.results.not-found') ?></div>');
