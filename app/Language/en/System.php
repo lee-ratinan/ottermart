@@ -78,5 +78,10 @@ return [
         'sessions'  => 'Sessions',
         'capacity'  => 'Capacity',
         'btn-book'  => 'Book',
+    ],
+    'payment_methods'      => [
+        'cash'             => 'Cash',
+        'bank_transfer'    => 'Bank Transfer',
+        'promptpay_static' => 'PromptPay',
     ]
 ];

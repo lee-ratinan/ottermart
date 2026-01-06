@@ -78,5 +78,10 @@ return [
         'sessions'  => 'เซสชั่น',
         'capacity'  => 'ความจุ',
         'btn-book'  => 'จอง'
+    ],
+    'payment_methods'      => [
+        'cash'             => 'เงินสด',
+        'bank_transfer'    => 'โอนเงินผ่านธนาคาร',
+        'promptpay_static' => 'พร้อมเพย์',
     ]
 ];

@@ -25,6 +25,39 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+                <div class="my-3">
+                    <?php
+                    $contact = [];
+                    if (!empty($business['contact_phone_number'])) {
+                        $contact[] = '<a href="tel:' . $business['contact_phone_number'] . '">' . $business['contact_phone_number_shown'] . '</a>';
+                    }
+                    if (!empty($business['contact_email_address'])) {
+                        $contact[] = '<a href="mailto:' . $business['contact_email_address'] . '">' . $business['contact_email_address'] . '</a>';
+                    }
+                    if (!empty($business['contact_email_address'])) {
+                        $contact[] = '<a href="' . $business['contact_email_address'] . '">' . $business['contact_email_address'] . '</a>';
+                    }
+                    echo implode(' &middot; ', $contact);
+                    ?>
+                </div>
+                <div class="my-3">
+                    <?php
+                    $payment_methods = [];
+                    if (isset($business['payments']['cash'])) {
+                        $payment_methods[] = '<i class="fa-solid fa-money-bills"></i> ' . lang('System.payment_methods.cash');
+                    }
+                    if (isset($business['payments']['bank_transfer'])) {
+                        $payment_methods[] = '<i class="fa-solid fa-money-bill-transfer"></i> ' . lang('System.payment_methods.bank_transfer');
+                    }
+                    if (isset($business['payments']['promptpay_static'])) {
+                        $payment_methods[] = '<i class="fa-solid fa-qrcode"></i> ' . lang('System.payment_methods.promptpay_static');
+                    }
+                    if (isset($business['payments']['external_online'])) {
+                        $payment_methods[] = '<i class="fa-solid fa-dollar-sign"></i> ' . $business['payments']['external_online']['payment_instruction']['title'][substr($locale, 0, 2)];
+                    }
+                    echo implode(' &middot; ', $payment_methods);
+                    ?>
+                </div>
                 <div class="mx-auto" style="max-width:600px">
                     <p><?= $business['mart_store_intro_paragraph'] ?></p>
                 </div>
