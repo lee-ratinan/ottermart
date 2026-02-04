@@ -61,7 +61,8 @@ return [
             'SU' => 'Sunday',
         ],
         'modified-hour-closed-today'  => '{0} - closed',
-        'modified-hour-changed-today' => '{0} - opens {1} - {2}'
+        'modified-hour-changed-today' => '{0} - opens {1} - {2}',
+        'check-order'                 => 'Check Order'
     ],
     'form'                 => [
         'filter' => [

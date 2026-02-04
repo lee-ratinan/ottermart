@@ -32,25 +32,27 @@
                             <h2 class="pt-5 mb-3" id="services"><?= lang('System.store.services') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['services'] as $service) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card mb-3">
-                                            <?php if (!empty($service['service_image'])) : ?>
-                                                <img class="card-img-top" src="<?= $service['service_image'] ?>" alt="<?= $service['service_name'] ?>">
-                                            <?php endif; ?>
-                                            <div class="card-body">
-                                                <h3><?= $service['service_name'] ?></h3>
-                                                <?php if (!empty($service['service_description'])) : ?>
-                                                    <p><?= $service['service_description'] ?></p>
+                                    <?php if ('A' == $service['is_active']) : ?>
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <div class="card mb-3">
+                                                <?php if (!empty($service['service_image'])) : ?>
+                                                    <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>">
+                                                        <img class="card-img-top" src="<?= $service['service_image'] ?>" alt="<?= $service['service_name'] ?>">
+                                                    </a>
                                                 <?php endif; ?>
-                                                <p><?= lang('System.pricing.from', [$service['price_active_lowest']]) ?></p>
-                                                <?php if ('A' == $service['is_active']) : ?>
+                                                <div class="card-body">
+                                                    <h3>
+                                                        <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= $service['service_name'] ?></a>
+                                                    </h3>
+                                                    <?php if (!empty($service['service_description'])) : ?>
+                                                        <p><?= $service['service_description'] ?></p>
+                                                    <?php endif; ?>
+                                                    <p><?= lang('System.pricing.from', [$service['price_active_lowest']]) ?></p>
                                                     <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= lang('System.store.view-more') ?></a>
-                                                <?php else: ?>
-                                                    <?= lang('System.store.service-unavailable') ?>
-                                                <?php endif; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
@@ -62,28 +64,30 @@
                             <h2 class="pt-5 mb-3" id="products"><?= lang('System.store.products') ?></h2>
                             <div class="row">
                                 <?php foreach ($business['products'] as $product) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4">
-                                        <div class="card mb-3">
-                                            <?php if (!empty($product['product_image'])) : ?>
-                                                <img class="card-img-top" src="<?= $product['product_image'] ?>" alt="<?= $product['product_name'] ?>">
-                                            <?php endif; ?>
-                                            <div class="card-body">
-                                                <?php if ('-' != $product['product_tag']) : ?>
-                                                    <div class="badge text-bg-danger"><?= lang('System.store.tag-' . $product['product_tag']) ?></div>
+                                    <?php if ('A' == $product['is_active']) : ?>
+                                        <div class="col-12 col-md-6 col-lg-4">
+                                            <div class="card mb-3">
+                                                <?php if (!empty($product['product_image'])) : ?>
+                                                    <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>">
+                                                        <img class="card-img-top" src="<?= $product['product_image'] ?>" alt="<?= $product['product_name'] ?>">
+                                                    </a>
                                                 <?php endif; ?>
-                                                <h3><?= $product['product_name'] ?></h3>
-                                                <?php if (!empty($product['product_description'])) : ?>
-                                                    <p><?= $product['product_description'] ?></p>
-                                                <?php endif; ?>
-                                                <p><?= lang('System.pricing.from', [$product['price_active_lowest']]) ?></p>
-                                                <?php if ('A' == $product['is_active']) : ?>
+                                                <div class="card-body">
+                                                    <?php if ('-' != $product['product_tag']) : ?>
+                                                        <div class="badge text-bg-danger"><?= lang('System.store.tag-' . $product['product_tag']) ?></div>
+                                                    <?php endif; ?>
+                                                    <h3>
+                                                        <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= $product['product_name'] ?></a>
+                                                    </h3>
+                                                    <?php if (!empty($product['product_description'])) : ?>
+                                                        <p><?= $product['product_description'] ?></p>
+                                                    <?php endif; ?>
+                                                    <p><?= lang('System.pricing.from', [$product['price_active_lowest']]) ?></p>
                                                     <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= lang('System.store.view-more') ?></a>
-                                                <?php else: ?>
-                                                    <?= lang('System.store.product-unavailable') ?>
-                                                <?php endif; ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
                         <?php else: ?>
@@ -142,38 +146,43 @@
                 <div class="my-5 text-center">
                     * * *
                 </div>
-                <div class="mt-5 my-3 text-center">
-                    <?php
-                    $contact = [];
-                    if (!empty($business['contact_phone_number'])) {
-                        $contact[] = '<a href="tel:' . $business['contact_phone_number'] . '">' . $business['contact_phone_number_shown'] . '</a>';
-                    }
-                    if (!empty($business['contact_email_address'])) {
-                        $contact[] = '<a href="mailto:' . $business['contact_email_address'] . '">' . $business['contact_email_address'] . '</a>';
-                    }
-                    if (!empty($business['contact_email_address'])) {
-                        $contact[] = '<a href="' . $business['contact_website'] . '">' . $business['contact_website'] . '</a>';
-                    }
-                    echo implode(' &middot; ', $contact);
-                    ?>
-                </div>
-                <div class="my-3 text-center">
-                    <?php
-                    $payment_methods = [];
-                    if (isset($business['payments']['cash'])) {
-                        $payment_methods[] = '<i class="fa-solid fa-money-bills"></i> ' . lang('System.payment_methods.cash');
-                    }
-                    if (isset($business['payments']['bank_transfer'])) {
-                        $payment_methods[] = '<i class="fa-solid fa-money-bill-transfer"></i> ' . lang('System.payment_methods.bank_transfer');
-                    }
-                    if (isset($business['payments']['promptpay_static'])) {
-                        $payment_methods[] = '<i class="fa-solid fa-qrcode"></i> ' . lang('System.payment_methods.promptpay_static');
-                    }
-                    if (isset($business['payments']['external_online'])) {
-                        $payment_methods[] = '<i class="fa-solid fa-dollar-sign"></i> ' . $business['payments']['external_online']['payment_instruction']['title'][substr($locale, 0, 2)];
-                    }
-                    echo implode(' &middot; ', $payment_methods);
-                    ?>
+                <h4 class="mb-3"><?= $business['business_name'] ?></h4>
+                <div class="row mt-5">
+                    <div class="col-12 col-lg-4 col-xl-3">
+                        <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>">
+                            <img class="img-thumbnail mb-5" src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>" style="max-width:200px">
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-8 col-xl-9">
+                        <?php
+                        $contact = [];
+                        if (!empty($business['contact_phone_number'])) {
+                            $contact[] = '<a href="tel:' . $business['contact_phone_number'] . '">' . $business['contact_phone_number_shown'] . '</a>';
+                        }
+                        if (!empty($business['contact_email_address'])) {
+                            $contact[] = '<a href="mailto:' . $business['contact_email_address'] . '">' . $business['contact_email_address'] . '</a>';
+                        }
+                        if (!empty($business['contact_email_address'])) {
+                            $contact[] = '<a href="' . $business['contact_website'] . '">' . $business['contact_website'] . '</a>';
+                        }
+                        echo '<p>' . implode(' &middot; ', $contact) . '</p>';
+                        $payment_methods = [];
+                        if (isset($business['payments']['cash'])) {
+                            $payment_methods[] = '<i class="fa-solid fa-money-bills"></i> ' . lang('System.payment_methods.cash');
+                        }
+                        if (isset($business['payments']['bank_transfer'])) {
+                            $payment_methods[] = '<i class="fa-solid fa-money-bill-transfer"></i> ' . lang('System.payment_methods.bank_transfer');
+                        }
+                        if (isset($business['payments']['promptpay_static'])) {
+                            $payment_methods[] = '<i class="fa-solid fa-qrcode"></i> ' . lang('System.payment_methods.promptpay_static');
+                        }
+                        if (isset($business['payments']['external_online'])) {
+                            $payment_methods[] = '<i class="fa-solid fa-dollar-sign"></i> ' . $business['payments']['external_online']['payment_instruction']['title'][substr($locale, 0, 2)];
+                        }
+                        echo '<p>' . implode(' &middot; ', $payment_methods) . '</p>';
+                        ?>
+                        <a class="btn btn-dark btn-sm" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/check-order') ?>"><?= lang('System.store.check-order') ?></a>
+                    </div>
                 </div>
             </div>
         </section>

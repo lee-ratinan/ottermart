@@ -61,7 +61,8 @@ return [
             'SU' => 'อาทิตย์',
         ],
         'modified-hour-closed-today'  => '{0} - ปิด',
-        'modified-hour-changed-today' => '{0} - เปิดเวลา {1} - {2}'
+        'modified-hour-changed-today' => '{0} - เปิดเวลา {1} - {2}',
+        'check-order'                 => 'ตรวจสอบออร์เดอร์'
     ],
     'form'                 => [
         'filter' => [
