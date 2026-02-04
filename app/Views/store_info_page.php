@@ -39,7 +39,9 @@
                                                 <?php foreach ($products['variants'] as $variant) : ?>
                                                     <div class="col-6 col-md-12 col-lg-6 col-xl-4">
                                                         <h3><?= $variant['variant_name'] ?></h3>
-                                                        <p class="small mb-0">SKU: <?= $variant['variant_sku'] ?></p>
+                                                        <?php if (!empty($variant['variant_sku'])) : ?>
+                                                            <p class="small mb-0">SKU: <?= $variant['variant_sku'] ?></p>
+                                                        <?php endif; ?>
                                                         <?php if ('A' == $variant['is_active']) : ?>
                                                             <p>
                                                                 <?= lang('System.pricing.actual', [format_price($variant['price_active'], $business['currency_code'])]) ?>
