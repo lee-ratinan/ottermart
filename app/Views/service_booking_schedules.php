@@ -4,18 +4,7 @@
 $service = $business['services'][$business['service_slugs'][$service_slug]];
 $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug]];
 ?>
-    <style>
-        body, section, header {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-        a, h1, h2, h3, h4, h5, h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .section-title h2::after {background: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .btn-dark {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .btn-dark:hover {filter: brightness(0.9);}
-        .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-        .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-    </style>
-    <main class="main">
+    <main class="main business">
         <section class="section mt-5">
             <div class="container section-title" data-aos="fade-up">
                 <h2 class="mt-3"><?= $business['business_name'] ?></h2>

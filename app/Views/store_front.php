@@ -1,17 +1,6 @@
 <?php $this->extend('_layout'); ?>
 <?= $this->section('content') ?>
-    <style>
-        body, section, header {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-        a, h1, h2, h3, h4, h5, h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .section-title h2::after {background: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .btn-dark {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .btn-dark:hover {filter: brightness(0.9);}
-        .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-        .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-        .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-        .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-    </style>
-    <main class="main">
+    <main class="main business">
         <section class="section mt-5">
             <div class="container section-title" data-aos="fade-up">
                 <div class="small mt-5"><?= $business['type_name'] ?></div>

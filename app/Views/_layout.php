@@ -47,6 +47,19 @@ $country      = $locale_split[1];
     <link rel="alternate" hreflang="th-th" href="<?= base_url('th-th/' . $url_part) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= base_url($url_part) ?>">
     <link rel="canonical" href="<?= current_url() ?>">
+    <?php if (!empty($business)) : ?>
+        <style>
+            body, section, header {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business a, .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .section-title h2::after {background: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .btn-dark {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
+            .business .btn-dark:hover {filter: brightness(0.9);}
+            .business .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
+            .business .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+        </style>
+    <?php endif; ?>
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -100,15 +113,17 @@ $country      = $locale_split[1];
 <body class="index-page country-<?= $country ?>">
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
-            <?php if (!empty($business['business_logo'])) : ?>
-                <img src="<?= $business['business_logo'] ?>" alt="<?= lang('System.site-name') ?>">
+        <?php if (!empty($business['business_logo'])) : ?>
+            <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
+                <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
                 <h1 class="sitename"><?= $page_title ?></h1>
-            <?php else: ?>
+            </a>
+        <?php else: ?>
+            <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
                 <img src="<?= base_url('assets/img/logo-dark.png') ?>" alt="<?= lang('System.site-name') ?>">
                 <h1 class="sitename"><?= lang('System.site-name') ?></h1>
-            <?php endif; ?>
-        </a>
+            </a>
+        <?php endif; ?>
         <nav id="navmenu" class="navmenu">
             <ul>
                 <?php if (isset($business)) : ?>
@@ -119,10 +134,6 @@ $country      = $locale_split[1];
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-        <div class="header-social-links">
-            <a href="<?= getenv('SOCIAL_FACEBOOK') ?>" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="<?= getenv('SOCIAL_INSTAGRAM') ?>" class="instagram"><i class="bi bi-instagram"></i></a>
-        </div>
     </div>
 </header>
 <?= $this->renderSection('content') ?>
@@ -133,42 +144,52 @@ $country      = $locale_split[1];
                 <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center">
                     <span class="sitename"><?= lang('System.site-name') ?></span>
                 </a>
-                <div class="footer-contact">
-<!--                    <p>--><?php //= lang('System.slogan') ?><!--</p>-->
-<!--                    <p class="mt-3"><i class="bi bi-telephone"></i> --><?php //= format_phone_number(getenv('CONTACT_PHONE')) ?><!--</p>-->
-<!--                    <p><i class="bi bi-envelope"></i> <a href="mailto:--><?php //= getenv('CONTACT_EMAIL') ?><!--">--><?php //= getenv('CONTACT_EMAIL') ?><!--</a></p>-->
-                </div>
+                <?php if (empty($business['business_logo'])) : ?>
                 <div class="social-links d-flex mt-4">
                     <a href="<?= getenv('SOCIAL_FACEBOOK') ?>"><i class="bi bi-facebook"></i></a>
                     <a href="<?= getenv('SOCIAL_INSTAGRAM') ?>"><i class="bi bi-instagram"></i></a>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="col-lg-4 col-md-6 footer-links">
             </div>
             <div class="col-lg-4 col-md-6 footer-links">
                 <h4><?= lang('System.locales.title') ?></h4>
-                <p>
-                    <?php
-                    $links         = [];
-                    $country_code  = substr($locale, 3);
-                    $country_array = [
-                        'th' => ['th', 'en']
-                    ];
-                    echo '<span class="fi fi-' . $country_code . '"></span> &nbsp; ';
-                    foreach ($country_array[$country_code] as $language_code) {
-                        $links[] = '<a href="' . base_url($language_code . '-' . $country_code . '/' . $url_part) . '">' . lang('System.locales.' . $language_code) . '</a>';
+                <?php
+                $all_locales = [
+                    'th' => [
+                        'th-th' => 'ภาษาไทย',
+                        'en-th' => 'English'
+                    ],
+                ];
+                ?>
+                <?php
+                if (!empty($business)) {
+                    $ctry_cd = substr($locale, 3);
+                    $store_locales = $all_locales[$ctry_cd];
+                    echo '<p><span class="fi fi-' . $ctry_cd . '"></span>';
+                    foreach ($store_locales as $lg_cd => $lg_label) {
+                        echo '<a class="ms-2" href="' . base_url($lg_cd . '/' . $url_part) . '">' . $lg_label . '</a>';
                     }
-                    echo implode('<span class="bi bi-dot"></span>', $links);
-                    ?>
-                </p>
+                    echo '</p>';
+                } else {
+                    foreach ($all_locales as $ctry_cd => $ctry_locales) {
+                        echo '<p><span class="fi fi-' . $ctry_cd . '"></span>';
+                        foreach ($ctry_locales as $lg_cd => $lg_label) {
+                            echo '<a class="ms-2" href="' . base_url($lg_cd) . '">' . $lg_label . '</a>';
+                        }
+                        echo '</p>';
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
     <div class="container copyright text-center mt-4">
         <p>
             <?= lang('System.copyright-message', [date('Y')]) ?>
-            | <a href="<?= getenv('main_site') . $locale ?>/terms-and-conditions"><?= lang('System.terms-and-conditions') ?></a>
-            | <a href="<?= getenv('main_site') . $locale ?>/privacy-policy"><?= lang('System.privacy-policy') ?></a>
+            | <a href="<?= getenv('main_site') . $locale ?>/terms-and-conditions" target="_blank"><?= lang('System.terms-and-conditions') ?></a>
+            | <a href="<?= getenv('main_site') . $locale ?>/privacy-policy" target="_blank"><?= lang('System.privacy-policy') ?></a>
         </p>
     </div>
 </footer>
