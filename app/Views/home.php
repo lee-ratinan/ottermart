@@ -29,7 +29,7 @@
                                             <div class="row g-0">
                                                 <div class="col-md-4 col-lg-3 col-xl-2">
                                                     <?php if (!empty($result['businessLogo'])) : ?>
-                                                        <img src="<?= $result['businessLogo'] ?>" class="img-fluid rounded" alt="<?= $result['name'] ?>">
+                                                        <img src="<?= $result['businessLogo'] ?>" class="img-fluid img-thumbnail rounded" alt="<?= $result['name'] ?>">
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="col-md-8 col-lg-9 col-xl-10">

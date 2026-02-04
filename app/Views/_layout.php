@@ -56,8 +56,8 @@ $country      = $locale_split[1];
             .business .btn-dark:hover {filter: brightness(0.9);}
             .business .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
             .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-            .business .card-body {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business .card {border: solid 2px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .card-body {color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
