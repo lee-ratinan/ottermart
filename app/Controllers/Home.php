@@ -10,7 +10,7 @@ use RuntimeException;
 class Home extends BaseController
 {
 
-    private function add_card_detail(int $business_id): array
+    private function add_card_detail(int $business_id, string $tax_inclusive): array
     {
         return [
             'business_id'         => $business_id,
@@ -18,13 +18,19 @@ class Home extends BaseController
             'customer_address_id' => 0,
             'order_number'        => '',
             'order_subtotal'      => 0.00,
-            'order_adjustment'    => 0.00,
+            'order_tax'           => 0.00,
+            'order_tax_type'      => $tax_inclusive,
+            'order_delivery_fee'  => 0.00,
+            'order_discount'      => [],
             'order_total'         => 0.00,
             'order_status'        => 'OPEN',
             'financial_status'    => 'PENDING',
             'shipping_status'     => 'OPEN',
             'staff_comment'       => null,
             'customer_comment'    => null,
+            'line_items'          => [],
+            'scheduled_service'   => [],
+            'adhoc_service'       => [],
         ];
     }
 
@@ -49,110 +55,48 @@ class Home extends BaseController
         return $total;
     }
 
-    private function add_product_to_cart(int $business_id): array
+    private function calculate_tax(float $sub_total, float $tax_percentage, string $tax_type): float
     {
-        // retrieve data
-        $fields = ['product_variant_id', 'product_name', 'product_variant_name', 'line_quantity', 'unit_price', 'item_need_delivery'];
+        if ('X' == $tax_type || 0.00 == $tax_percentage) {
+            return  0.00;
+        } else if ('E' == $tax_type) {
+            return $sub_total * $tax_percentage / 100;
+        }
+        return ($sub_total / (100 + $tax_percentage)) * $tax_percentage;
+    }
+
+    private function add_product_to_cart(): array
+    {
+        $fields = ['product_variant_id', 'product_id', 'product_name', 'product_variant_name', 'line_quantity', 'unit_price', 'item_need_delivery'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
         }
         $item['line_subtotal'] = $item['line_quantity'] * $item['unit_price'];
-        // session
-        $session      = \Config\Services::session();
-        $cart         = $session->get('cart');
-        if (!isset($cart['business_id'])) {
-            $cart = $this->add_card_detail($business_id);
-        } else if ($business_id != $cart['business_id']) {
-            $session->remove('cart');
-            $cart = $this->add_card_detail($business_id);
-        }
-        $cart['line_items']                                    = $cart['line_items'] ?? [];
-        $cart['line_items']['P' . $item['product_variant_id']] = $item;
-        $sub_total              = $this->calculate_subtotal($cart);
-        $cart['order_subtotal'] = $sub_total;
-        $cart['order_total']    = $sub_total;
-        $session->set('cart', $cart);
-        return [
-            'status'  => true,
-            'message' => 'OK',
-            'cart'    => $cart,
-        ];
+        return $item;
     }
 
-    private function add_scheduled_service_to_cart(int $business_id): array
+    private function add_scheduled_service_to_cart(): array
     {
-        // retrieve data
-        $fields = ['service_variant_id', 'session_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price'];
+        $fields = ['service_variant_id', 'service_id', 'session_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
         }
         $item['booking_subtotal'] = $item['booking_quantity'] * $item['unit_price'];
-        // session
-        $session      = \Config\Services::session();
-        $cart         = $session->get('cart');
-        if (!isset($cart['business_id'])) {
-            $cart = $this->add_card_detail($business_id);
-        } else if ($business_id != $cart['business_id']) {
-            $session->remove('cart');
-            $cart = $this->add_card_detail($business_id);
-        }
-        $cart['scheduled_service']                                    = $cart['scheduled_service'] ?? [];
-        $cart['scheduled_service']['S' . $item['service_variant_id']] = $item;
-        $sub_total              = $this->calculate_subtotal($cart);
-        $cart['order_subtotal'] = $sub_total;
-        $cart['order_total']    = $sub_total;
-        $session->set('cart', $cart);
-        return [
-            'status'  => true,
-            'message' => 'OK',
-            'cart'    => $cart,
-        ];
+        return $item;
     }
 
-    private function add_adhoc_service_to_cart(int $business_id): array
+    private function add_adhoc_service_to_cart(): array
     {
-        // retrieve data
-        $fields = ['service_variant_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_id', 'user_id', 'time_start_local', 'time_end_local'];
+        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_id', 'user_id', 'time_start_local', 'time_end_local'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
         }
         $item['session_id']       = 0;
         $item['booking_subtotal'] = $item['booking_quantity'] * $item['unit_price'];
-        // session
-        $session      = \Config\Services::session();
-        $cart         = $session->get('cart');
-        if (!isset($cart['business_id'])) {
-            $cart = $this->add_card_detail($business_id);
-        } else if ($business_id != $cart['business_id']) {
-            $session->remove('cart');
-            $cart = $this->add_card_detail($business_id);
-        }
-        $cart['adhoc_service']                                    = $cart['adhoc_service'] ?? [];
-        $cart['adhoc_service']['A' . $item['service_variant_id']] = $item;
-        $sub_total              = $this->calculate_subtotal($cart);
-        $cart['order_subtotal'] = $sub_total;
-        $cart['order_total']    = $sub_total;
-        $session->set('cart', $cart);
-
-
-        $session      = Services::session();
-        $cart         = $session->get('cart');
-        if (!isset($card['business_id'])) {
-            $cart = $this->add_card_detail($business_id, $item['line_subtotal']);
-        }
-        if (!isset($cart['adhoc_service'])) {
-            $cart['adhoc_service'] = [];
-        }
-        $cart['adhoc_service'][$item['service_variant_id']] = $item;
-        $session->set('cart', $cart);
-        return [
-            'status'  => true,
-            'message' => 'OK',
-            'cart'    => $cart,
-        ];
+        return $item;
     }
 
     /**
@@ -369,25 +313,69 @@ class Home extends BaseController
         return view('service_booking_schedules', $data);
     }
 
+    public function cart(string $slug): string
+    {
+        $session  = \Config\Services::session();
+        $business = $this->get_business_info($slug);
+        $locale   = $this->request->getLocale();
+        $data     = [
+            'page_title'   => lang('System.cart.title'),
+            'description'  => lang('System.cart.title') . ' ' . $business['mart_meta_description'],
+            'keywords'     => lang('System.cart.title') . ' ' . $business['mart_meta_keywords'],
+            'url_part'     => '@' . $slug . '/cart',
+            'locale'       => $locale,
+            'slug'         => $slug,
+            'business'     => $business,
+            'cart'         => $session->get('cart')
+        ];
+        return view('cart', $data);
+    }
+
     public function add_to_cart(string $slug): ResponseInterface
     {
         $business = $this->get_business_info($slug);
         $session  = \Config\Services::session();
         $cart     = $session->get('cart');
         $type     = $this->request->getPost('item_type');
-        $response = [
-            'status'  => false,
-            'message' => 'TYPE=' . $type,
-            'cart'    => $cart,
-        ];
+        $item     = [];
+        $key      = '';
+        $iid      = '0';
         if ('product' == $type) {
-            $response = $this->add_product_to_cart($business['id']);
+            $item = $this->add_product_to_cart();
+            $key  = 'line_items';
+            $iid  = 'P' . $item['product_variant_id'];
         } else if ('scheduled-service' == $type) {
-            $response = $this->add_scheduled_service_to_cart($business['id']);
+            $item = $this->add_scheduled_service_to_cart();
+            $key  = 'scheduled_service';
+            $iid  = 'S' . $item['service_variant_id'];
         } else if ('adhoc-service' == $type) {
-            $response = $this->add_adhoc_service_to_cart($business['id']);
+            $item = $this->add_adhoc_service_to_cart();
+            $key  = 'adhoc_service';
+            $iid  = 'A' . $item['service_variant_id'];
         }
-        return $this->response->setJSON($response);
+        if (!isset($cart['business_id'])) {
+            $cart = $this->add_card_detail($business['id'], $business['tax_inclusive']);
+        } else if ($business['id'] != $cart['business_id']) {
+            $session->remove('cart');
+            $cart = $this->add_card_detail($business['id'], $business['tax_inclusive']);
+        }
+        $cart[$key][$iid]       = $item;
+        $sub_total              = $this->calculate_subtotal($cart);
+        $cart['order_subtotal'] = $sub_total;
+        // if discount is there, apply discount to the $sub_total
+        // if delivery fee is implemented, apply it here - then check whether it's taxable
+        $cart['order_tax']      = $this->calculate_tax($sub_total, $business['tax_percentage'], $business['tax_inclusive']);
+        if ('E' == $business['tax_inclusive']) {
+            $cart['order_total'] = $sub_total + $cart['order_tax'];
+        } else {
+            $cart['order_total'] = $sub_total;
+        }
+        $session->set('cart', $cart);
+        return $this->response->setJSON([
+            'status'  => 'OK',
+            'message' => '',
+            'cart'    => $cart,
+        ]);
     }
 
     public function remove_from_cart(string $slug): ResponseInterface

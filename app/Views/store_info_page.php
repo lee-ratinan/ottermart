@@ -154,6 +154,7 @@
                     {
                         item_type: 'product',
                         product_variant_id: variant_id,
+                        product_id: product_id,
                         product_name: product_name,
                         product_variant_name: variant_name,
                         line_quantity: quantity,
@@ -162,7 +163,7 @@
                         item_need_delivery: product_type
                     },
                     function (response, status) {
-                        if (response.message === "OK") {
+                        if (response.status === "OK") {
                             toastr.success('<?= lang('System.cart.item-added') ?>');
                             $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
                         } else {
