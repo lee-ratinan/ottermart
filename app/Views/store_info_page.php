@@ -15,9 +15,6 @@
                 </div>
             </div>
             <?php if ('products' == $type) : ?>
-                <pre>
-                    <?php print_r($products); ?>
-                </pre>
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -155,20 +152,21 @@
                 $.post(
                     "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
                     {
+                        item_type: 'product',
                         product_variant_id: variant_id,
                         product_name: product_name,
                         product_variant_name: variant_name,
                         line_quantity: quantity,
                         unit_price: price,
-                        line_subtotal: line_subtotal
+                        line_subtotal: line_subtotal,
                         item_need_delivery: product_type
                     },
                     function (response, status) {
-                        if (response.status === "OK") {
-                            toastr.success(response.message);
-                            setTimeout(function() { location.reload(); }, 3000);
+                        if (response.message === "OK") {
+                            toastr.success('<?= lang('System.cart.item-added') ?>');
+                            $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
                         } else {
-                            toastr.error(response.message);
+                            toastr.error('<?= lang('System.cart.item-add-failed') ?>');
                         }
                     },
                     "json"

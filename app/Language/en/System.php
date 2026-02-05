@@ -84,5 +84,10 @@ return [
         'cash'             => 'Cash',
         'bank_transfer'    => 'Bank Transfer',
         'promptpay_static' => 'PromptPay',
+    ],
+    'cart'                 => [
+        'title'           => 'Cart',
+        'item-added'      => 'The item has been added to your cart.',
+        'item-add-failed' => 'The item could not be added to your cart.',
     ]
 ];

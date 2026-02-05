@@ -3,6 +3,8 @@
 <?php
 $locale_split = explode('-', $locale);
 $country      = $locale_split[1];
+$session      = \Config\Services::session();
+$cart         = $session->get('cart');
 ?>
 <head>
     <meta charset="utf-8">
@@ -40,6 +42,7 @@ $country      = $locale_split[1];
     <link href="<?= base_url('assets/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/flag-icons-main/css/flag-icons.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/fontawesome-free-7.1.0/css/all.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/toastrjs/toastr.min.css') ?>" rel="stylesheet">
     <!-- Main CSS File -->
     <link href="<?= base_url('assets/css/main.min.css') ?>" rel="stylesheet">
     <!-- Link Languages -->
@@ -126,11 +129,22 @@ $country      = $locale_split[1];
         <?php endif; ?>
         <nav id="navmenu" class="navmenu">
             <ul>
-                <?php if (isset($business)) : ?>
-                <?php else: ?>
+                <?php if (!isset($business)) : ?>
                     <li><a href="<?= getenv('main_site') . $locale ?>"><?= lang('System.main-site') ?></a></li>
                 <?php endif; ?>
                 <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. substr($locale, 0, 2)) ?></a></li>
+                <?php if (isset($business)) : ?>
+                    <li>
+                        <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/cart') ?>">
+                            <?php if (empty($cart)) : ?>
+                                <i id="header-cart-icon" class="bi bi-cart me-2"></i>
+                            <?php else: ?>
+                                <i id="header-cart-icon" class="bi bi-cart-check-fill me-2"></i>
+                            <?php endif; ?>
+                            <?= lang('System.cart.title') ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -204,6 +218,7 @@ $country      = $locale_split[1];
 <script src="<?= base_url('assets/vendor/aos/aos.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/toastrjs/toastr.min.js') ?>"></script>
 <!-- Main JS File -->
 <script src="<?= base_url('assets/js/main.min.js') ?>"></script>
 </body>

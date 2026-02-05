@@ -10,6 +10,151 @@ use RuntimeException;
 class Home extends BaseController
 {
 
+    private function add_card_detail(int $business_id): array
+    {
+        return [
+            'business_id'         => $business_id,
+            'customer_id'         => 0,
+            'customer_address_id' => 0,
+            'order_number'        => '',
+            'order_subtotal'      => 0.00,
+            'order_adjustment'    => 0.00,
+            'order_total'         => 0.00,
+            'order_status'        => 'OPEN',
+            'financial_status'    => 'PENDING',
+            'shipping_status'     => 'OPEN',
+            'staff_comment'       => null,
+            'customer_comment'    => null,
+        ];
+    }
+
+    private function calculate_subtotal(array $cart): float
+    {
+        $total = 0.00;
+        if (isset($cart['line_items'])) {
+            foreach ($cart['line_items'] as $item) {
+                $total += (float) $item['line_subtotal'];
+            }
+        }
+        if (isset($cart['scheduled_service'])) {
+            foreach ($cart['scheduled_service'] as $item) {
+                $total += (float) $item['booking_subtotal'];
+            }
+        }
+        if (isset($cart['adhoc_service'])) {
+            foreach ($cart['adhoc_service'] as $item) {
+                $total += (float) $item['booking_subtotal'];
+            }
+        }
+        return $total;
+    }
+
+    private function add_product_to_cart(int $business_id): array
+    {
+        // retrieve data
+        $fields = ['product_variant_id', 'product_name', 'product_variant_name', 'line_quantity', 'unit_price', 'item_need_delivery'];
+        $item   = [];
+        foreach ($fields as $field) {
+            $item[$field] = $this->request->getPost($field);
+        }
+        $item['line_subtotal'] = $item['line_quantity'] * $item['unit_price'];
+        // session
+        $session      = \Config\Services::session();
+        $cart         = $session->get('cart');
+        if (!isset($cart['business_id'])) {
+            $cart = $this->add_card_detail($business_id);
+        } else if ($business_id != $cart['business_id']) {
+            $session->remove('cart');
+            $cart = $this->add_card_detail($business_id);
+        }
+        $cart['line_items']                                    = $cart['line_items'] ?? [];
+        $cart['line_items']['P' . $item['product_variant_id']] = $item;
+        $sub_total              = $this->calculate_subtotal($cart);
+        $cart['order_subtotal'] = $sub_total;
+        $cart['order_total']    = $sub_total;
+        $session->set('cart', $cart);
+        return [
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $cart,
+        ];
+    }
+
+    private function add_scheduled_service_to_cart(int $business_id): array
+    {
+        // retrieve data
+        $fields = ['service_variant_id', 'session_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price'];
+        $item   = [];
+        foreach ($fields as $field) {
+            $item[$field] = $this->request->getPost($field);
+        }
+        $item['booking_subtotal'] = $item['booking_quantity'] * $item['unit_price'];
+        // session
+        $session      = \Config\Services::session();
+        $cart         = $session->get('cart');
+        if (!isset($cart['business_id'])) {
+            $cart = $this->add_card_detail($business_id);
+        } else if ($business_id != $cart['business_id']) {
+            $session->remove('cart');
+            $cart = $this->add_card_detail($business_id);
+        }
+        $cart['scheduled_service']                                    = $cart['scheduled_service'] ?? [];
+        $cart['scheduled_service']['S' . $item['service_variant_id']] = $item;
+        $sub_total              = $this->calculate_subtotal($cart);
+        $cart['order_subtotal'] = $sub_total;
+        $cart['order_total']    = $sub_total;
+        $session->set('cart', $cart);
+        return [
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $cart,
+        ];
+    }
+
+    private function add_adhoc_service_to_cart(int $business_id): array
+    {
+        // retrieve data
+        $fields = ['service_variant_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_id', 'user_id', 'time_start_local', 'time_end_local'];
+        $item   = [];
+        foreach ($fields as $field) {
+            $item[$field] = $this->request->getPost($field);
+        }
+        $item['session_id']       = 0;
+        $item['booking_subtotal'] = $item['booking_quantity'] * $item['unit_price'];
+        // session
+        $session      = \Config\Services::session();
+        $cart         = $session->get('cart');
+        if (!isset($cart['business_id'])) {
+            $cart = $this->add_card_detail($business_id);
+        } else if ($business_id != $cart['business_id']) {
+            $session->remove('cart');
+            $cart = $this->add_card_detail($business_id);
+        }
+        $cart['adhoc_service']                                    = $cart['adhoc_service'] ?? [];
+        $cart['adhoc_service']['A' . $item['service_variant_id']] = $item;
+        $sub_total              = $this->calculate_subtotal($cart);
+        $cart['order_subtotal'] = $sub_total;
+        $cart['order_total']    = $sub_total;
+        $session->set('cart', $cart);
+
+
+        $session      = Services::session();
+        $cart         = $session->get('cart');
+        if (!isset($card['business_id'])) {
+            $cart = $this->add_card_detail($business_id, $item['line_subtotal']);
+        }
+        if (!isset($cart['adhoc_service'])) {
+            $cart['adhoc_service'] = [];
+        }
+        $cart['adhoc_service'][$item['service_variant_id']] = $item;
+        $session->set('cart', $cart);
+        return [
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $cart,
+        ];
+    }
+
     /**
      * Call OtterPlex API
      * @param string $endpoint
@@ -222,5 +367,52 @@ class Home extends BaseController
             'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/session-retrieve/' . $variant_slug
         ];
         return view('service_booking_schedules', $data);
+    }
+
+    public function add_to_cart(string $slug): ResponseInterface
+    {
+        $business = $this->get_business_info($slug);
+        $session  = \Config\Services::session();
+        $cart     = $session->get('cart');
+        $type     = $this->request->getPost('item_type');
+        $response = [
+            'status'  => false,
+            'message' => 'TYPE=' . $type,
+            'cart'    => $cart,
+        ];
+        if ('product' == $type) {
+            $response = $this->add_product_to_cart($business['id']);
+        } else if ('scheduled-service' == $type) {
+            $response = $this->add_scheduled_service_to_cart($business['id']);
+        } else if ('adhoc-service' == $type) {
+            $response = $this->add_adhoc_service_to_cart($business['id']);
+        }
+        return $this->response->setJSON($response);
+    }
+
+    public function remove_from_cart(string $slug): ResponseInterface
+    {
+        return $this->response->setJSON([]);
+    }
+
+    public function get_cart(string $slug): ResponseInterface
+    {
+        $session      = Services::session();
+        return $this->response->setJSON([
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $session->get('cart'),
+        ]);
+    }
+
+    public function clear_cart(string $slug): ResponseInterface
+    {
+        $session      = Services::session();
+        $session->remove('cart');
+        return $this->response->setJSON([
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $session->get('cart'),
+        ]);
     }
 }
