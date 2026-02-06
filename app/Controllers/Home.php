@@ -193,6 +193,22 @@ class Home extends BaseController
         return $business;
     }
 
+    public function show404(): string|ResponseInterface
+    {
+        $method = $this->request->getMethod();
+        $method = strtolower($method);
+        if ('get' == $method) {
+            $lang         = $this->request->getLocale();
+            $data    = [
+                'slug'         => 'not-found',
+                'lang'         => $lang
+            ];
+            return view('_404', $data);
+        }
+        return $this->response->setStatusCode(ResponseInterface::HTTP_NOT_FOUND)
+            ->setJSON(['success' => 'ERR']);
+    }
+
     public function clear_cache(string $slug): ResponseInterface
     {
         $cache     = Services::cache();

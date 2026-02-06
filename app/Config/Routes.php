@@ -40,3 +40,5 @@ $routes->group('{locale}', ['filter' => 'localeGuard'], static function($routes)
 });
 // HOME
 $routes->get('/', 'Home::index');
+
+$routes->set404Override('App\Controllers\Home::show404');

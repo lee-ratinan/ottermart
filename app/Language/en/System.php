@@ -102,5 +102,10 @@ return [
             'tax-exclusive' => 'Tax',
             'need-delivery' => 'There might be a deliver fee for this item.',
         ],
+    ],
+    '404'                  => [
+        'title'            => 'Page Not Found',
+        'got-lost'         => 'Looks like our otter got lost and couldn’t recognize your destination.',
+        'return-to-safety' => 'Return to safety 🚀',
     ]
 ];
