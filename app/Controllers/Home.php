@@ -10,7 +10,7 @@ use RuntimeException;
 class Home extends BaseController
 {
 
-    private function add_card_detail(int $business_id, string $tax_inclusive): array
+    private function add_card_detail(int $business_id): array
     {
         return [
             'business_id'         => $business_id,
@@ -18,8 +18,6 @@ class Home extends BaseController
             'customer_address_id' => 0,
             'order_number'        => '',
             'order_subtotal'      => 0.00,
-            'order_tax'           => 0.00,
-            'order_tax_type'      => $tax_inclusive,
             'order_delivery_fee'  => 0.00,
             'order_discount'      => [],
             'order_total'         => 0.00,
@@ -31,6 +29,7 @@ class Home extends BaseController
             'line_items'          => [],
             'scheduled_service'   => [],
             'adhoc_service'       => [],
+            'adjustment_items'    => []
         ];
     }
 
@@ -55,14 +54,22 @@ class Home extends BaseController
         return $total;
     }
 
-    private function calculate_tax(float $sub_total, float $tax_percentage, string $tax_type): float
+    private function calculate_tax(float $sub_total, float $tax_percentage, string $tax_type): array
     {
-        if ('X' == $tax_type || 0.00 == $tax_percentage) {
-            return  0.00;
-        } else if ('E' == $tax_type) {
-            return $sub_total * $tax_percentage / 100;
+        $amount = 0.0;
+        $detail = lang('System.cart.table.tax-exempt');
+        if ('E' == $tax_type) {
+            $amount = $sub_total * $tax_percentage / 100;
+            $detail = lang('System.cart.table.tax-exclusive');
+        } else if ('I' == $tax_type) {
+            $amount = ($sub_total / (100 + $tax_percentage)) * $tax_percentage;
+            $detail = lang('System.cart.table.tax-inclusive');
         }
-        return ($sub_total / (100 + $tax_percentage)) * $tax_percentage;
+        return [
+            'item_type' => 'TAX',
+            'detail'    => $detail,
+            'amount'    => $amount
+        ];
     }
 
     private function add_product_to_cart(): array
@@ -377,12 +384,12 @@ class Home extends BaseController
         }
         $cart[$key][$iid]       = $item;
         $sub_total              = $this->calculate_subtotal($cart);
+        // calculate the shipping here, check whether taxable or not
         $cart['order_subtotal'] = $sub_total;
         // if discount is there, apply discount to the $sub_total
-        // if delivery fee is implemented, apply it here - then check whether it's taxable
-        $cart['order_tax']      = $this->calculate_tax($sub_total, $business['tax_percentage'], $business['tax_inclusive']);
+        $cart['adjustment_items']['TAX'] = $this->calculate_tax($sub_total, $business['tax_percentage'], $business['tax_inclusive']);
         if ('E' == $business['tax_inclusive']) {
-            $cart['order_total'] = $sub_total + $cart['order_tax'];
+            $cart['order_total'] = $sub_total + $cart['adjustment_items']['TAX']['amount'];
         } else {
             $cart['order_total'] = $sub_total;
         }

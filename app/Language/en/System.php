@@ -98,6 +98,7 @@ return [
             'unit-price'    => 'Unit Price',
             'subtotal'      => 'Subtotal',
             'total'         => 'Total',
+            'tax-exempt'    => 'Tax (exempted)',
             'tax-inclusive' => 'Tax (included)',
             'tax-exclusive' => 'Tax',
             'need-delivery' => 'There might be a deliver fee for this item.',

@@ -98,6 +98,7 @@ return [
             'unit-price'    => 'ราคาต่อหน่วย',
             'subtotal'      => 'ราคาทั้งหมด',
             'total'         => 'ราคารวม',
+            'tax-exempt'    => 'ภาษี (ยกเว้น)',
             'tax-inclusive' => 'ภาษี (รวมในราคาแล้ว)',
             'tax-exclusive' => 'ภาษี',
             'need-delivery' => 'สินค้าชนิดนี้อาจมีค่าบริการจัดส่ง'
