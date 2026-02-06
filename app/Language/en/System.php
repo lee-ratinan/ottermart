@@ -89,5 +89,18 @@ return [
         'title'           => 'Cart',
         'item-added'      => 'The item has been added to your cart.',
         'item-add-failed' => 'The item could not be added to your cart.',
+        'clear-cart'      => '<i class="bi bi-cart-x"></i> Clear Cart',
+        'cart-is-cleared' => 'Cart is cleared.',
+        'empty-cart'      => '<i class="bi bi-x-circle"></i> Cart is empty.',
+        'table'           => [
+            'details'       => 'Details',
+            'quantity'      => 'Quantity',
+            'unit-price'    => 'Unit Price',
+            'subtotal'      => 'Subtotal',
+            'total'         => 'Total',
+            'tax-inclusive' => 'Tax (included)',
+            'tax-exclusive' => 'Tax',
+            'need-delivery' => 'There might be a deliver fee for this item.',
+        ],
     ]
 ];

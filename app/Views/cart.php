@@ -21,7 +21,7 @@
                                     <tr>
                                         <th><?= lang('System.cart.table.details') ?></th>
                                         <th class="text-center"><?= lang('System.cart.table.quantity') ?></th>
-                                        <th class="text-center"><?= lang('System.cart.table.unit_price') ?></th>
+                                        <th class="text-center"><?= lang('System.cart.table.unit-price') ?></th>
                                         <th class="text-center"><?= lang('System.cart.table.subtotal') ?></th>
                                     </tr>
                                     </thead>
@@ -59,7 +59,7 @@
                                     </tbody>
                                     <tfoot>
                                     <tr>
-                                        <th colspan="3" class="text-end"><b><?= lang('System.cart.subtotal') ?></b></th>
+                                        <th colspan="3" class="text-end"><b><?= lang('System.cart.table.subtotal') ?></b></th>
                                         <th class="text-center"><?= format_price($cart['order_subtotal'], $business['currency_code']) ?></th>
                                     </tr>
                                     <?php if ('X' != $cart['order_tax_type']) : ?>
@@ -77,11 +77,14 @@
                                         </tr>
                                     <?php endif; ?>
                                     <tr>
-                                        <th colspan="3" class="text-end"><?= lang('System.cart.total') ?></th>
+                                        <th colspan="3" class="text-end"><?= lang('System.cart.table.total') ?></th>
                                         <th class="text-center"><?= format_price($cart['order_total'], $business['currency_code']) ?></th>
                                     </tr>
                                     </tfoot>
                                 </table>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-dark" id="btn-clear-cart"><?= lang('System.cart.clear-cart') ?></button>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -91,7 +94,16 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-
+            $('#btn-clear-cart').click(function (e) {
+                e.preventDefault();
+                $.get(
+                    "<?= base_url($locale . '/@' . $business['business_slug'] . '/clear-cart') ?>",
+                    function () {
+                        toastr.success('<?= lang('System.cart.cart-is-cleared') ?>');
+                        setTimeout(function() { location.reload(); }, 3000);
+                    }
+                );
+            })
         });
     </script>
 <?php $this->endSection() ?>
