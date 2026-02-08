@@ -86,13 +86,16 @@ return [
         'promptpay_static' => 'พร้อมเพย์',
     ],
     'cart'                 => [
-        'title'           => 'ตะกร้า',
-        'item-added'      => 'หยิบใส่ตะกร้าเรียบร้อยแล้ว',
-        'item-add-failed' => 'ไม่สามารถใส่ตะกร้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง',
-        'clear-cart'      => '<i class="bi bi-cart-x"></i> ล้างตะกร้า',
-        'cart-is-cleared' => 'เอาของออกจากตะกร้าเรียบร้อยแล้ว',
-        'empty-cart'      => '<i class="bi bi-x-circle"></i> ไม่มีอะไรในตะกร้านี้',
-        'table'           => [
+        'title'                   => 'ตะกร้า',
+        'item-added'              => 'หยิบใส่ตะกร้าเรียบร้อยแล้ว',
+        'item-add-failed'         => 'ไม่สามารถใส่ตะกร้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง',
+        'clear-cart'              => '<i class="bi bi-cart-x"></i> ล้างตะกร้า',
+        'cart-is-cleared'         => 'เอาของออกจากตะกร้าเรียบร้อยแล้ว',
+        'empty-cart'              => '<i class="bi bi-x-circle"></i> ไม่มีอะไรในตะกร้านี้',
+        'item-is-cleared'         => 'เอาของออกจากตะกร้าแล้ว',
+        'item-is-updated'         => 'แก้ไขจำนวนสินค้าแล้ว',
+        'remove-from-cart'        => '<i class="bi bi-x-circle"></i> เอาออก',
+        'table'                   => [
             'details'       => 'รายละเอียด',
             'quantity'      => 'จำนวน',
             'unit-price'    => 'ราคาต่อหน่วย',
@@ -103,6 +106,15 @@ return [
             'tax-exclusive' => 'ภาษี',
             'need-delivery' => 'สินค้าชนิดนี้อาจมีค่าบริการจัดส่ง'
         ],
+        'select-shipping-options' => [
+            'label'           => 'ตัวเลือกการจัดส่ง',
+            'shipping'        => 'จัดส่งถึงบ้าน',
+            'self-collection' => 'รับสินค้าด้วยตนเอง',
+            'not-applicable'  => 'ไม่มีสินค้าต้องจัดส่ง',
+        ]
+    ],
+    'checkout' => [
+        'title'             => 'ยืนยันการซื้อ',
     ],
     '404'                  => [
         'title'            => 'ไม่เจอหน้าที่ต้องการ',

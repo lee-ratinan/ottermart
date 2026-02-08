@@ -86,13 +86,16 @@ return [
         'promptpay_static' => 'PromptPay',
     ],
     'cart'                 => [
-        'title'           => 'Cart',
-        'item-added'      => 'The item has been added to your cart.',
-        'item-add-failed' => 'The item could not be added to your cart.',
-        'clear-cart'      => '<i class="bi bi-cart-x"></i> Clear Cart',
-        'cart-is-cleared' => 'Cart is cleared.',
-        'empty-cart'      => '<i class="bi bi-x-circle"></i> Cart is empty.',
-        'table'           => [
+        'title'                   => 'Cart',
+        'item-added'              => 'The item has been added to your cart.',
+        'item-add-failed'         => 'The item could not be added to your cart.',
+        'clear-cart'              => '<i class="bi bi-cart-x"></i> Clear Cart',
+        'cart-is-cleared'         => 'Cart is cleared.',
+        'empty-cart'              => '<i class="bi bi-x-circle"></i> Cart is empty.',
+        'item-is-cleared'         => 'Item is removed from your cart.',
+        'item-is-updated'         => 'Item quantity is updated.',
+        'remove-from-cart'        => '<i class="bi bi-x-circle"></i> Remove',
+        'table'                   => [
             'details'       => 'Details',
             'quantity'      => 'Quantity',
             'unit-price'    => 'Unit Price',
@@ -101,8 +104,17 @@ return [
             'tax-exempt'    => 'Tax (exempted)',
             'tax-inclusive' => 'Tax (included)',
             'tax-exclusive' => 'Tax',
-            'need-delivery' => 'There might be a deliver fee for this item.',
+            'need-delivery' => 'There might be a shipping fee for this item.',
         ],
+        'select-shipping-options' => [
+            'label'           => 'Shipping options',
+            'shipping'        => 'Shipping',
+            'self-collection' => 'Self collection',
+            'not-applicable'  => 'Not applicable',
+        ]
+    ],
+    'checkout' => [
+        'title'             => 'Checkout',
     ],
     '404'                  => [
         'title'            => 'Page Not Found',

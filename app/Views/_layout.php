@@ -61,6 +61,8 @@ $cart         = $session->get('cart');
             .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
             .business .card-body {color: <?= '#'.$business['mart_text_color'] ?> !important;}
             .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important;border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .business input, .business select {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
@@ -142,6 +144,7 @@ $cart         = $session->get('cart');
                                 <i id="header-cart-icon" class="bi bi-cart-check-fill me-2"></i>
                             <?php endif; ?>
                             <?= lang('System.cart.title') ?>
+                            &nbsp; <span id="cart-count"><?php if (isset($cart['item_count']) && 0 < $cart['item_count']) : ?>(<?= $cart['item_count'] ?>)<?php endif; ?></span>
                         </a>
                     </li>
                 <?php endif; ?>

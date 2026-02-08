@@ -16,10 +16,9 @@ class Home extends BaseController
             'business_id'         => $business_id,
             'customer_id'         => 0,
             'customer_address_id' => 0,
+            'item_count'          => 0,
             'order_number'        => '',
             'order_subtotal'      => 0.00,
-            'order_delivery_fee'  => 0.00,
-            'order_discount'      => [],
             'order_total'         => 0.00,
             'order_status'        => 'OPEN',
             'financial_status'    => 'PENDING',
@@ -33,25 +32,32 @@ class Home extends BaseController
         ];
     }
 
-    private function calculate_subtotal(array $cart): float
+    private function calculate_cart_item(array $cart): array
     {
         $total = 0.00;
+        $count = 0;
         if (isset($cart['line_items'])) {
             foreach ($cart['line_items'] as $item) {
                 $total += (float) $item['line_subtotal'];
+                $count += $item['line_quantity'];
             }
         }
         if (isset($cart['scheduled_service'])) {
             foreach ($cart['scheduled_service'] as $item) {
                 $total += (float) $item['booking_subtotal'];
+                $count += $item['booking_quantity'];
             }
         }
         if (isset($cart['adhoc_service'])) {
             foreach ($cart['adhoc_service'] as $item) {
                 $total += (float) $item['booking_subtotal'];
+                $count += $item['booking_quantity'];
             }
         }
-        return $total;
+        return [
+            'subtotal' => $total,
+            'count'    => $count
+        ];
     }
 
     private function calculate_tax(float $sub_total, float $tax_percentage, string $tax_type): array
@@ -59,12 +65,12 @@ class Home extends BaseController
         $amount = 0.0;
         $detail = lang('System.cart.table.tax-exempt');
         if ('E' == $tax_type) {
-            $amount = $sub_total * $tax_percentage / 100;
+            $amount = number_format($sub_total * $tax_percentage / 100, 2);
             $detail = lang('System.cart.table.tax-exclusive');
         } else if ('I' == $tax_type) {
-            $amount = ($sub_total / (100 + $tax_percentage)) * $tax_percentage;
+            $amount = number_format(($sub_total / (100 + $tax_percentage)) * $tax_percentage, 2);
             $detail = lang('System.cart.table.tax-inclusive');
-        }
+        } // X means exempted, no tax calculated
         return [
             'item_type' => 'TAX',
             'detail'    => $detail,
@@ -342,7 +348,7 @@ class Home extends BaseController
         $business = $this->get_business_info($slug);
         $locale   = $this->request->getLocale();
         $data     = [
-            'page_title'   => lang('System.cart.title'),
+            'page_title'   => $business['business_name'] . ' - ' . lang('System.cart.title'),
             'description'  => lang('System.cart.title') . ' ' . $business['mart_meta_description'],
             'keywords'     => lang('System.cart.title') . ' ' . $business['mart_meta_keywords'],
             'url_part'     => '@' . $slug . '/cart',
@@ -359,6 +365,13 @@ class Home extends BaseController
         $business = $this->get_business_info($slug);
         $session  = \Config\Services::session();
         $cart     = $session->get('cart');
+        // Check cart empty or belongs to the same business
+        if (!isset($cart['business_id'])) {
+            $cart = $this->add_card_detail($business['id']);
+        } else if ($business['id'] != $cart['business_id']) {
+            $session->remove('cart');
+            $cart = $this->add_card_detail($business['id']);
+        }
         $type     = $this->request->getPost('item_type');
         $item     = [];
         $key      = '';
@@ -375,18 +388,53 @@ class Home extends BaseController
             $item = $this->add_adhoc_service_to_cart();
             $key  = 'adhoc_service';
             $iid  = 'A' . $item['service_variant_id'];
+        } else if ('update-quantity' == $type) {
+            // only for product, not applicable to services
+            $key = 'line_items';
+            $iid = $this->request->getPost('variant_id');
+            if (!isset($cart['line_items'][$iid])) {
+                return $this->response->setJSON([
+                    'status'  => 'ERR',
+                    'message' => '',
+                    'cart'    => $cart,
+                ]);
+            }
+            $item                  = $cart['line_items'][$iid];
+            $item['line_quantity'] = $this->request->getPost('line_quantity');
+            $item['line_subtotal'] = $item['line_quantity'] * $item['unit_price'];
+        } else if ('remove-from-cart' == $type) {
+            $variant_id = $this->request->getPost('variant_id');
+            $key        = $this->request->getPost('key');
+            $keys       = [
+                'line_items'        => 'P',
+                'scheduled_service' => 'S',
+                'adhoc_service'     => 'A'
+            ];
+            $iid        = $keys[$key] . $variant_id;
+            $item       = null;
         }
-        if (!isset($cart['business_id'])) {
-            $cart = $this->add_card_detail($business['id'], $business['tax_inclusive']);
-        } else if ($business['id'] != $cart['business_id']) {
+        if (is_null($item)) {
+            unset($cart[$key][$iid]);
+        } else {
+            $cart[$key][$iid] = $item;
+        }
+        $calculated_data    = $this->calculate_cart_item($cart);
+        $sub_total          = $calculated_data['subtotal'];
+        $cart['item_count'] = $calculated_data['count'];
+        if (0 == $cart['item_count']) {
             $session->remove('cart');
-            $cart = $this->add_card_detail($business['id'], $business['tax_inclusive']);
+            return $this->response->setJSON([
+                'status'  => 'OK',
+                'message' => '',
+                'cart'    => [],
+            ]);
         }
-        $cart[$key][$iid]       = $item;
-        $sub_total              = $this->calculate_subtotal($cart);
-        // calculate the shipping here, check whether taxable or not
         $cart['order_subtotal'] = $sub_total;
-        // if discount is there, apply discount to the $sub_total
+        // CLEAR adjustment_items
+        unset($cart['adjustment_items']['DISCOUNT']); // apply separately
+        unset($cart['adjustment_items']['TAX']); // always recalculate
+        unset($cart['adjustment_items']['SHIPPING']); // apply at checkout
+        // Calculate TAX
         $cart['adjustment_items']['TAX'] = $this->calculate_tax($sub_total, $business['tax_percentage'], $business['tax_inclusive']);
         if ('E' == $business['tax_inclusive']) {
             $cart['order_total'] = $sub_total + $cart['adjustment_items']['TAX']['amount'];
@@ -399,11 +447,6 @@ class Home extends BaseController
             'message' => '',
             'cart'    => $cart,
         ]);
-    }
-
-    public function remove_from_cart(string $slug): ResponseInterface
-    {
-        return $this->response->setJSON([]);
     }
 
     public function get_cart(string $slug): ResponseInterface

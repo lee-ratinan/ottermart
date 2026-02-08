@@ -166,6 +166,7 @@
                         if (response.status === "OK") {
                             toastr.success('<?= lang('System.cart.item-added') ?>');
                             $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
+                            $('#cart-count').html('('+response.cart.item_count+')');
                         } else {
                             toastr.error('<?= lang('System.cart.item-add-failed') ?>');
                         }
