@@ -162,7 +162,7 @@
                         toastr.success('<?= lang('System.cart.item-is-updated') ?>');
                         console.log(response);
                         setTimeout(function() { location.reload(); }, 3000);
-                    }
+                    
                 );
             });
         });
