@@ -86,8 +86,8 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+                            <div class="row">
+                                <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 mb-3">
                                     <label for="shipping-option"><?= lang('System.cart.select-shipping-options.label') ?></label>
                                     <select class="form-control" id="shipping-option" name="shipping_option">
                                         <?php if ($need_shipping) : ?>
@@ -103,6 +103,10 @@
                                             <option value="NOT-APPLICABLE"><?= lang('System.cart.select-shipping-options.not-applicable') ?></option>
                                         <?php endif; ?>
                                     </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-8 col-xl-9 mb-3">
+                                    <label for="customer_comment"><?= lang('OrderMaster.field.customer_comment') ?></label>
+                                    <textarea class="form-control" rows="2" id="customer_comment" name="customer_comment"></textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -157,7 +161,7 @@
                     function (response) {
                         toastr.success('<?= lang('System.cart.item-is-updated') ?>');
                         console.log(response);
-                        // setTimeout(function() { location.reload(); }, 3000);
+                        setTimeout(function() { location.reload(); }, 3000);
                     }
                 );
             });
