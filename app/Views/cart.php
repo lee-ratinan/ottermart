@@ -43,6 +43,8 @@
                                             echo '<td class="text-center">';
                                             if (1 < $item['line_quantity']) {
                                                 echo '<a class="btn btn-outline-dark btn-sm btn-adjust-quantity me-2" data-variant-id="P' . $item['product_variant_id'] . '" data-quantity="' . ($item['line_quantity']-1) . '" href="#"><i class="bi bi-dash"></i></a>';
+                                            } else {
+                                                echo '<a class="btn btn-outline-dark btn-sm me-2 disabled" disabled><i class="bi bi-dash"></i></a>';
                                             }
                                             echo number_format($item['line_quantity']);
                                             echo '<a class="btn btn-outline-dark btn-sm btn-adjust-quantity ms-2" data-variant-id="P' . $item['product_variant_id'] . '" data-quantity="' . ($item['line_quantity']+1) . '" href="#"><i class="bi bi-plus"></i></a>';
@@ -55,7 +57,12 @@
                                     if (!empty($cart['scheduled_service'])) {
                                         foreach ($cart['scheduled_service'] as $item) {
                                             echo '<tr>';
-                                            echo '<td colspan="4">' . json_encode($item) . '</td>';
+                                            echo '<td><a class="btn btn-outline-dark btn-sm btn-remove-from-cart float-end" data-key="scheduled_service" data-variant-id="' . $item['service_variant_id'] . '" href="#">' . lang('System.cart.remove-from-cart') . '</a>';
+                                            echo '<a href="' . base_url($locale . '/@' . $business['business_slug'] . '/services/' . $business['services'][$item['service_id']]['service_slug']) . '"><b>' . $item['service_name'] . '</b> &middot; ' . $item['service_variant_name'] . '</a><br>' . $item['short_description'] . '<br>';
+                                            echo format_date($item['date_start'], $locale) . ' - ' . format_date($item['date_end'], $locale) . '</td>';
+                                            echo '<td class="text-center">' . number_format($item['booking_quantity']) . '</td>';
+                                            echo '<td class="text-center">' . format_price($item['unit_price'], $business['currency_code']) . '</td>';
+                                            echo '<td class="text-center">' . format_price($item['booking_subtotal'], $business['currency_code']) . '</td>';
                                             echo '</tr>';
                                         }
                                     }
@@ -103,9 +110,18 @@
                                             <option value="NOT-APPLICABLE"><?= lang('System.cart.select-shipping-options.not-applicable') ?></option>
                                         <?php endif; ?>
                                     </select>
+                                    <div class="d-none" id="div-collection-branch-id">
+                                        <label for="collection-branch-id"><?= lang('System.cart.select-shipping-options.collection-branch-id') ?></label>
+                                        <select class="form-control" id="collection-branch-id" name="collection_branch_id">
+                                            <option value=""></option>
+                                            <?php foreach ($business['branches'] as $branch) : ?>
+                                                <option value="<?= ($branch['id'] * ID_MASKED_PRIME) ?>"><?= $branch['branch_name'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-8 col-xl-9 mb-3">
-                                    <label for="customer_comment"><?= lang('OrderMaster.field.customer_comment') ?></label>
+                                    <label for="customer_comment"><?= lang('System.cart.table.customer-comment') ?></label>
                                     <textarea class="form-control" rows="2" id="customer_comment" name="customer_comment"></textarea>
                                 </div>
                             </div>
@@ -150,7 +166,6 @@
                     }
                 );
             });
-            //  ms-2" data-key="line_items" data-variant-id="' . $item['product_variant_id'] . '" data-quantity=
             $('.btn-adjust-quantity').click(function (e) {
                 e.preventDefault();
                 let variant_id = $(this).data('variant-id'),
@@ -161,9 +176,20 @@
                     function (response) {
                         toastr.success('<?= lang('System.cart.item-is-updated') ?>');
                         console.log(response);
-                        setTimeout(function() { location.reload(); }, 3000);
-                    
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                    }
                 );
+            });
+            $('#shipping-option').change(function () {
+                let selected_option = $(this).val();
+                if ('SELF-COLLECTION' === selected_option) {
+                    $('#div-collection-branch-id').removeClass('d-none');
+                } else {
+                    $('#div-collection-branch-id').addClass('d-none');
+                    $('#collection-branch-id').val('');
+                }
             });
         });
     </script>

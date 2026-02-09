@@ -65,16 +65,16 @@ class Home extends BaseController
         $amount = 0.0;
         $detail = lang('System.cart.table.tax-exempt');
         if ('E' == $tax_type) {
-            $amount = number_format($sub_total * $tax_percentage / 100, 2);
+            $amount = number_format($sub_total * $tax_percentage / 100, 2, '.', '');
             $detail = lang('System.cart.table.tax-exclusive');
         } else if ('I' == $tax_type) {
-            $amount = number_format(($sub_total / (100 + $tax_percentage)) * $tax_percentage, 2);
+            $amount = number_format(($sub_total / (100 + $tax_percentage)) * $tax_percentage, 2, '.', '');
             $detail = lang('System.cart.table.tax-inclusive');
         } // X means exempted, no tax calculated
         return [
             'item_type' => 'TAX',
             'detail'    => $detail,
-            'amount'    => $amount
+            'amount'    => (float) $amount
         ];
     }
 
@@ -91,7 +91,7 @@ class Home extends BaseController
 
     private function add_scheduled_service_to_cart(): array
     {
-        $fields = ['service_variant_id', 'service_id', 'session_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price'];
+        $fields = ['service_variant_id', 'service_id', 'session_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'short_description', 'date_start', 'date_end'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
@@ -102,7 +102,7 @@ class Home extends BaseController
 
     private function add_adhoc_service_to_cart(): array
     {
-        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_id', 'user_id', 'time_start_local', 'time_end_local'];
+        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_id', 'user_id', 'time_start_local', 'time_end_local', 'short_description'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);

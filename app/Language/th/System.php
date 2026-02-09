@@ -96,25 +96,27 @@ return [
         'item-is-updated'         => 'แก้ไขจำนวนสินค้าแล้ว',
         'remove-from-cart'        => '<i class="bi bi-x-circle"></i> เอาออก',
         'table'                   => [
-            'details'       => 'รายละเอียด',
-            'quantity'      => 'จำนวน',
-            'unit-price'    => 'ราคาต่อหน่วย',
-            'subtotal'      => 'ราคาทั้งหมด',
-            'total'         => 'ราคารวม',
-            'tax-exempt'    => 'ภาษี (ยกเว้น)',
-            'tax-inclusive' => 'ภาษี (รวมในราคาแล้ว)',
-            'tax-exclusive' => 'ภาษี',
-            'need-delivery' => 'สินค้าชนิดนี้อาจมีค่าบริการจัดส่ง'
+            'details'          => 'รายละเอียด',
+            'quantity'         => 'จำนวน',
+            'unit-price'       => 'ราคาต่อหน่วย',
+            'subtotal'         => 'ราคาทั้งหมด',
+            'total'            => 'ราคารวม',
+            'tax-exempt'       => 'ภาษี (ยกเว้น)',
+            'tax-inclusive'    => 'ภาษี (รวมในราคาแล้ว)',
+            'tax-exclusive'    => 'ภาษี',
+            'need-delivery'    => 'สินค้าชนิดนี้อาจมีค่าบริการจัดส่ง',
+            'customer-comment' => 'ข้อมูลเพิ่มเติมสำหรับออร์เดอร์นี้'
         ],
         'select-shipping-options' => [
-            'label'           => 'ตัวเลือกการจัดส่ง',
-            'shipping'        => 'จัดส่งถึงบ้าน',
-            'self-collection' => 'รับสินค้าด้วยตนเอง',
-            'not-applicable'  => 'ไม่มีสินค้าต้องจัดส่ง',
+            'label'                => 'ตัวเลือกการจัดส่ง',
+            'shipping'             => 'จัดส่งถึงบ้าน',
+            'self-collection'      => 'รับสินค้าด้วยตนเอง',
+            'not-applicable'       => 'ไม่มีสินค้าต้องจัดส่ง',
+            'collection-branch-id' => 'รับสินค้าที่สาขา',
         ]
     ],
-    'checkout' => [
-        'title'             => 'ยืนยันการซื้อ',
+    'checkout'             => [
+        'title' => 'ยืนยันการซื้อ',
     ],
     '404'                  => [
         'title'            => 'ไม่เจอหน้าที่ต้องการ',
