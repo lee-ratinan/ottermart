@@ -177,16 +177,7 @@
                     toastr.error(message);
                 });
             });
-            <?php else: ?>
             <?php endif; ?>
-            // $('.btn-tab').click(function (e) {
-            //     e.preventDefault();
-            //     $('.tab-content').slideUp();
-            //     $('.btn-tab').removeClass('btn-dark').addClass('btn-outline-dark');
-            //     $(this).removeClass('btn-outline-dark').addClass('btn-dark');
-            //     let target = 'tab-section-' + $(this).data('target');
-            //     $('#'+target).slideDown();
-            // });
         });
     </script>
 <?php $this->endSection() ?>

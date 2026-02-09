@@ -221,7 +221,8 @@ $cart         = $session->get('cart');
 <script src="<?= base_url('assets/vendor/aos/aos.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
-<script src="<?= base_url('assets/vendor/toastrjs/toastr.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/Luxon/luxon.min.js') ?>"></script>
 <!-- Main JS File -->
 <script src="<?= base_url('assets/js/main.min.js') ?>"></script>
 </body>

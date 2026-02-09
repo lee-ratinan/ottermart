@@ -81,15 +81,25 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                     method: 'GET',
                     dataType: 'json',
                     success: function (response) {
-                        let template = '', timings = '';
+                        let template = '', timings = '', timezone = '', startTimeISO = '', endTimeISO = '', startTime = '', endTime = '', lang = '<?= $locale ?>';
+                        let fullFormat = luxon.DateTime.DATETIME_MED, timeOnlyFormat = luxon.DateTime.TIME_SIMPLE;
                         console.log(response.sessions);
                         if (null !== response.sessions) {
                             $('#session-results').html('');
                             $.each(response.sessions, function (i, data) {
                                 timings  = '';
                                 template = '';
+                                timezone = data.timezone_code;
                                 $.each(data.sessions, function (i, time) {
-                                    timings += time.duration_str + '<br>';
+                                    startTimeISO = time.time_start;
+                                    endTimeISO   = time.time_end;
+                                    startTime    = luxon.DateTime.fromISO(startTimeISO).setLocale(lang);
+                                    endTime      = luxon.DateTime.fromISO(endTimeISO).setLocale(lang);
+                                    if (startTime.hasSame(endTime, 'day')) {
+                                        timings += `${startTime.toLocaleString(fullFormat)} - ${endTime.toLocaleString(timeOnlyFormat)}<br>`;
+                                    } else {
+                                        timings += `${startTime.toLocaleString(fullFormat)} - ${endTime.toLocaleString(fullFormat)}<br>`;
+                                    }
                                 });
                                 template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.price') ?></b></div><div class="col-6" id="result-actual-price"><?= format_price($variant['price_active'], $business['currency_code']) ?></div></div>';
                                 template += '<div class="row"><div class="col-6 text-end"><b><?= lang('System.results.branch') ?></b></div><div class="col-6" id="result-branch">' + data.branch_name + '</div></div>';
