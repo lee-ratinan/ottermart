@@ -66,10 +66,11 @@ return [
     ],
     'form'                 => [
         'filter' => [
-            'filter'    => 'ค้นหา',
-            'date_from' => 'จากวันที่',
-            'date_to'   => 'ถึงวันที่',
-            'branch_id' => 'สาขา',
+            'filter'        => 'ค้นหา',
+            'selected_date' => 'วันที่',
+            'date_from'     => 'จากวันที่',
+            'date_to'       => 'ถึงวันที่',
+            'branch_id'     => 'สาขา',
         ]
     ],
     'results'              => [

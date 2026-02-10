@@ -37,7 +37,7 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                         $max = date('Y-m-d', strtotime('+' . $business['allow_advance_booking'] . ' days'));
                         ?>
                         <div class="mb-3">
-                            <label for="selected_date" class="form-label"><?= lang('System.form.filter.date_from') ?></label>
+                            <label for="selected_date" class="form-label"><?= lang('System.form.filter.selected_date') ?></label>
                             <input type="date" class="form-control" id="selected_date" name="selected_date" value="" min="<?= $min ?>" max="<?= $max ?>">
                         </div>
                         <div class="mb-3">

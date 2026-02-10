@@ -66,10 +66,11 @@ return [
     ],
     'form'                 => [
         'filter' => [
-            'filter'    => 'Filter',
-            'date_from' => 'From',
-            'date_to'   => 'To',
-            'branch_id' => 'Branch',
+            'filter'        => 'Filter',
+            'selected_date' => 'Date',
+            'date_from'     => 'From',
+            'date_to'       => 'To',
+            'branch_id'     => 'Branch',
         ]
     ],
     'results'              => [

@@ -115,7 +115,9 @@
                                         <select class="form-control" id="collection-branch-id" name="collection_branch_id">
                                             <option value=""></option>
                                             <?php foreach ($business['branches'] as $branch) : ?>
-                                                <option value="<?= ($branch['id'] * ID_MASKED_PRIME) ?>"><?= $branch['branch_name'] ?></option>
+                                                <?php if ('PHYSICAL' == $branch['branch_type']) : ?>
+                                                    <option value="<?= ($branch['id'] * ID_MASKED_PRIME) ?>"><?= $branch['branch_name'] ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

@@ -306,8 +306,11 @@ class Home extends BaseController
 
     public function service_booking_slots(string $slug, string $service_slug, string $variant_slug): string
     {
-        $business = $this->get_business_info($slug);
-        $locale   = $this->request->getLocale();
+        $business   = $this->get_business_info($slug);
+        $locale     = $this->request->getLocale();
+        $businessId = $business['id'] * ID_MASKED_PRIME;
+        $serviceId  = $business['service_slugs'][$service_slug] * ID_MASKED_PRIME;
+        $variantId  = $business['service_variant_slugs'][$variant_slug] * ID_MASKED_PRIME;
         $data     = [
             'page_title'   => $business['business_name'],
             'description'  => $business['mart_meta_description'],
@@ -318,16 +321,19 @@ class Home extends BaseController
             'service_slug' => $service_slug,
             'variant_slug' => $variant_slug,
             'business'     => $business,
-            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/slot-retrieve/' . $variant_slug
+            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/slot-retrieve/' . $businessId . '/' . $serviceId . '/' . $variantId
         ];
         return view('service_booking_slots', $data);
     }
 
     public function service_booking_schedules(string $slug, string $service_slug, string $variant_slug): string
     {
-        $business = $this->get_business_info($slug);
-        $locale   = $this->request->getLocale();
-        $data     = [
+        $business   = $this->get_business_info($slug);
+        $locale     = $this->request->getLocale();
+        $businessId = $business['id'] * ID_MASKED_PRIME;
+        $serviceId  = $business['service_slugs'][$service_slug] * ID_MASKED_PRIME;
+        $variantId  = $business['service_variant_slugs'][$variant_slug] * ID_MASKED_PRIME;
+        $data       = [
             'page_title'   => $business['business_name'],
             'description'  => $business['mart_meta_description'],
             'keywords'     => $business['mart_meta_keywords'],
@@ -337,7 +343,7 @@ class Home extends BaseController
             'service_slug' => $service_slug,
             'variant_slug' => $variant_slug,
             'business'     => $business,
-            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/session-retrieve/' . $variant_slug
+            'schedule_url' => getenv('otterplex_url') . 'api/v1.0/' . str_replace('-', '/', $locale) . '/service/session-retrieve/' . $businessId . '/' . $serviceId . '/' . $variantId
         ];
         return view('service_booking_schedules', $data);
     }
