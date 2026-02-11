@@ -89,6 +89,7 @@ return [
     'cart'                 => [
         'title'                   => 'ตะกร้า',
         'item-added'              => 'หยิบใส่ตะกร้าเรียบร้อยแล้ว',
+        'comment-added'           => 'บันทึกข้อมูลเพิ่มเติมเรียบร้อยแล้ว',
         'item-add-failed'         => 'ไม่สามารถใส่ตะกร้าได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง',
         'clear-cart'              => '<i class="bi bi-cart-x"></i> ล้างตะกร้า',
         'cart-is-cleared'         => 'เอาของออกจากตะกร้าเรียบร้อยแล้ว',
@@ -96,6 +97,7 @@ return [
         'item-is-cleared'         => 'เอาของออกจากตะกร้าแล้ว',
         'item-is-updated'         => 'แก้ไขจำนวนสินค้าแล้ว',
         'remove-from-cart'        => '<i class="bi bi-x-circle"></i> เอาออก',
+        'btn-next'                => '<i class="bi bi-arrow-right-circle"></i> ถัดไป',
         'table'                   => [
             'details'          => 'รายละเอียด',
             'quantity'         => 'จำนวน',

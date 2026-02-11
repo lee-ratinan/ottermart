@@ -89,6 +89,7 @@ return [
     'cart'                 => [
         'title'                   => 'Cart',
         'item-added'              => 'The item has been added to your cart.',
+        'comment-added'           => 'Your comment has been added to your cart.',
         'item-add-failed'         => 'The item could not be added to your cart.',
         'clear-cart'              => '<i class="bi bi-cart-x"></i> Clear Cart',
         'cart-is-cleared'         => 'Cart is cleared.',
@@ -96,6 +97,7 @@ return [
         'item-is-cleared'         => 'Item is removed from your cart.',
         'item-is-updated'         => 'Item quantity is updated.',
         'remove-from-cart'        => '<i class="bi bi-x-circle"></i> Remove',
+        'btn-next'                => '<i class="bi bi-arrow-right-circle"></i> Next',
         'table'                   => [
             'details'          => 'Details',
             'quantity'         => 'Quantity',

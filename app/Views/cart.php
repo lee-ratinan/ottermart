@@ -137,8 +137,15 @@
                                     <button class="btn btn-outline-dark" id="btn-clear-cart"><?= lang('System.cart.clear-cart') ?></button>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <button class="btn btn-dark" id="btn-checkout"><i class="bi bi-cart-check"></i> <?= lang('System.checkout.title') ?></button>
+                                    <button class="btn btn-dark" id="btn-customer-detail"><?= lang('System.cart.btn-next') ?></button>
                                 </div>
+                            </div>
+                            <div class="row" id="customer-data" style="display:none">
+
+
+
+
+                                <?= lang('System.checkout.title') ?>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -223,7 +230,11 @@
                     let message = response.responseJSON.message ?? '<?= lang('System.response-msg.error.generic') ?>';
                     toastr.error(message);
                 });
-            })
+            });
+            $('#btn-customer-detail').click(function (e) {
+                e.preventDefault();
+                $('#customer-data').slideDown();
+            });
         });
     </script>
 <?php $this->endSection() ?>
