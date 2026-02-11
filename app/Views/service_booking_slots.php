@@ -32,18 +32,13 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                         <h6><?= lang('System.form.filter.filter') ?></h6>
-                        <?php
-                        $min = date('Y-m-d');
-                        $max = date('Y-m-d', strtotime('+' . $business['allow_advance_booking'] . ' days'));
-                        ?>
                         <div class="mb-3">
                             <label for="selected_date" class="form-label"><?= lang('System.form.filter.selected_date') ?></label>
-                            <input type="date" class="form-control" id="selected_date" name="selected_date" value="" min="<?= $min ?>" max="<?= $max ?>">
+                            <input type="date" class="form-control" id="selected_date" name="selected_date">
                         </div>
                         <div class="mb-3">
                             <label for="branch_id" class="form-label"><?= lang('System.form.filter.branch_id') ?></label>
                             <select class="form-control" id="branch_id" name="branch_id">
-                                <option value="">-</option>
                                 <?php foreach ($business['branches'] as $branch) : ?>
                                     <option value="<?= ($branch['id'] * ID_MASKED_PRIME) ?>"><?= $branch['branch_name'] ?></option>
                                 <?php endforeach; ?>
@@ -64,44 +59,62 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
             </div>
         </section>
     </main>
+    <?php $maxWindow = (0 < $business['allow_advance_booking'] ? $business['allow_advance_booking'] : 3); ?>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            const date = new Date();
+            const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+            date.setDate(date.getDate() + <?= $maxWindow ?>);
+            const maxDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+            $('#selected_date').val(localDate).attr('min', localDate).attr('max', maxDate);
             let getSessions = function () {
-                //let date_from = $('#date_from').val(),
-                //    date_to = $('#date_to').val(),
-                //    branch_id = $('#branch_id').val(),
-                //    url = '<?php //= $schedule_url ?>//?date_from='+date_from+'&date_to='+date_to+'&branch_id='+branch_id;
-                //$('#session-results').html('<div class="my-5 text-center"><i class="fa-solid fa-spinner fa-spin"></i></div>');
-                //$.ajax({
-                //    url: url,
-                //    method: 'GET',
-                //    dataType: 'json',
-                //    success: function (response) {
-                //        let template = '', timings = '';
-                //        console.log(response.sessions);
-                //        if (null !== response.sessions) {
-                //            $('#session-results').html('');
-                //            $.each(response.sessions, function (i, data) {
-                //                timings  = '';
-                //                template = '';
-                //                $.each(data.sessions, function (i, time) {
-                //                    timings += time.duration_str + '<br>';
-                //                });
-                //                template += '<div class="row"><div class="col-6 text-end"><b><?php //= lang('System.results.price') ?>//</b></div><div class="col-6" id="result-actual-price"><?php //= format_price($variant['price_active'], $business['currency_code']) ?>//</div></div>';
-                //                template += '<div class="row"><div class="col-6 text-end"><b><?php //= lang('System.results.branch') ?>//</b></div><div class="col-6" id="result-branch">' + data.branch_name + '</div></div>';
-                //                template += '<div class="row"><div class="col-6 text-end"><b><?php //= lang('System.results.capacity') ?>//</b></div><div class="col-6" id="result-capacity">' + data.session_capacity + '</div></div>';
-                //                template += '<div class="row"><div class="col-12 text-center"><b><?php //= lang('System.results.sessions') ?>//</b><br>' + timings + '</div></div>';
-                //                template += '<div class="row"><div class="col-12"><a class="btn btn-outline-dark w-100 mt-3" href="<?php //= base_url($locale . '/@' . $business['business_slug'] . '/checkout') ?>//?sid=' + data.link_id + '"><?php //= lang('System.results.btn-book') ?>//</a></div></div>';
-                //                $('#session-results').append('<div class="col-12 col-lg-6"><div class="card mb-3"><div class="card-body">' + template + '</div></div></div>');
-                //            });
-                //        } else {
-                //            $('#session-results').html('<div class="my-5 text-center"><?php //= lang('System.results.not-found') ?>//</div>');
-                //        }
-                //    },
-                //    error: function (xhr, status, error) {
-                //        console.error("An error occurred: " + error);
-                //    }
-                //});
+                let selected_date = $('#selected_date').val(),
+                    branch_id = $('#branch_id').val(),
+                    url = '<?= $schedule_url ?>?selected_date='+selected_date+'&branch_id='+branch_id;
+                $('#session-results').html('<div class="my-5 text-center"><i class="fa-solid fa-spinner fa-spin"></i></div>');
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        let service_name = response.service_name,
+                            variant_name = response.variant_name,
+                            price_active_str = response.price_active_str,
+                            price_active = response.price_active,
+                            duration = response.duration,
+                            branch_name = response.branch.branch_name,
+                            lang = '<?= $locale ?>', timing = '',
+                            template = '', user_template = '', fullFormat = luxon.DateTime.DATETIME_MED, timeOnlyFormat = luxon.DateTime.TIME_SIMPLE;
+                        if (0 === parseInt(response.branch.slotCount)) {
+                            $('#session-results').html('<div class="col-12 text-center pt-5"><?= lang('System.results.not-found') ?></b>');
+                        } else {
+                            $('#session-results').html('');
+                            let startTime = '', endTime = '';
+                            $.each(response.branch.availableSlots, function (index, data) {
+                                timing       = '';
+                                startTime    = luxon.DateTime.fromISO(data.start).setLocale(lang);
+                                endTime      = luxon.DateTime.fromISO(data.end).setLocale(lang);
+                                if (startTime.hasSame(endTime, 'day')) {
+                                    timing = `${startTime.toLocaleString(fullFormat)} - ${endTime.toLocaleString(timeOnlyFormat)}<br>`;
+                                } else {
+                                    timing = `${startTime.toLocaleString(fullFormat)} - ${endTime.toLocaleString(fullFormat)}<br>`;
+                                }
+                                template  = '<div class="row"><div class="col-12"><b>' + service_name + ' &middot; ' + variant_name + '</b></div></div>';
+                                template += '<div class="row"><div class="col-12"><?= lang('System.results.price') ?>: ' + price_active_str + '</div></div>';
+                                template += '<div class="row"><div class="col-12"><?= lang('System.results.branch') ?>: ' + branch_name + '</div></div>';
+                                template += '<div class="row"><div class="col-12">' + duration + ': <b style="font-size:1.2em;">' + timing + '</b></div></div>';
+                                $.each(data.users, function (user_id, user_name) {
+                                    user_template  = '<div class="row"><div class="col-12"><i class="bi bi-person-badge"></i> <b>' + user_name + '</b></div></div>';
+                                    user_template += '<div class="row"><div class="col-12"><button class="btn btn-dark btn-add-to-cart w-100 mt-3"><?= lang('System.results.btn-book') ?></button></div></div>';
+                                    $('#session-results').append('<div class="col-12 col-lg-6"><div class="card mb-3"><div class="card-body">' + template + user_template + '</div></div></div>');
+                                });
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("An error occurred: " + error);
+                    }
+                });
             };
             getSessions();
             $('#btn-filter').click(function (e) {
