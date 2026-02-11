@@ -100,8 +100,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 mb-3">
-                                    <label for="shipping-option"><?= lang('System.cart.select-shipping-options.label') ?></label>
-                                    <select class="form-control" id="shipping-option" name="shipping_option">
+                                    <label for="shipping_option"><?= lang('System.cart.select-shipping-options.label') ?></label>
+                                    <select class="form-control" id="shipping_option" name="shipping_option">
                                         <?php if ($need_shipping) : ?>
                                             <?php if ('SHIPPING' == $business['shipping_options']) : ?>
                                                 <option value="SHIPPING"><?= lang('System.cart.select-shipping-options.shipping') ?></option>
@@ -116,8 +116,8 @@
                                         <?php endif; ?>
                                     </select>
                                     <div class="d-none" id="div-collection-branch-id">
-                                        <label for="collection-branch-id"><?= lang('System.cart.select-shipping-options.collection-branch-id') ?></label>
-                                        <select class="form-control" id="collection-branch-id" name="collection_branch_id">
+                                        <label for="collection_branch_id"><?= lang('System.cart.select-shipping-options.collection-branch-id') ?></label>
+                                        <select class="form-control" id="collection_branch_id" name="collection_branch_id">
                                             <option value=""></option>
                                             <?php foreach ($business['branches'] as $branch) : ?>
                                                 <?php if ('PHYSICAL' == $branch['branch_type']) : ?>
@@ -145,8 +145,14 @@
 
 
 
-                                <?= lang('System.checkout.title') ?>
+
+                                <div class="col-6 text-end">
+                                    <button class="btn btn-dark" id="btn-checkout"><?= lang('System.checkout.title') ?></button>
+                                </div>
                             </div>
+                            <pre>
+                                <?php print_r($cart); ?>
+                            </pre>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -155,6 +161,13 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            <?php if (!empty($cart['shipping_option'])) : ?>
+            $('#shipping_option').val('<?= $cart['shipping_option'] ?>');
+            <?php endif; ?>
+            <?php if ('SELF-COLLECTION' == $cart['shipping_option']) : ?>
+            $('#div-collection-branch-id').removeClass('d-none');
+            $('#collection_branch_id').val('<?= $cart['collection_branch_id'] ?>');
+            <?php endif; ?>
             $('#btn-clear-cart').click(function (e) {
                 e.preventDefault();
                 $.get(
@@ -196,13 +209,13 @@
                     }
                 );
             });
-            $('#shipping-option').change(function () {
+            $('#shipping_option').change(function () {
                 let selected_option = $(this).val();
                 if ('SELF-COLLECTION' === selected_option) {
                     $('#div-collection-branch-id').removeClass('d-none');
                 } else {
                     $('#div-collection-branch-id').addClass('d-none');
-                    $('#collection-branch-id').val('');
+                    $('#collection_branch_id').val('');
                 }
             });
             $('.time-utc-to-local').each(function () {
@@ -211,18 +224,22 @@
                     localTime = luxonTime.toLocaleString(luxon.DateTime.DATETIME_MED);
                 $(this).text(localTime);
             });
-            $('#customer_comment').change(function () {
+            $('#btn-customer-detail').click(function (e) {
+                e.preventDefault();
                 $.post(
                     "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
                     {
-                        item_type: 'add-comment',
-                        customer_comment: $(this).val()
+                        item_type: 'save-shipping-and-comment',
+                        shipping_option: $('#shipping_option').val(),
+                        collection_branch_id: $('#collection_branch_id').val(),
+                        customer_comment: $('#customer_comment').val()
                     },
                     function (response, status) {
                         if (response.status === "OK") {
-                            toastr.success('<?= lang('System.cart.comment-added') ?>');
+                            toastr.success('<?= lang('System.cart.cart-updated') ?>');
+                            $('#customer-data').slideDown();
                         } else {
-                            toastr.error('<?= lang('System.cart.item-add-failed') ?>');
+                            toastr.error('<?= lang('System.response-msg.error.generic') ?>');
                         }
                     },
                     "json"
@@ -230,10 +247,6 @@
                     let message = response.responseJSON.message ?? '<?= lang('System.response-msg.error.generic') ?>';
                     toastr.error(message);
                 });
-            });
-            $('#btn-customer-detail').click(function (e) {
-                e.preventDefault();
-                $('#customer-data').slideDown();
             });
         });
     </script>

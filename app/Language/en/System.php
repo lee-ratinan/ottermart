@@ -89,7 +89,7 @@ return [
     'cart'                 => [
         'title'                   => 'Cart',
         'item-added'              => 'The item has been added to your cart.',
-        'comment-added'           => 'Your comment has been added to your cart.',
+        'cart-updated'            => 'Your cart has been updated.',
         'item-add-failed'         => 'The item could not be added to your cart.',
         'clear-cart'              => '<i class="bi bi-cart-x"></i> Clear Cart',
         'cart-is-cleared'         => 'Cart is cleared.',

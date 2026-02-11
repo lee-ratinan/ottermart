@@ -13,22 +13,24 @@ class Home extends BaseController
     private function add_card_detail(int $business_id): array
     {
         return [
-            'business_id'         => $business_id,
-            'customer_id'         => 0,
-            'customer_address_id' => 0,
-            'item_count'          => 0,
-            'order_number'        => '',
-            'order_subtotal'      => 0.00,
-            'order_total'         => 0.00,
-            'order_status'        => 'OPEN',
-            'financial_status'    => 'PENDING',
-            'shipping_status'     => 'OPEN',
-            'staff_comment'       => null,
-            'customer_comment'    => null,
-            'line_items'          => [],
-            'scheduled_service'   => [],
-            'adhoc_service'       => [],
-            'adjustment_items'    => []
+            'business_id'          => $business_id,
+            'customer_id'          => 0,
+            'customer_address_id'  => 0,
+            'item_count'           => 0,
+            'order_number'         => '',
+            'order_subtotal'       => 0.00,
+            'order_total'          => 0.00,
+            'order_status'         => 'OPEN',
+            'financial_status'     => 'PENDING',
+            'shipping_status'      => 'OPEN',
+            'staff_comment'        => null,
+            'customer_comment'     => null,
+            'shipping_option'      => '',
+            'collection_branch_id' => null,
+            'line_items'           => [],
+            'scheduled_service'    => [],
+            'adhoc_service'        => [],
+            'adjustment_items'     => []
         ];
     }
 
@@ -418,8 +420,10 @@ class Home extends BaseController
             ];
             $iid        = $keys[$key] . $variant_id;
             $item       = null;
-        } else if ('add-comment' == $type) {
-            $cart['customer_comment'] = $this->request->getPost('customer_comment');
+        } else if ('save-shipping-and-comment' == $type) {
+            $cart['customer_comment']     = $this->request->getPost('customer_comment');
+            $cart['shipping_option']      = $this->request->getPost('shipping_option');
+            $cart['collection_branch_id'] = $this->request->getPost('collection_branch_id');
             $session->set('cart', $cart);
             return $this->response->setJSON([
                 'status'  => 'OK',
