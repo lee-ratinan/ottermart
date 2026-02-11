@@ -69,7 +69,12 @@
                                     if (!empty($cart['adhoc_service'])) {
                                         foreach ($cart['adhoc_service'] as $item) {
                                             echo '<tr>';
-                                            echo '<td colspan="4">' . json_encode($item) . '</td>';
+                                            echo '<td><a class="btn btn-outline-dark btn-sm btn-remove-from-cart float-end" data-key="adhoc_service" data-variant-id="' . $item['service_variant_id'] . '" href="#">' . lang('System.cart.remove-from-cart') . '</a>';
+                                            echo '<a href="' . base_url($locale . '/@' . $business['business_slug'] . '/services/' . $business['services'][$item['service_id']]['service_slug']) . '"><b>' . $item['service_name'] . '</b> &middot; ' . $item['service_variant_name'] . '</a><br>';
+                                            echo '<i class="bi bi-person-badge"></i> ' . $item['user_name'] . '<br><i class="bi bi-clock"></i> <span class="time-utc-to-local">' . $item['time_start_utc'] . '</span> - <span class="time-utc-to-local">' . $item['time_end_utc'] . '</span></td>';
+                                            echo '<td class="text-center">' . number_format($item['booking_quantity']) . '</td>';
+                                            echo '<td class="text-center">' . format_price($item['unit_price'], $business['currency_code']) . '</td>';
+                                            echo '<td class="text-center">' . format_price($item['booking_subtotal'], $business['currency_code']) . '</td>';
                                             echo '</tr>';
                                         }
                                     }
@@ -124,7 +129,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-8 col-xl-9 mb-3">
                                     <label for="customer_comment"><?= lang('System.cart.table.customer-comment') ?></label>
-                                    <textarea class="form-control" rows="2" id="customer_comment" name="customer_comment"></textarea>
+                                    <textarea class="form-control" rows="2" id="customer_comment" name="customer_comment"><?= @$cart['customer_comment'] ?></textarea>
                                 </div>
                             </div>
                             <div class="row">
@@ -193,6 +198,32 @@
                     $('#collection-branch-id').val('');
                 }
             });
+            $('.time-utc-to-local').each(function () {
+                let utcTime   = $(this).text(),
+                    luxonTime = luxon.DateTime.fromISO(utcTime).setLocale('<?= $locale ?>'),
+                    localTime = luxonTime.toLocaleString(luxon.DateTime.DATETIME_MED);
+                $(this).text(localTime);
+            });
+            $('#customer_comment').change(function () {
+                $.post(
+                    "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
+                    {
+                        item_type: 'add-comment',
+                        customer_comment: $(this).val()
+                    },
+                    function (response, status) {
+                        if (response.status === "OK") {
+                            toastr.success('<?= lang('System.cart.comment-added') ?>');
+                        } else {
+                            toastr.error('<?= lang('System.cart.item-add-failed') ?>');
+                        }
+                    },
+                    "json"
+                ).fail(function (response) {
+                    let message = response.responseJSON.message ?? '<?= lang('System.response-msg.error.generic') ?>';
+                    toastr.error(message);
+                });
+            })
         });
     </script>
 <?php $this->endSection() ?>

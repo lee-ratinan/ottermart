@@ -102,7 +102,7 @@ class Home extends BaseController
 
     private function add_adhoc_service_to_cart(): array
     {
-        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_ids', 'user_id', 'time_start_utc', 'time_end_utc'];
+        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_ids', 'user_id', 'user_name', 'time_start_utc', 'time_end_utc'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
@@ -418,6 +418,20 @@ class Home extends BaseController
             ];
             $iid        = $keys[$key] . $variant_id;
             $item       = null;
+        } else if ('add-comment' == $type) {
+            $cart['customer_comment'] = $this->request->getPost('customer_comment');
+            $session->set('cart', $cart);
+            return $this->response->setJSON([
+                'status'  => 'OK',
+                'message' => '',
+                'cart'    => $cart,
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status'  => 'ERR',
+                'message' => '',
+                'cart'    => $cart,
+            ]);
         }
         if (is_null($item)) {
             unset($cart[$key][$iid]);
