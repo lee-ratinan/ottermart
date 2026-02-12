@@ -82,6 +82,47 @@ class Home extends BaseController
         ];
     }
 
+    private function calculate_shipping(array $cart, array $business): array
+    {
+        $subtotal_for_shipping = 0.0;
+        if (!empty($cart['line_items'])) {
+            foreach ($cart['line_items'] as $item) {
+                $subtotal_for_shipping += (float) $item['line_subtotal'];
+                log_message('debug', '$subtotal_for_shipping = ' . $subtotal_for_shipping);
+            }
+            // calc shipping fee
+            if (!empty($business['shipping_rates']) && 0.0 < $subtotal_for_shipping) {
+                // there are shipping rates
+                $shipping_fee = 0.0;
+                foreach ($business['shipping_rates'] as $item) {
+                    if ($subtotal_for_shipping >= $item['price_range_from'] && $subtotal_for_shipping <= $item['price_range_to']) {
+                        log_message('debug', '$item[price_range_to] = ' . $item['price_range_to']);
+                        log_message('debug', '$item[shipping_rate] = ' . $item['shipping_rate']);
+                        $cart['adjustment_items']['SHIPPING'] = [
+                            'item_type' => 'SHIPPING',
+                            'detail'    => lang('System.cart.table.shipping-fee'),
+                            'amount'    => (float) $item['shipping_rate']
+                        ];
+                        $shipping_fee = (float) $item['shipping_rate'];
+                        break;
+                    }
+                }
+                $total = $cart['order_subtotal'];
+                if (0.0 < $shipping_fee && 'Y' == $business['shipping_fee_taxable']) {
+                    $subtotal                        = $cart['order_subtotal'] + $shipping_fee;
+                    $total                          += $shipping_fee;
+                    $cart['adjustment_items']['TAX'] = $this->calculate_tax($subtotal, $business['tax_percentage'], $business['tax_inclusive']);
+                }
+                if ('E' == $business['tax_inclusive'] && isset($cart['adjustment_items']['TAX']['amount'])) {
+                    $cart['order_total'] = $total + $cart['adjustment_items']['TAX']['amount'];
+                } else {
+                    $cart['order_total'] = $total;
+                }
+            }
+        }
+        return $cart;
+    }
+
     private function add_product_to_cart(): array
     {
         $fields = ['product_variant_id', 'product_id', 'product_name', 'product_variant_name', 'line_quantity', 'unit_price', 'item_need_delivery'];
@@ -370,6 +411,24 @@ class Home extends BaseController
         return view('cart', $data);
     }
 
+    public function checkout(string $slug): string
+    {
+        $session  = \Config\Services::session();
+        $business = $this->get_business_info($slug);
+        $locale   = $this->request->getLocale();
+        $data     = [
+            'page_title'   => $business['business_name'] . ' - ' . lang('System.cart.checkout'),
+            'description'  => lang('System.checkout.title') . ' ' . $business['mart_meta_description'],
+            'keywords'     => lang('System.checkout.title') . ' ' . $business['mart_meta_keywords'],
+            'url_part'     => '@' . $slug . '/checkout',
+            'locale'       => $locale,
+            'slug'         => $slug,
+            'business'     => $business,
+            'cart'         => $session->get('cart')
+        ];
+        return view('checkout', $data);
+    }
+
     public function add_to_cart(string $slug): ResponseInterface
     {
         $business = $this->get_business_info($slug);
@@ -433,19 +492,22 @@ class Home extends BaseController
                 'cart'    => $cart,
             ]);
         } else if ('save-customer-detail' == $type) {
-            $cart['customer_detail']         = [
+            $cart['customer_detail'] = [
                 'email_address'    => $this->request->getPost('email_address'),
                 'customer_name'    => $this->request->getPost('customer_name'),
                 'telephone_number' => $this->request->getPost('telephone_number'),
             ];
-            $cart['customer_address_detail'] = [
-                'address_line_1' => $this->request->getPost('address_line_1'),
-                'address_line_2' => $this->request->getPost('address_line_2'),
-                'address_line_3' => $this->request->getPost('address_line_3'),
-                'address_city'   => $this->request->getPost('address_city'),
-                'country_code'   => $this->request->getPost('country_code'),
-                'postal_code'    => $this->request->getPost('postal_code'),
-            ];
+            if ('SHIPPING' == $cart['shipping_option']) {
+                $cart['customer_address_detail'] = [
+                    'address_line_1' => $this->request->getPost('address_line_1'),
+                    'address_line_2' => $this->request->getPost('address_line_2'),
+                    'address_line_3' => $this->request->getPost('address_line_3'),
+                    'address_city'   => $this->request->getPost('address_city'),
+                    'country_code'   => $this->request->getPost('country_code'),
+                    'postal_code'    => $this->request->getPost('postal_code'),
+                ];
+                $cart = $this->calculate_shipping($cart, $business);
+            }
             $session->set('cart', $cart);
             return $this->response->setJSON([
                 'status'  => 'OK',
