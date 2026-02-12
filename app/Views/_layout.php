@@ -61,8 +61,8 @@ $cart         = $session->get('cart');
             .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
             .business .card-body {color: <?= '#'.$business['mart_text_color'] ?> !important;}
             .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important;border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
-            .business input, .business select {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important; border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .business input, .business select, .business textarea, .input-group-text {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">

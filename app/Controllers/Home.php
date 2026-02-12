@@ -13,24 +13,26 @@ class Home extends BaseController
     private function add_card_detail(int $business_id): array
     {
         return [
-            'business_id'          => $business_id,
-            'customer_id'          => 0,
-            'customer_address_id'  => 0,
-            'item_count'           => 0,
-            'order_number'         => '',
-            'order_subtotal'       => 0.00,
-            'order_total'          => 0.00,
-            'order_status'         => 'OPEN',
-            'financial_status'     => 'PENDING',
-            'shipping_status'      => 'OPEN',
-            'staff_comment'        => null,
-            'customer_comment'     => null,
-            'shipping_option'      => '',
-            'collection_branch_id' => null,
-            'line_items'           => [],
-            'scheduled_service'    => [],
-            'adhoc_service'        => [],
-            'adjustment_items'     => []
+            'business_id'             => $business_id,
+            'customer_id'             => 0,
+            'customer_detail'         => [],
+            'customer_address_id'     => 0,
+            'customer_address_detail' => [],
+            'item_count'              => 0,
+            'order_number'            => '',
+            'order_subtotal'          => 0.00,
+            'order_total'             => 0.00,
+            'order_status'            => 'OPEN',
+            'financial_status'        => 'PENDING',
+            'shipping_status'         => 'OPEN',
+            'staff_comment'           => null,
+            'customer_comment'        => null,
+            'shipping_option'         => '',
+            'collection_branch_id'    => null,
+            'line_items'              => [],
+            'scheduled_service'       => [],
+            'adhoc_service'           => [],
+            'adjustment_items'        => []
         ];
     }
 
@@ -421,9 +423,29 @@ class Home extends BaseController
             $iid        = $keys[$key] . $variant_id;
             $item       = null;
         } else if ('save-shipping-and-comment' == $type) {
-            $cart['customer_comment']     = $this->request->getPost('customer_comment');
-            $cart['shipping_option']      = $this->request->getPost('shipping_option');
+            $cart['customer_comment'] = $this->request->getPost('customer_comment');
+            $cart['shipping_option'] = $this->request->getPost('shipping_option');
             $cart['collection_branch_id'] = $this->request->getPost('collection_branch_id');
+            $session->set('cart', $cart);
+            return $this->response->setJSON([
+                'status'  => 'OK',
+                'message' => '',
+                'cart'    => $cart,
+            ]);
+        } else if ('save-customer-detail' == $type) {
+            $cart['customer_detail']         = [
+                'email_address'    => $this->request->getPost('email_address'),
+                'customer_name'    => $this->request->getPost('customer_name'),
+                'telephone_number' => $this->request->getPost('telephone_number'),
+            ];
+            $cart['customer_address_detail'] = [
+                'address_line_1' => $this->request->getPost('address_line_1'),
+                'address_line_2' => $this->request->getPost('address_line_2'),
+                'address_line_3' => $this->request->getPost('address_line_3'),
+                'address_city'   => $this->request->getPost('address_city'),
+                'country_code'   => $this->request->getPost('country_code'),
+                'postal_code'    => $this->request->getPost('postal_code'),
+            ];
             $session->set('cart', $cart);
             return $this->response->setJSON([
                 'status'  => 'OK',

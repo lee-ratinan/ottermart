@@ -116,6 +116,19 @@ return [
             'self-collection'      => 'Self collection',
             'not-applicable'       => 'Not applicable',
             'collection-branch-id' => 'Collection branch',
+        ],
+        'customer'                => [
+            'customer-information' => 'Customer information',
+            'customer-name'        => 'Your Name',
+            'email-address'        => 'Your Email Address (this email address will be used to send order information and receipt.)',
+            'telephone-number'     => 'Telephone Number (optional)',
+            'shipping-address'     => 'Shipping Address',
+            'address-line-1'       => 'Address Line 1',
+            'address-line-2'       => 'Address Line 2',
+            'address-line-3'       => 'Address Line 3',
+            'address-city'         => 'City/Province/State/Prefecture',
+            'country-code'         => 'Country',
+            'postal-code'          => 'Postal Code/ZIP Code',
         ]
     ],
     'checkout'             => [

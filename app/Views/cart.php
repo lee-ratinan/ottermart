@@ -101,7 +101,7 @@
                             <div class="row">
                                 <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 mb-3">
                                     <label for="shipping_option"><?= lang('System.cart.select-shipping-options.label') ?></label>
-                                    <select class="form-control" id="shipping_option" name="shipping_option">
+                                    <select class="form-control mb-3" id="shipping_option" name="shipping_option">
                                         <?php if ($need_shipping) : ?>
                                             <?php if ('SHIPPING' == $business['shipping_options']) : ?>
                                                 <option value="SHIPPING"><?= lang('System.cart.select-shipping-options.shipping') ?></option>
@@ -141,18 +141,50 @@
                                 </div>
                             </div>
                             <div class="row" id="customer-data" style="display:none">
-
-
-
-
-
-                                <div class="col-6 text-end">
+                                <div class="col-12">
+                                    <hr class="my-3" />
+                                </div>
+                                <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                                    <h3><?= lang('System.cart.customer.customer-information') ?></h3>
+                                    <label for="email_address"><?= lang('System.cart.customer.email-address') ?></label>
+                                    <input class="form-control mb-3" name="email_address" id="email_address" value="<?= @$cart['customer_detail']['email_address'] ?>" type="email" />
+                                    <label for="customer_name"><?= lang('System.cart.customer.customer-name') ?></label>
+                                    <input class="form-control mb-3" name="customer_name" id="customer_name" value="<?= @$cart['customer_detail']['customer_name'] ?>" type="text" />
+                                    <label for="telephone_number"><?= lang('System.cart.customer.telephone-number') ?></label>
+                                    <input class="form-control mb-3" name="telephone_number" id="telephone_number" value="<?= @$cart['customer_detail']['telephone_number'] ?>" type="text" />
+                                    <div id="div-shipping-address-section">
+                                        <hr class="my-3" />
+                                        <h3><?= lang('System.cart.customer.shipping-address') ?></h3>
+                                        <label for="address_line_1"><?= lang('System.cart.customer.address-line-1') ?></label>
+                                        <input class="form-control mb-3" name="address_line_1" id="address_line_1" value="<?= @$cart['customer_address_detail']['address_line_1'] ?>" type="text"/>
+                                        <label for="address_line_2"><?= lang('System.cart.customer.address-line-2') ?></label>
+                                        <input class="form-control mb-3" name="address_line_2" id="address_line_2" value="<?= @$cart['customer_address_detail']['address_line_2'] ?>" type="text"/>
+                                        <label for="address_line_3"><?= lang('System.cart.customer.address-line-3') ?></label>
+                                        <input class="form-control mb-3" name="address_line_3" id="address_line_3" value="<?= @$cart['customer_address_detail']['address_line_3'] ?>" type="text"/>
+                                        <?php
+                                        $lang = substr($locale, 0, 2);
+                                        $subdivisions = get_subdivision($business['country_code'], '', $lang);
+                                        ?>
+                                        <label for="address_city"><?= lang('System.cart.customer.address-city') ?></label>
+                                        <select class="form-control mb-3" id="address_city" name="address_city">
+                                            <option value=""></option>
+                                            <?php foreach ($subdivisions as $code => $city) : ?>
+                                                <option value="<?= $code ?>"><?= $city ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <label for="country_code"><?= lang('System.cart.customer.country-code') ?></label>
+                                        <select class="form-control mb-3" id="country_code" name="country_code">
+                                            <option value="<?= $business['country_code'] ?>"><?= get_country($business['country_code'], $lang) ?></option>
+                                        </select>
+                                        <label for="postal_code"><?= lang('System.cart.customer.postal-code') ?></label>
+                                        <input class="form-control mb-3" name="postal_code" id="postal_code" value="<?= @$cart['customer_address_detail']['postal_code'] ?>" type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <hr class="my-3"/>
                                     <button class="btn btn-dark" id="btn-checkout"><?= lang('System.checkout.title') ?></button>
                                 </div>
                             </div>
-                            <pre>
-                                <?php print_r($cart); ?>
-                            </pre>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -161,12 +193,38 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            let checkPostalCode = function () {
+                let postalCode = $('#postal_code').val(),
+                    countryCode = $('#country_code').val(),
+                    regex = '';
+                if ('' === postalCode) {
+                    $('#postal_code').focus();
+                    return false;
+                }
+                if ('TH' === countryCode) {
+                    regex = /^\d{5}$/;
+                }
+                if ('' === regex) {
+                    return true; // don't know how to check, leave it uncheck
+                }
+                if (!regex.test(String(postalCode))) {
+                    $('#postal_code').val('').focus();
+                    return false;
+                }
+                return true;
+            };
             <?php if (!empty($cart['shipping_option'])) : ?>
-            $('#shipping_option').val('<?= $cart['shipping_option'] ?>');
+            $('#shipping_option').val('<?= @$cart['shipping_option'] ?>');
             <?php endif; ?>
-            <?php if ('SELF-COLLECTION' == $cart['shipping_option']) : ?>
+            <?php if ('SELF-COLLECTION' == @$cart['shipping_option']) : ?>
             $('#div-collection-branch-id').removeClass('d-none');
             $('#collection_branch_id').val('<?= $cart['collection_branch_id'] ?>');
+            <?php endif; ?>
+            <?php if (!empty($cart['customer_address_detail']['address_city'])) : ?>
+            $('#address_city').val('<?= $cart['customer_address_detail']['address_city'] ?>');
+            <?php endif; ?>
+            <?php if (!empty($cart['customer_address_detail']['country_code'])) : ?>
+            $('#country_code').val('<?= $cart['customer_address_detail']['country_code'] ?>');
             <?php endif; ?>
             $('#btn-clear-cart').click(function (e) {
                 e.preventDefault();
@@ -224,19 +282,34 @@
                     localTime = luxonTime.toLocaleString(luxon.DateTime.DATETIME_MED);
                 $(this).text(localTime);
             });
+            $('#shipping_option, #collection_branch_id, #customer_comment').change(function () {
+                $('#customer-data').slideUp();
+            });
             $('#btn-customer-detail').click(function (e) {
                 e.preventDefault();
+                let shipping_option = $('#shipping_option').val(),
+                    collection_branch_id = $('#collection_branch_id').val();
+                if ('SELF-COLLECTION' === shipping_option && '' === collection_branch_id) {
+                    $('#collection_branch_id').focus();
+                    return false;
+                }
                 $.post(
                     "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
                     {
                         item_type: 'save-shipping-and-comment',
-                        shipping_option: $('#shipping_option').val(),
-                        collection_branch_id: $('#collection_branch_id').val(),
+                        shipping_option: shipping_option,
+                        collection_branch_id: collection_branch_id,
                         customer_comment: $('#customer_comment').val()
                     },
                     function (response, status) {
                         if (response.status === "OK") {
                             toastr.success('<?= lang('System.cart.cart-updated') ?>');
+                            let shipping_option = $('#shipping_option').val();
+                            if ('SHIPPING' === shipping_option) {
+                                $('#div-shipping-address-section').removeClass('d-none');
+                            } else {
+                                $('#div-shipping-address-section').addClass('d-none');
+                            }
                             $('#customer-data').slideDown();
                         } else {
                             toastr.error('<?= lang('System.response-msg.error.generic') ?>');
@@ -248,6 +321,57 @@
                     toastr.error(message);
                 });
             });
+            $('#postal_code').change(function () {
+                checkPostalCode();
+            });
+            $('#btn-checkout').click(function (e) {
+                e.preventDefault();
+                if (!checkPostalCode()) {
+                    return false;
+                }
+                let email_address = $('#email_address').val(),
+                    customer_name = $('#customer_name').val(),
+                    telephone_number = $('#telephone_number').val(),
+                    address_line_1 = $('#address_line_1').val(),
+                    address_line_2 = $('#address_line_2').val(),
+                    address_line_3 = $('#address_line_3').val(),
+                    address_city = $('#address_city').val(),
+                    country_code = $('#country_code').val(),
+                    postal_code = $('#postal_code').val(),
+                    required_fields = ['email_address', 'customer_name', 'address_line_1', 'address_line_2', 'address_city', 'country_code', 'postal_code'];
+                $.each(required_fields, function (key, value) {
+                    if ('' === value) {
+                        $('#'+value).focus();
+                        return false;
+                    }
+                });
+                $.post(
+                    "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
+                    {
+                        item_type: 'save-customer-detail',
+                        email_address: email_address,
+                        customer_name: customer_name,
+                        telephone_number: telephone_number,
+                        address_line_1: address_line_1,
+                        address_line_2: address_line_2,
+                        address_line_3: address_line_3,
+                        address_city: address_city,
+                        country_code: country_code,
+                        postal_code: postal_code
+                    },
+                    function (response, status) {
+                        if (response.status === "OK") {
+                            window.location.href = '<?= base_url($locale . '/@' . $business['business_slug'] . '/checkout') ?>';
+                        } else {
+                            toastr.error('<?= lang('System.response-msg.error.generic') ?>');
+                        }
+                    },
+                    "json"
+                ).fail(function (response) {
+                    let message = response.responseJSON.message ?? '<?= lang('System.response-msg.error.generic') ?>';
+                    toastr.error(message);
+                });
+            })
         });
     </script>
 <?php $this->endSection() ?>

@@ -116,6 +116,19 @@ return [
             'self-collection'      => 'รับสินค้าด้วยตนเอง',
             'not-applicable'       => 'ไม่มีสินค้าต้องจัดส่ง',
             'collection-branch-id' => 'รับสินค้าที่สาขา',
+        ],
+        'customer'                => [
+            'customer-information' => 'ข้อมูลลูกค้า',
+            'customer-name'        => 'ชื่อ',
+            'email-address'        => 'อีเมล (อีเมลนี้จะถูกใช้ในการจัดส่งข้อมูลออร์เดอร์และใบเสร็จรับเงิน)',
+            'telephone-number'     => 'หมายเลขโทรศัพท์ (ไม่จำเป็น)',
+            'shipping-address'     => 'ที่อยู่สำหรับจัดส่งสินค้า',
+            'address-line-1'       => 'ที่อยู่ (บรรทัดที่ 1)',
+            'address-line-2'       => 'ที่อยู่ (บรรทัดที่ 2)',
+            'address-line-3'       => 'ที่อยู่ (บรรทัดที่ 3)',
+            'address-city'         => 'จังหวัด',
+            'country-code'         => 'ประเทศ',
+            'postal-code'          => 'รหัสไปรษณีย์',
         ]
     ],
     'checkout'             => [
