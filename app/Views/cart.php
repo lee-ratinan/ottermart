@@ -326,7 +326,7 @@
             });
             $('#btn-checkout').click(function (e) {
                 e.preventDefault();
-                if (!checkPostalCode()) {
+                if ('SHIPPING' === $('#shipping_option').val() && !checkPostalCode()) {
                     return false;
                 }
                 let email_address = $('#email_address').val(),

@@ -107,11 +107,12 @@ return [
             'tax-exempt'       => 'Tax (exempted)',
             'tax-inclusive'    => 'Tax (included)',
             'tax-exclusive'    => 'Tax',
+            'shipping-fee'     => 'Shipping Fee',
             'need-delivery'    => 'There might be a shipping fee for this item.',
             'customer-comment' => 'Customer comment',
         ],
         'select-shipping-options' => [
-            'label'                => 'Shipping options',
+            'label'                => 'Shipping Options',
             'shipping'             => 'Shipping',
             'self-collection'      => 'Self collection',
             'not-applicable'       => 'Not applicable',
@@ -119,9 +120,11 @@ return [
         ],
         'customer'                => [
             'customer-information' => 'Customer information',
-            'customer-name'        => 'Your Name',
-            'email-address'        => 'Your Email Address (this email address will be used to send order information and receipt.)',
+            'customer-name'        => 'Name',
+            'email-address'        => 'Email Address (this email address will be used to send order information and receipt.)',
             'telephone-number'     => 'Telephone Number (optional)',
+            'email'                => 'Email Address',
+            'telephone'            => 'Telephone Number',
             'shipping-address'     => 'Shipping Address',
             'address-line-1'       => 'Address Line 1',
             'address-line-2'       => 'Address Line 2',
@@ -132,11 +135,22 @@ return [
         ]
     ],
     'checkout'             => [
-        'title' => 'Checkout',
+        'title'           => 'Checkout',
+        'payment-methods' => [
+            'label'            => 'Payment Methods',
+            'cash'             => 'Cash',
+            'bank_transfer'    => 'Bank Transfer',
+            'promptpay_static' => 'PromptPay',
+        ]
     ],
     '404'                  => [
         'title'            => 'Page Not Found',
         'got-lost'         => 'Looks like our otter got lost and couldn’t recognize your destination.',
         'return-to-safety' => 'Return to safety 🚀',
+    ],
+    'response-msg'         => [
+        'error' => [
+            'generic' => 'Sorry, something went wrong. Please try again later.',
+        ]
     ]
 ];

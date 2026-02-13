@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Config\Services;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 use RuntimeException;
 
@@ -32,7 +33,8 @@ class Home extends BaseController
             'line_items'              => [],
             'scheduled_service'       => [],
             'adhoc_service'           => [],
-            'adjustment_items'        => []
+            'adjustment_items'        => [],
+            'payment_method'          => '',
         ];
     }
 
@@ -162,7 +164,7 @@ class Home extends BaseController
      * @param string $endpoint
      * @return array
      */
-    private function callApi(string $endpoint): array
+    private function call_api(string $endpoint, string $method = 'GET', array $request_body = []): array
     {
         $locale = $this->splitLocale();
         $languageCode = strtolower($locale['languageCode']);
@@ -176,14 +178,30 @@ class Home extends BaseController
         );
         log_message('debug', $url);
         $ch = curl_init();
-        curl_setopt_array($ch, [
-            CURLOPT_URL            => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 10,
-            CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_FAILONERROR    => false,
-            CURLOPT_HTTPHEADER     => ['Accept: application/json']
-        ]);
+        if ('POST' == $method) {
+            curl_setopt_array($ch, [
+                CURLOPT_URL            => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT        => 10,
+                CURLOPT_CONNECTTIMEOUT => 5,
+                CURLOPT_FAILONERROR    => false,
+                CURLOPT_POST           => true,
+                CURLOPT_POSTFIELDS     => json_encode($request_body),
+                CURLOPT_HTTPHEADER     => [
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                ]
+            ]);
+        } else {
+            curl_setopt_array($ch, [
+                CURLOPT_URL            => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT        => 10,
+                CURLOPT_CONNECTTIMEOUT => 5,
+                CURLOPT_FAILONERROR    => false,
+                CURLOPT_HTTPHEADER     => ['Accept: application/json']
+            ]);
+        }
         $body = curl_exec($ch);
         if ($body === false) {
             $error = curl_error($ch);
@@ -213,7 +231,7 @@ class Home extends BaseController
         if ($cache->get($cacheKey)) {
             return $cache->get($cacheKey);
         }
-        $results = $this->callApi('business/retrieve?business-slug=' . urlencode($slug));
+        $results = $this->call_api('business/retrieve?business-slug=' . urlencode($slug));
         if (empty($results['business'])) {
             throw new PageNotFoundException();
         }
@@ -294,7 +312,7 @@ class Home extends BaseController
         $query   = $this->request->getGet('business-name');
         $results = [];
         if (!empty($query)) {
-            $results = $this->callApi('business/search?query=' . urlencode($query));
+            $results = $this->call_api('business/search?query=' . urlencode($query));
         }
         $data    = [
             'page_title'  => lang('System.home-page'),
@@ -411,20 +429,24 @@ class Home extends BaseController
         return view('cart', $data);
     }
 
-    public function checkout(string $slug): string
+    public function checkout(string $slug): string|RedirectResponse
     {
         $session  = \Config\Services::session();
         $business = $this->get_business_info($slug);
         $locale   = $this->request->getLocale();
+        $cart     = $session->get('cart');
+        if (empty($cart)) {
+            return redirect()->to($locale . '/@' . $slug);
+        }
         $data     = [
-            'page_title'   => $business['business_name'] . ' - ' . lang('System.cart.checkout'),
+            'page_title'   => $business['business_name'] . ' - ' . lang('System.checkout.title'),
             'description'  => lang('System.checkout.title') . ' ' . $business['mart_meta_description'],
             'keywords'     => lang('System.checkout.title') . ' ' . $business['mart_meta_keywords'],
             'url_part'     => '@' . $slug . '/checkout',
             'locale'       => $locale,
             'slug'         => $slug,
             'business'     => $business,
-            'cart'         => $session->get('cart')
+            'cart'         => $cart
         ];
         return view('checkout', $data);
     }
@@ -575,6 +597,21 @@ class Home extends BaseController
             'status'  => true,
             'message' => 'OK',
             'cart'    => $session->get('cart'),
+        ]);
+    }
+
+    public function confirm_checkout(string $slug): ResponseInterface
+    {
+        $session                = Services::session();
+        $cart                   = $session->get('cart');
+        $cart['payment_method'] = $this->request->getPost('payment_method');
+        $session->set('cart', $cart);
+        $results                = $this->call_api('business/checkout', 'POST', []);
+        return $this->response->setJSON([
+            'status'  => true,
+            'message' => 'OK',
+            'cart'    => $cart,
+            'results' => $results,
         ]);
     }
 }
