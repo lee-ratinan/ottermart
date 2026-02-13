@@ -148,7 +148,8 @@
                     variant_name  = $(this).data('variant-name'),
                     price         = $(this).data('price'),
                     product_type  = $(this).data('product-type'),
-                    line_subtotal = price * quantity;
+                    line_subtotal = price * quantity,
+                    need_delivery = ('P' === product_type ? 'Y' : 'N');
                 $.post(
                     "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
                     {
@@ -160,7 +161,7 @@
                         line_quantity: quantity,
                         unit_price: price,
                         line_subtotal: line_subtotal,
-                        item_need_delivery: product_type
+                        item_need_delivery: need_delivery
                     },
                     function (response, status) {
                         if (response.status === "OK") {

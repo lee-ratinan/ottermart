@@ -208,6 +208,7 @@ class Home extends BaseController
             curl_close($ch);
             throw new RuntimeException("cURL error: {$error}");
         }
+        log_message('debug', $body);
         curl_close($ch);
         return json_decode($body, true);
     }
@@ -606,7 +607,8 @@ class Home extends BaseController
         $cart                   = $session->get('cart');
         $cart['payment_method'] = $this->request->getPost('payment_method');
         $session->set('cart', $cart);
-        $results                = $this->call_api('business/checkout', 'POST', []);
+        $data                   = ['cart' => $cart];
+        $results                = $this->call_api('business/checkout', 'POST', $data);
         return $this->response->setJSON([
             'status'  => true,
             'message' => 'OK',
