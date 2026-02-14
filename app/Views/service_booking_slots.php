@@ -82,6 +82,7 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                             price_active_str = response.price_active_str,
                             duration = response.duration,
                             branch_name = response.branch.branch_name,
+                            branch_id = response.branch.id;
                             lang = '<?= $locale ?>', timing = '',
                             template = '', user_template = '', fullFormat = luxon.DateTime.DATETIME_MED, timeOnlyFormat = luxon.DateTime.TIME_SIMPLE;
                         if (0 === parseInt(response.branch.slotCount)) {
@@ -109,7 +110,7 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                                 resource_ids.slice(0, -1);
                                 $.each(data.users, function (user_id, user_name) {
                                     user_template  = '<div class="row"><div class="col-12"><i class="bi bi-person-badge"></i> <b>' + user_name + '</b></div></div>';
-                                    user_template += '<div class="row"><div class="col-12"><button class="btn btn-dark btn-add-to-cart w-100 mt-3" data-unit-price="<?= number_format($variant['price_active'], 2, '.', '') ?>" data-user-id="' + user_id + '" data-user-name="' + user_name + '" data-resource-ids="' + resource_ids + '" data-time-start-utc="' + data.start + '" data-time-end-utc="' + data.end + '"><?= lang('System.results.btn-book') ?></button></div></div>';
+                                    user_template += '<div class="row"><div class="col-12"><button class="btn btn-dark btn-add-to-cart w-100 mt-3" data-unit-price="<?= number_format($variant['price_active'], 2, '.', '') ?>" data-user-id="' + user_id + '" data-user-name="' + user_name + '" data-resource-ids="' + resource_ids + '" data-time-start-utc="' + data.start + '" data-time-end-utc="' + data.end + '" data-branch-id="' + branch_id + '"><?= lang('System.results.btn-book') ?></button></div></div>';
                                     $('#session-results').append('<div class="col-12 col-lg-6"><div class="card mb-3"><div class="card-body">' + template + user_template + '</div></div></div>');
                                 });
                             });
@@ -136,7 +137,8 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                     user_name = $(this).data('user-name'),
                     resource_ids = $(this).data('resource-ids'),
                     time_start_utc = $(this).data('time-start-utc'),
-                    time_end_utc = $(this).data('time-end-utc');
+                    time_end_utc = $(this).data('time-end-utc'),
+                    branch_id = $(this).data('branch-id');
                 $.post(
                     "<?= base_url($locale . '/@' . $business['business_slug'] . '/add-to-cart') ?>",
                     {
@@ -152,6 +154,7 @@ $variant = $service['variants'][$business['service_variant_slugs'][$variant_slug
                         resource_ids: resource_ids,
                         time_start_utc: time_start_utc,
                         time_end_utc: time_end_utc,
+                        branch_id: branch_id
                     },
                     function (response, status) {
                         if (response.status === "OK") {

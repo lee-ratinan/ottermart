@@ -149,7 +149,7 @@ class Home extends BaseController
 
     private function add_adhoc_service_to_cart(): array
     {
-        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_ids', 'user_id', 'user_name', 'time_start_utc', 'time_end_utc'];
+        $fields = ['service_variant_id', 'service_id', 'service_name', 'service_variant_name', 'booking_quantity', 'unit_price', 'resource_ids', 'user_id', 'user_name', 'time_start_utc', 'time_end_utc', 'branch_id'];
         $item   = [];
         foreach ($fields as $field) {
             $item[$field] = $this->request->getPost($field);
@@ -162,6 +162,8 @@ class Home extends BaseController
     /**
      * Call OtterPlex API
      * @param string $endpoint
+     * @param string $method
+     * @param array $request_body
      * @return array
      */
     private function call_api(string $endpoint, string $method = 'GET', array $request_body = []): array
