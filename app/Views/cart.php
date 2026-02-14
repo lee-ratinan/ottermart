@@ -35,7 +35,7 @@
                                             echo '<tr>';
                                             echo '<td><a class="btn btn-outline-dark btn-sm btn-remove-from-cart float-end" data-key="line_items" data-variant-id="' . $item['product_variant_id'] . '" href="#">' . lang('System.cart.remove-from-cart') . '</a>';
                                             echo '<a href="' . base_url($locale . '/@' . $business['business_slug'] . '/products/' . $business['products'][$item['product_id']]['product_slug']) . '"><b>' . $item['product_name'] . '</b> &middot; ' . $item['product_variant_name'] . '</a>';
-                                            if ('P' == $item['item_need_delivery']) {
+                                            if ('Y' == $item['item_need_delivery']) {
                                                 $need_shipping = true;
                                                 echo '<br>' . lang('System.cart.table.need-delivery');
                                             }
