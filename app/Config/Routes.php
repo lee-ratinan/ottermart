@@ -19,6 +19,8 @@ $routes->get('/@(:segment)/cart', 'Home::cart/$1'); // (@(biz slug)/clear-cart
 $routes->get('/@(:segment)/checkout', 'Home::checkout/$1'); // @(biz slug)/checkout
 $routes->post('/@(:segment)/confirm-checkout', 'Home::confirm_checkout/$1');
 $routes->get('/@(:segment)/checkout-order-info', 'Home::checkout_order_info/$1');
+$routes->get('/@(:segment)/check-order', 'Home::check_order/$1');
+$routes->get('/@(:segment)/check-order/(:segment)', 'Home::check_order/$1/$2');
 // INFO
 $routes->get('/@(:segment)/(:segment)/(:segment)', 'Home::shop_info_page/$1/$2/$3'); // @(biz slug)/(services|products)/(service/product slug)
 $routes->get('/@(:segment)', 'Home::shop_home/$1');
@@ -35,6 +37,8 @@ $routes->group('{locale}', ['filter' => 'localeGuard'], static function($routes)
     $routes->get('@(:segment)/checkout', 'Home::checkout/$1'); // @(biz slug)/checkout
     $routes->post('@(:segment)/confirm-checkout', 'Home::confirm_checkout/$1');
     $routes->get('@(:segment)/checkout-order-info', 'Home::checkout_order_info/$1');
+    $routes->get('@(:segment)/check-order', 'Home::check_order/$1');
+    $routes->get('@(:segment)/check-order/(:segment)', 'Home::check_order/$1/$2');
     // INFO
     $routes->get('@(:segment)/(:segment)/(:segment)', 'Home::shop_info_page/$1/$2/$3'); // @(biz slug)/(services|products)/(service/product slug)
     $routes->get('@(:segment)', 'Home::shop_home/$1');

@@ -618,4 +618,28 @@ class Home extends BaseController
             'results' => $results,
         ]);
     }
+
+    public function check_order(string $slug, string $orderNumber = ''): string
+    {
+        $session    = Services::session();
+        $business   = $this->get_business_info($slug);
+        $locale     = $this->request->getLocale();
+        $order      = [];
+        if (!empty($orderNumber)) {
+            // call api
+            $order      = [];
+        }
+        $data     = [
+            'page_title'   => $business['business_name'] . ' - ' . lang('System.check-order.title'),
+            'description'  => lang('System.check-order.title') . ' ' . $business['mart_meta_description'],
+            'keywords'     => lang('System.check-order.title') . ' ' . $business['mart_meta_keywords'],
+            'url_part'     => '@' . $slug . '/check-order' . (empty($orderNumber) ? '' : '/' . $orderNumber),
+            'locale'       => $locale,
+            'slug'         => $slug,
+            'business'     => $business,
+            'order_number' => $orderNumber,
+            'order'        => $order
+        ];
+        return view('check_order', $data);
+    }
 }
