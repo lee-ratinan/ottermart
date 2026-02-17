@@ -2,10 +2,7 @@
 <?= $this->section('content') ?>
 <main class="main business">
     <section class="section mt-5">
-        <div class="container section-title" data-aos="fade-up">
-            <div class="small mt-5"><?= $business['business_name'] ?></div>
-            <h2 class="mt-3"><?= lang('System.checkout.title') ?></h2>
-        </div>
+        <?php include '_business_header.php'; ?>
         <?php $lang = substr($locale, 0, 2); ?>
         <div class="container">
             <div class="row my-3">
