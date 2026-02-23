@@ -63,6 +63,9 @@ $cart         = $session->get('cart');
             .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
             .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important; border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .business input, .business select, .business textarea, .input-group-text {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .page-logo {max-width:120px}
+            .business .header-div {width:100%; background-size:cover; background-position:center; height:400px;}
+            @media only screen and (max-width: 600px) { .business .header-div {height:300px;} }
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
