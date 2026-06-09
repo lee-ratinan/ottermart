@@ -8,6 +8,4 @@ writable/logs/*
 writable/session/*
 writable/uploads/*
 vendor/*
-public/assets/vendor/*
-public/assets-archive/vendor/*
 /composer.lock
