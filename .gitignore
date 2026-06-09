@@ -9,3 +9,4 @@ writable/session/*
 writable/uploads/*
 vendor/*
 /composer.lock
+public/assets-archive/vendor/*
