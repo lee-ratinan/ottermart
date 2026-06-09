@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="<?= $locale ?>">
+<?php
+$locale_split = explode('-', $locale);
+$country      = $locale_split[1];
+$session      = \Config\Services::session();
+$cart         = $session->get('cart');
+?>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title><?= $page_title . ' | ' . lang('System.site-name') ?></title>
+    <meta name="description" content="<?= $description ?>">
+    <meta name="keywords" content="<?= $keywords ?>">
+    <meta name="author" content="<?= lang('System.author') ?>">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="<?= $page_title . ' | ' . lang('System.site-name') ?>">
+    <meta property="og:description" content="<?= $description ?>">
+    <meta property="og:image" content="<?= $og_image ?? base_url('assets/img/otternova-greeting.jpg') ?>">
+    <meta property="og:url" content="<?= current_url() ?>">
+    <meta property="og:type" content="website" />
+    <!-- Favicons -->
+    <?php if (!empty($business['business_logo'])) : ?>
+        <link href="<?= $business['business_logo'] ?>" rel="icon">
+    <?php else: ?>
+        <link href="<?= base_url('assets/img/favicon.png') ?>" rel="icon">
+        <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+    <?php endif ?>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <?php if ('th' == $country) : ?>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Noto+Serif+Thai:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <?php else: ?>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <?php endif; ?>
+    <!-- Vendor CSS Files -->
+    <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/bootstrap-icons/bootstrap-icons.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/aos/aos.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/flag-icons-main/css/flag-icons.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/fontawesome-free-7.1.0/css/all.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/toastrjs/toastr.min.css') ?>" rel="stylesheet">
+    <!-- Main CSS File -->
+    <link href="<?= base_url('assets/css/main.min.css') ?>" rel="stylesheet">
+    <!-- Link Languages -->
+    <link rel="alternate" hreflang="en-th" href="<?= base_url('en-th/' . $url_part) ?>">
+    <link rel="alternate" hreflang="th-th" href="<?= base_url('th-th/' . $url_part) ?>">
+    <link rel="alternate" hreflang="x-default" href="<?= base_url($url_part) ?>">
+    <link rel="canonical" href="<?= current_url() ?>">
+    <?php if (!empty($business)) : ?>
+        <style>
+            body, section, header {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business a, .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .section-title h2::after {background: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .btn-dark {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
+            .business .btn-dark:hover {filter: brightness(0.9);}
+            .business .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
+            .business .card-body {color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important; border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .business input, .business select, .business textarea, .input-group-text {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .business .page-logo {max-width:120px}
+            .business .header-div {width:100%; background-size:cover; background-position:center; height:400px;}
+            @media only screen and (max-width: 600px) { .business .header-div {height:300px;} }
+        </style>
+    <?php endif; ?>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "OtterNova",
+            "url": "https://otternova.com/",
+            "logo": "https://otternova.com/assets/img/logo-original.png"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "OtterNova",
+            "url": "https://otternova.com/"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "OtterNova",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "url": "https://otternova.com/",
+            "description": "OtterNova is a smart booking and scheduling system for businesses, replacing paper chaos with an organized dashboard.",
+            "offers": {
+                "@type": "Offer",
+                "price": "320",
+                "priceCurrency": "THB",
+                "description": "30-day free trial, then paid plans available."
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact OtterNova",
+            "url": "https://otternova.com/contact"
+        }
+    </script>
+    <!-- =======================================================
+    * Template Name: Aventro
+    * Template URL: https://bootstrapmade.com/aventro-bootstrap-template/
+    * Updated: Oct 31 2025 with Bootstrap v5.3.8
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+<body class="index-page country-<?= $country ?>">
+<header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+        <?php if (!empty($business['business_logo'])) : ?>
+            <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
+                <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
+                <h1 class="sitename"><?= $page_title ?></h1>
+            </a>
+        <?php else: ?>
+            <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
+                <img src="<?= base_url('assets/img/logo-dark.png') ?>" alt="<?= lang('System.site-name') ?>">
+                <h1 class="sitename"><?= lang('System.site-name') ?></h1>
+            </a>
+        <?php endif; ?>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <?php if (!isset($business)) : ?>
+                    <li><a href="<?= _layout . phpgetenv('main_site') . $locale ?>"><?= lang('System.main-site') ?></a></li>
+                <?php endif; ?>
+                <li><a href="#footer"><i class="bi bi-globe me-2"></i> <?= lang('System.locales.'. substr($locale, 0, 2)) ?></a></li>
+                <?php if (isset($business)) : ?>
+                    <li>
+                        <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/cart') ?>">
+                            <?php if (empty($cart)) : ?>
+                                <i id="header-cart-icon" class="bi bi-cart me-2"></i>
+                            <?php else: ?>
+                                <i id="header-cart-icon" class="bi bi-cart-check-fill me-2"></i>
+                            <?php endif; ?>
+                            <?= lang('System.cart.title') ?>
+                            &nbsp; <span id="cart-count"><?php if (isset($cart['item_count']) && 0 < $cart['item_count']) : ?>(<?= $cart['item_count'] ?>)<?php endif; ?></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+    </div>
+</header>
+<?= $this->renderSection('content') ?>
+<footer id="footer" class="footer light-background">
+    <div class="container footer-top">
+        <div class="row gy-4">
+            <div class="col-lg-4 col-md-6 footer-about">
+                <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center">
+                    <span class="sitename"><?= lang('System.site-name') ?></span>
+                </a>
+                <?php if (empty($business['business_logo'])) : ?>
+                <div class="social-links d-flex mt-4">
+                    <a href="<?= getenv('SOCIAL_FACEBOOK') ?>"><i class="bi bi-facebook"></i></a>
+                    <a href="<?= getenv('SOCIAL_INSTAGRAM') ?>"><i class="bi bi-instagram"></i></a>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="col-lg-4 col-md-6 footer-links">
+            </div>
+            <div class="col-lg-4 col-md-6 footer-links">
+                <h4><?= lang('System.locales.title') ?></h4>
+                <?php
+                $all_locales = [
+                    'th' => [
+                        'th-th' => 'ภาษาไทย',
+                        'en-th' => 'English'
+                    ],
+                ];
+                ?>
+                <?php
+                if (!empty($business)) {
+                    $ctry_cd = substr($locale, 3);
+                    $store_locales = $all_locales[$ctry_cd];
+                    echo '<p><span class="fi fi-' . $ctry_cd . '"></span>';
+                    foreach ($store_locales as $lg_cd => $lg_label) {
+                        echo '<a class="ms-2" href="' . base_url($lg_cd . '/' . $url_part) . '">' . $lg_label . '</a>';
+                    }
+                    echo '</p>';
+                } else {
+                    foreach ($all_locales as $ctry_cd => $ctry_locales) {
+                        echo '<p><span class="fi fi-' . $ctry_cd . '"></span>';
+                        foreach ($ctry_locales as $lg_cd => $lg_label) {
+                            echo '<a class="ms-2" href="' . base_url($lg_cd) . '">' . $lg_label . '</a>';
+                        }
+                        echo '</p>';
+                    }
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <div class="container copyright text-center mt-4">
+        <p>
+            <?= lang('System.copyright-message', [date('Y')]) ?>
+            | <a href="<?= _layout . phpgetenv('main_site') . $locale ?>/terms-and-conditions" target="_blank"><?= lang('System.terms-and-conditions') ?></a>
+            | <a href="<?= _layout . phpgetenv('main_site') . $locale ?>/privacy-policy" target="_blank"><?= lang('System.privacy-policy') ?></a>
+        </p>
+    </div>
+</footer>
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<!-- Preloader -->
+<div id="preloader"></div>
+<!-- Vendor JS Files -->
+<script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/php-email-form/validate.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/aos/aos.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/Luxon/luxon.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/toastrjs/toastr.min.js') ?>"></script>
+<!-- Main JS File -->
+<script src="<?= base_url('assets/js/main.min.js') ?>"></script>
+</body>
+</html>
