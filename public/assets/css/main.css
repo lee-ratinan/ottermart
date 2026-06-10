@@ -15,16 +15,19 @@
 /* Fonts */
 :root {
   --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Quicksand",  sans-serif;
-  --nav-font: "Inter",  sans-serif;
+  --default-font-th: "Roboto", "Noto Serif Thai", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Ubuntu",  sans-serif;
+  --heading-font-th: "Ubuntu", "Noto Sans Thai", sans-serif;
+  --nav-font: "Ubuntu",  sans-serif;
+  --nav-font-th: "Ubuntu", "Noto Sans Thai", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
+:root {
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #5a6577; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #10243d; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #0d9488; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #ff7533; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -32,11 +35,11 @@
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #5a6577;  /* The default color of the main navmenu links */
-  --nav-hover-color: #0d9488; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #ff7533; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #5a6577; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #0d9488; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #ff7533; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -65,7 +68,11 @@
 body {
   color: var(--default-color);
   background-color: var(--background-color);
-  font-family: var(--default-font);
+  font-family: var(--default-font), serif;
+}
+
+body.language-th {
+  font-family: var(--default-font-th), serif !important;
 }
 
 a {
@@ -86,7 +93,17 @@ h4,
 h5,
 h6 {
   color: var(--heading-color);
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
+}
+
+.language-th h1,
+.language-th h2,
+.language-th h3,
+.language-th h4,
+.language-th h5,
+.language-th h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 /* PHP Email Form Messages
@@ -743,13 +760,18 @@ h6 {
     color: var(--nav-color);
     padding: 18px 15px;
     font-size: 14px;
-    font-family: var(--nav-font);
+    font-family: var(--nav-font), sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+  }
+
+  .language-th .navmenu a,
+  .language-th .navmenu a:focus {
+    font-family: var(--nav-font-th), sans-serif !important;
   }
 
   .navmenu a i,
@@ -867,7 +889,7 @@ h6 {
   .navmenu a:focus {
     color: var(--nav-dropdown-color);
     padding: 10px 20px;
-    font-family: var(--nav-font);
+    font-family: var(--nav-font), sans-serif;
     font-size: 17px;
     font-weight: 500;
     display: flex;
@@ -875,6 +897,11 @@ h6 {
     justify-content: space-between;
     white-space: nowrap;
     transition: 0.3s;
+  }
+
+  .language-th .navmenu a,
+  .language-th .navmenu a:focus {
+    font-family: var(--nav-font-th), sans-serif !important;
   }
 
   .navmenu a i,
@@ -1674,7 +1701,11 @@ h6 {
   font-size: 26px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
+}
+
+.language-th .footer .footer-main .footer-widget .logo span {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .footer .footer-main .footer-widget p {
@@ -2977,13 +3008,17 @@ section,
   padding: 12px 20px;
   font-size: 14px;
   font-weight: 500;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   background: none;
+}
+
+.language-th .cards .filter-tabs .nav-item .nav-link {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .cards .filter-tabs .nav-item .nav-link i {
@@ -3198,8 +3233,12 @@ section,
   font-size: 16px;
   font-weight: 700;
   color: var(--default-color);
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   letter-spacing: -0.01em;
+}
+
+.language-th .cards .product-card .product-info .product-price .current-price {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .cards .product-card .product-info .product-price .original-price {
@@ -3266,7 +3305,11 @@ section,
   letter-spacing: -0.01em;
   line-height: 1.3;
   margin-bottom: 8px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
+}
+
+.language-th .call-to-action .banner-content h2 {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 @media (max-width: 576px) {
@@ -3323,8 +3366,12 @@ section,
   font-weight: 700;
   color: var(--heading-color);
   margin-bottom: 2px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   line-height: 1.2;
+}
+
+.language-th .call-to-action .timer-block .countdown>div h3 {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .call-to-action .timer-block .countdown>div h4 {
@@ -6481,8 +6528,12 @@ section,
 .order-confirmation .status-header .ref-block .ref-item .ref-val {
   font-size: 14px;
   font-weight: 600;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   color: var(--heading-color);
+}
+
+.language-th .order-confirmation .status-header .ref-block .ref-item .ref-val {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 @media (max-width: 768px) {
@@ -7730,9 +7781,13 @@ section,
   display: block;
   font-size: 20px;
   font-weight: 700;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   color: var(--accent-color);
   line-height: 1.2;
+}
+
+.language-th .account .sidebar-panel .profile-block .profile-stats .stat-num {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .account .sidebar-panel .profile-block .profile-stats .stat-label {
@@ -8093,9 +8148,13 @@ section,
 
 .account .orders-grid .order-card .order-card-top .order-id {
   font-weight: 600;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   font-size: 14px;
   letter-spacing: -0.01em;
+}
+
+.language-th .account .orders-grid .order-card .order-card-top .order-id {
+  font-family: var(--heading-font), sans-serif !important;
 }
 
 .account .orders-grid .order-card .order-card-top .order-date {
@@ -8149,8 +8208,12 @@ section,
   display: block;
   font-size: 18px;
   font-weight: 700;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   letter-spacing: -0.01em;
+}
+
+.language-th .account .orders-grid .order-card .order-card-body .order-summary .order-amount {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .account .orders-grid .order-card .order-card-footer {
@@ -8287,8 +8350,12 @@ section,
 }
 
 .account .tracking-id .tracking-code {
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   font-weight: 600;
+}
+
+.language-th .account .tracking-id .tracking-code {
+  font-family: var(--heading-font-th), sans-serif, !important;
 }
 
 .account .details-panel .info-group {
@@ -8375,8 +8442,12 @@ section,
 .account .details-panel .line-item .line-item-price {
   font-weight: 600;
   font-size: 13px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   flex-shrink: 0;
+}
+
+.language-th .account .details-panel .line-item .line-item-price {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .account .details-panel .total-row {
@@ -8520,7 +8591,11 @@ section,
 .account .wishlist-card .wishlist-info .price-group .current-price {
   font-size: 18px;
   font-weight: 700;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
+}
+
+.language-th .account .wishlist-card .wishlist-info .price-group .current-price {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .account .wishlist-card .wishlist-info .price-group .old-price {
@@ -8609,11 +8684,15 @@ section,
 }
 
 .account .payment-card .payment-card-number {
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 2px;
   margin-bottom: 4px;
+}
+
+.language-th .account .payment-card .payment-card-number {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .account .payment-card .payment-card-expiry {
@@ -9942,8 +10021,12 @@ section,
   font-weight: 700;
   line-height: 1.2;
   color: var(--heading-color);
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   letter-spacing: -0.01em;
+}
+
+.language-th .stats .metric-value {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .stats .metric-label {
@@ -10695,13 +10778,17 @@ section,
   padding: 2px 10px;
   font-size: 12px;
   font-weight: 500;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   border-radius: 12px;
   background: color-mix(in srgb, var(--accent-color), transparent 90%);
   color: var(--accent-color);
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
   flex-shrink: 0;
   letter-spacing: 0.02em;
+}
+
+.language-th .faq .faq-item .faq-badge {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .faq .faq-item h3 {
@@ -10807,13 +10894,17 @@ section,
   padding: 10px 24px;
   background: var(--accent-color);
   color: var(--contrast-color);
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   font-size: 14px;
   font-weight: 500;
   border-radius: 6px;
   flex-shrink: 0;
   transition: background 0.2s ease;
   white-space: nowrap;
+}
+
+.language-th .faq .faq-cta .cta-btn {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .faq .faq-cta .cta-btn:hover {
@@ -11573,9 +11664,9 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Retun Policy Section
+# Return Policy Section
 --------------------------------------------------------------*/
-.retun-policy .policy-hero {
+.return-policy .policy-hero {
   margin-bottom: 48px;
   padding: 32px;
   background-color: var(--surface-color);
@@ -11583,7 +11674,7 @@ section,
   border-radius: 8px;
 }
 
-.retun-policy .policy-hero .hero-content .policy-badge {
+.return-policy .policy-hero .hero-content .policy-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -11597,11 +11688,11 @@ section,
   margin-bottom: 16px;
 }
 
-.retun-policy .policy-hero .hero-content .policy-badge i {
+.return-policy .policy-hero .hero-content .policy-badge i {
   font-size: 12px;
 }
 
-.retun-policy .policy-hero .hero-content h2 {
+.return-policy .policy-hero .hero-content h2 {
   font-size: 36px;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -11609,7 +11700,7 @@ section,
   margin-bottom: 8px;
 }
 
-.retun-policy .policy-hero .hero-content p {
+.return-policy .policy-hero .hero-content p {
   font-size: 16px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   margin: 0;
@@ -11617,7 +11708,7 @@ section,
   line-height: 1.6;
 }
 
-.retun-policy .policy-hero .guarantee-widget {
+.return-policy .policy-hero .guarantee-widget {
   display: inline-block;
   text-align: center;
   padding: 24px 32px;
@@ -11626,16 +11717,20 @@ section,
   background-color: var(--background-color);
 }
 
-.retun-policy .policy-hero .guarantee-widget .widget-number {
+.return-policy .policy-hero .guarantee-widget .widget-number {
   font-size: 48px;
   font-weight: 700;
   color: var(--accent-color);
   line-height: 1;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   letter-spacing: -0.02em;
 }
 
-.retun-policy .policy-hero .guarantee-widget .widget-label {
+.language-th .return-policy .policy-hero .guarantee-widget .widget-number {
+  font-family: var(--heading-font-th), sans-serif !important;
+}
+
+.return-policy .policy-hero .guarantee-widget .widget-label {
   font-size: 14px;
   font-weight: 600;
   color: var(--heading-color);
@@ -11644,31 +11739,31 @@ section,
   margin-top: 4px;
 }
 
-.retun-policy .policy-hero .guarantee-widget .widget-sub {
+.return-policy .policy-hero .guarantee-widget .widget-sub {
   font-size: 12px;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   margin-top: 4px;
 }
 
 @media (max-width: 992px) {
-  .retun-policy .policy-hero {
+  .return-policy .policy-hero {
     text-align: center;
   }
 
-  .retun-policy .policy-hero .hero-content p {
+  .return-policy .policy-hero .hero-content p {
     max-width: 100%;
   }
 
-  .retun-policy .policy-hero .guarantee-widget {
+  .return-policy .policy-hero .guarantee-widget {
     margin-top: 24px;
   }
 }
 
-.retun-policy .features-grid {
+.return-policy .features-grid {
   margin-bottom: 48px;
 }
 
-.retun-policy .features-grid .feature-card {
+.return-policy .features-grid .feature-card {
   padding: 24px;
   border-radius: 8px;
   background: var(--surface-color);
@@ -11680,19 +11775,19 @@ section,
   transition: all 0.2s ease;
 }
 
-.retun-policy .features-grid .feature-card:hover {
+.return-policy .features-grid .feature-card:hover {
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.retun-policy .features-grid .feature-card .feature-card-header {
+.return-policy .features-grid .feature-card .feature-card-header {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-header .feature-icon {
+.return-policy .features-grid .feature-card .feature-card-header .feature-icon {
   flex-shrink: 0;
   width: 40px;
   height: 40px;
@@ -11703,36 +11798,36 @@ section,
   background: color-mix(in srgb, var(--accent-color), transparent 90%);
 }
 
-.retun-policy .features-grid .feature-card .feature-card-header .feature-icon i {
+.return-policy .features-grid .feature-card .feature-card-header .feature-icon i {
   font-size: 20px;
   color: var(--accent-color);
 }
 
-.retun-policy .features-grid .feature-card .feature-card-header h4 {
+.return-policy .features-grid .feature-card .feature-card-header h4 {
   font-size: 16px;
   font-weight: 600;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-body {
+.return-policy .features-grid .feature-card .feature-card-body {
   flex-grow: 1;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-body p {
+.return-policy .features-grid .feature-card .feature-card-body p {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   line-height: 1.6;
   margin: 0;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-footer {
+.return-policy .features-grid .feature-card .feature-card-footer {
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.retun-policy .features-grid .feature-card .feature-card-footer .ghost-link {
+.return-policy .features-grid .feature-card .feature-card-footer .ghost-link {
   font-size: 14px;
   font-weight: 500;
   display: inline-flex;
@@ -11741,15 +11836,15 @@ section,
   transition: gap 0.2s ease;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-footer .ghost-link:hover {
+.return-policy .features-grid .feature-card .feature-card-footer .ghost-link:hover {
   gap: 10px;
 }
 
-.retun-policy .features-grid .feature-card .feature-card-footer .ghost-link i {
+.return-policy .features-grid .feature-card .feature-card-footer .ghost-link i {
   font-size: 12px;
 }
 
-.retun-policy .section-label {
+.return-policy .section-label {
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -11758,14 +11853,14 @@ section,
   margin-bottom: 8px;
 }
 
-.retun-policy .section-heading {
+.return-policy .section-heading {
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 16px;
 }
 
-.retun-policy .steps-section {
+.return-policy .steps-section {
   margin-bottom: 48px;
   padding: 32px;
   background-color: var(--surface-color);
@@ -11773,17 +11868,17 @@ section,
   border-radius: 8px;
 }
 
-.retun-policy .steps-section .step-card {
+.return-policy .steps-section .step-card {
   height: 100%;
 }
 
-.retun-policy .steps-section .step-card .step-indicator {
+.return-policy .steps-section .step-card .step-indicator {
   display: flex;
   align-items: center;
   margin-bottom: 16px;
 }
 
-.retun-policy .steps-section .step-card .step-indicator .step-num {
+.return-policy .steps-section .step-card .step-indicator .step-num {
   flex-shrink: 0;
   width: 32px;
   height: 32px;
@@ -11795,24 +11890,28 @@ section,
   color: var(--contrast-color);
   font-size: 14px;
   font-weight: 600;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
 }
 
-.retun-policy .steps-section .step-card .step-indicator .step-line {
+.language-th .return-policy .steps-section .step-card .step-indicator .step-num {
+  font-family: var(--heading-font-th), sans-serif !important;
+}
+
+.return-policy .steps-section .step-card .step-indicator .step-line {
   flex-grow: 1;
   height: 1px;
   background: color-mix(in srgb, var(--default-color), transparent 85%);
   margin-left: 12px;
 }
 
-.retun-policy .steps-section .step-card h5 {
+.return-policy .steps-section .step-card h5 {
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
 
-.retun-policy .steps-section .step-card p {
+.return-policy .steps-section .step-card p {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
   line-height: 1.6;
@@ -11820,38 +11919,38 @@ section,
 }
 
 @media (max-width: 768px) {
-  .retun-policy .steps-section .step-card .step-indicator .step-line {
+  .return-policy .steps-section .step-card .step-indicator .step-line {
     display: none;
   }
 }
 
-.retun-policy .eligibility-grid {
+.return-policy .eligibility-grid {
   margin-bottom: 48px;
 }
 
-.retun-policy .eligibility-grid .eligibility-card {
+.return-policy .eligibility-grid .eligibility-card {
   height: 100%;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .card-head {
+.return-policy .eligibility-grid .eligibility-card .card-head {
   margin-bottom: 24px;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .card-head h3 {
+.return-policy .eligibility-grid .eligibility-card .card-head h3 {
   font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 8px;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .card-head p {
+.return-policy .eligibility-grid .eligibility-card .card-head p {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   line-height: 1.6;
   margin: 0;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item {
+.return-policy .eligibility-grid .eligibility-card .requirement-item {
   display: flex;
   gap: 12px;
   padding: 16px;
@@ -11861,12 +11960,12 @@ section,
   transition: all 0.2s ease;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item:hover {
+.return-policy .eligibility-grid .eligibility-card .requirement-item:hover {
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
   box-shadow: 0 2px 8px color-mix(in srgb, var(--default-color), transparent 92%);
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item .req-icon {
+.return-policy .eligibility-grid .eligibility-card .requirement-item .req-icon {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
@@ -11877,27 +11976,27 @@ section,
   background: color-mix(in srgb, var(--accent-color), transparent 88%);
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item .req-icon i {
+.return-policy .eligibility-grid .eligibility-card .requirement-item .req-icon i {
   font-size: 14px;
   color: var(--accent-color);
   font-weight: bold;
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item .req-content h6 {
+.return-policy .eligibility-grid .eligibility-card .requirement-item .req-content h6 {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
   color: var(--heading-color);
 }
 
-.retun-policy .eligibility-grid .eligibility-card .requirement-item .req-content p {
+.return-policy .eligibility-grid .eligibility-card .requirement-item .req-content p {
   font-size: 13px;
   color: color-mix(in srgb, var(--default-color), transparent 40%);
   line-height: 1.5;
   margin: 0;
 }
 
-.retun-policy .eligibility-grid .exclusions-card {
+.return-policy .eligibility-grid .exclusions-card {
   padding: 24px;
   background-color: var(--surface-color);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
@@ -11905,7 +12004,7 @@ section,
   height: 100%;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .card-head {
+.return-policy .eligibility-grid .exclusions-card .card-head {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -11914,24 +12013,24 @@ section,
   border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.retun-policy .eligibility-grid .exclusions-card .card-head i {
+.return-policy .eligibility-grid .exclusions-card .card-head i {
   font-size: 20px;
   color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-.retun-policy .eligibility-grid .exclusions-card .card-head h4 {
+.return-policy .eligibility-grid .exclusions-card .card-head h4 {
   font-size: 16px;
   font-weight: 600;
   margin: 0;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -11940,46 +12039,46 @@ section,
   transition: padding-left 0.2s ease;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li:last-child {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li:first-child {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li:first-child {
   padding-top: 0;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li:hover {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li:hover {
   padding-left: 4px;
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li i {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li i {
   font-size: 16px;
   color: color-mix(in srgb, var(--default-color), transparent 50%);
 }
 
-.retun-policy .eligibility-grid .exclusions-card .exclusion-list li span {
+.return-policy .eligibility-grid .exclusions-card .exclusion-list li span {
   font-size: 14px;
   font-weight: 500;
 }
 
-.retun-policy .faq-section {
+.return-policy .faq-section {
   margin-bottom: 48px;
 }
 
-.retun-policy .faq-section .faq-sidebar {
+.return-policy .faq-section .faq-sidebar {
   position: sticky;
   top: 100px;
 }
 
-.retun-policy .faq-section .faq-sidebar p {
+.return-policy .faq-section .faq-sidebar p {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   line-height: 1.6;
   margin-bottom: 24px;
 }
 
-.retun-policy .faq-section .faq-sidebar .btn-secondary-action {
+.return-policy .faq-section .faq-sidebar .btn-secondary-action {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -11993,28 +12092,28 @@ section,
   transition: all 0.2s ease;
 }
 
-.retun-policy .faq-section .faq-sidebar .btn-secondary-action:hover {
+.return-policy .faq-section .faq-sidebar .btn-secondary-action:hover {
   background: var(--surface-color);
   border-color: color-mix(in srgb, var(--default-color), transparent 60%);
   color: var(--heading-color);
 }
 
-.retun-policy .faq-section .faq-sidebar .btn-secondary-action i {
+.return-policy .faq-section .faq-sidebar .btn-secondary-action i {
   font-size: 16px;
 }
 
-.retun-policy .faq-section .faq-list .faq-item {
+.return-policy .faq-section .faq-list .faq-item {
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
   border-radius: 8px;
   margin-bottom: 8px;
   transition: all 0.2s ease;
 }
 
-.retun-policy .faq-section .faq-list .faq-item:hover {
+.return-policy .faq-section .faq-list .faq-item:hover {
   border-color: color-mix(in srgb, var(--default-color), transparent 80%);
 }
 
-.retun-policy .faq-section .faq-list .faq-item h3 {
+.return-policy .faq-section .faq-list .faq-item h3 {
   margin: 0;
   padding: 16px 20px;
   font-size: 14px;
@@ -12026,70 +12125,70 @@ section,
   gap: 16px;
 }
 
-.retun-policy .faq-section .faq-list .faq-item h3 i {
+.return-policy .faq-section .faq-list .faq-item h3 i {
   color: color-mix(in srgb, var(--default-color), transparent 50%);
   transition: transform 0.2s ease;
   font-size: 14px;
   flex-shrink: 0;
 }
 
-.retun-policy .faq-section .faq-list .faq-item .faq-answer {
+.return-policy .faq-section .faq-list .faq-item .faq-answer {
   display: none;
   padding: 0 20px 16px;
 }
 
-.retun-policy .faq-section .faq-list .faq-item .faq-answer p {
+.return-policy .faq-section .faq-list .faq-item .faq-answer p {
   margin: 0;
   color: color-mix(in srgb, var(--default-color), transparent 30%);
   font-size: 14px;
   line-height: 1.7;
 }
 
-.retun-policy .faq-section .faq-list .faq-item.faq-active {
+.return-policy .faq-section .faq-list .faq-item.faq-active {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 90%);
 }
 
-.retun-policy .faq-section .faq-list .faq-item.faq-active h3 {
+.return-policy .faq-section .faq-list .faq-item.faq-active h3 {
   color: var(--accent-color);
 }
 
-.retun-policy .faq-section .faq-list .faq-item.faq-active h3 i {
+.return-policy .faq-section .faq-list .faq-item.faq-active h3 i {
   transform: rotate(45deg);
   color: var(--accent-color);
 }
 
-.retun-policy .faq-section .faq-list .faq-item.faq-active .faq-answer {
+.return-policy .faq-section .faq-list .faq-item.faq-active .faq-answer {
   display: block;
 }
 
-.retun-policy .cta-bar {
+.return-policy .cta-bar {
   padding: 32px;
   background-color: var(--surface-color);
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
   border-radius: 8px;
 }
 
-.retun-policy .cta-bar h4 {
+.return-policy .cta-bar h4 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 4px;
   letter-spacing: -0.01em;
 }
 
-.retun-policy .cta-bar p {
+.return-policy .cta-bar p {
   font-size: 14px;
   color: color-mix(in srgb, var(--default-color), transparent 35%);
   margin: 0;
 }
 
-.retun-policy .cta-bar .cta-actions {
+.return-policy .cta-bar .cta-actions {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
 }
 
-.retun-policy .cta-bar .cta-actions .btn-primary-action {
+.return-policy .cta-bar .cta-actions .btn-primary-action {
   display: inline-flex;
   align-items: center;
   padding: 10px 24px;
@@ -12102,16 +12201,16 @@ section,
   transition: all 0.2s ease;
 }
 
-.retun-policy .cta-bar .cta-actions .btn-primary-action:hover {
+.return-policy .cta-bar .cta-actions .btn-primary-action:hover {
   background: color-mix(in srgb, var(--accent-color), black 15%);
   color: var(--contrast-color);
 }
 
-.retun-policy .cta-bar .cta-actions .btn-primary-action:focus {
+.return-policy .cta-bar .cta-actions .btn-primary-action:focus {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-.retun-policy .cta-bar .cta-actions .btn-outline-action {
+.return-policy .cta-bar .cta-actions .btn-outline-action {
   display: inline-flex;
   align-items: center;
   padding: 10px 24px;
@@ -12124,43 +12223,43 @@ section,
   transition: all 0.2s ease;
 }
 
-.retun-policy .cta-bar .cta-actions .btn-outline-action:hover {
+.return-policy .cta-bar .cta-actions .btn-outline-action:hover {
   background: var(--surface-color);
   border-color: color-mix(in srgb, var(--default-color), transparent 60%);
 }
 
 @media (max-width: 992px) {
-  .retun-policy .cta-bar {
+  .return-policy .cta-bar {
     text-align: center;
   }
 
-  .retun-policy .cta-bar .cta-actions {
+  .return-policy .cta-bar .cta-actions {
     justify-content: center;
     margin-top: 24px;
   }
 }
 
 @media (max-width: 576px) {
-  .retun-policy .cta-bar {
+  .return-policy .cta-bar {
     padding: 24px;
   }
 
-  .retun-policy .cta-bar .cta-actions {
+  .return-policy .cta-bar .cta-actions {
     flex-direction: column;
   }
 
-  .retun-policy .cta-bar .cta-actions a {
+  .return-policy .cta-bar .cta-actions a {
     text-align: center;
     justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
-  .retun-policy .policy-hero .hero-content h2 {
+  .return-policy .policy-hero .hero-content h2 {
     font-size: 28px;
   }
 
-  .retun-policy .policy-hero .guarantee-widget .widget-number {
+  .return-policy .policy-hero .guarantee-widget .widget-number {
     font-size: 36px;
   }
 }
@@ -12300,8 +12399,12 @@ section,
   justify-content: center;
   font-weight: 700;
   font-size: 14px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   flex-shrink: 0;
+}
+
+.language-th .paymnt-methods .step-block .step-number {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .paymnt-methods .step-block .step-content h5 {
@@ -12693,7 +12796,7 @@ section,
   font-size: 14px;
   font-weight: 600;
   color: var(--heading-color);
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   margin-bottom: 8px;
 }
 
@@ -12703,8 +12806,14 @@ section,
   color: var(--accent-color);
   line-height: 1.2;
   margin-bottom: 8px;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   letter-spacing: -0.01em;
+}
+
+
+.language-th .shipping-info .tier-card .tier-name,
+.language-th .shipping-info .tier-card .tier-amount {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .shipping-info .tier-card .tier-note {
@@ -12871,10 +12980,14 @@ section,
 .error-404 .error-indicator .status-code {
   font-size: 72px;
   font-weight: 700;
-  font-family: var(--heading-font);
+  font-family: var(--heading-font), sans-serif;
   color: color-mix(in srgb, var(--default-color), transparent 80%);
   line-height: 1;
   letter-spacing: -0.01em;
+}
+
+.language-th .error-404 .error-indicator .status-code {
+  font-family: var(--heading-font-th), sans-serif !important;
 }
 
 .error-404 .error-indicator .status-icon {
