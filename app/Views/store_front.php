@@ -1,8 +1,11 @@
 <?php $this->extend('_layout'); ?>
 <?= $this->section('content') ?>
     <main class="main business">
-        <section class="section mt-5">
+        <section class="section pt-0">
             <?php include '_business_header.php'; ?>
+            <pre>
+                <?= print_r($business, true) ?>
+            </pre>
             <div class="container">
                 <!-- NAV -->
                 <div class="row my-3">

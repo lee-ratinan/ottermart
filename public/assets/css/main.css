@@ -1958,9 +1958,9 @@ h6 {
     justify-content: center;
   }
 
-  .footer .social-icons {
-    justify-content: center;
-  }
+  /*.footer .social-icons {*/
+  /*  justify-content: center;*/
+  /*}*/
 }
 
 /*--------------------------------------------------------------
@@ -13934,4 +13934,27 @@ section,
   color: #eee;
   background-color: var(--accent-hover-color);
   border: var(--accent-hover-color);
+}
+.store-img-mask {
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  width: 100%;          /* Forces image to span container width */
+  height: auto;
+  max-height: 500px;    /* Stops image from growing past this point */
+  object-fit: cover;
+  object-position: top;
+}
+@media (max-width: 992px) {
+  .store-img-mask {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+    width: 100%;          /* Forces image to span container width */
+    height: auto;
+    max-height: 400px;    /* Stops image from growing past this point */
+    object-fit: cover;
+    object-position: top;
+  }
+}
+.clear-both {
+  clear: both;
 }

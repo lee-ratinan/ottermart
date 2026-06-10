@@ -23,7 +23,7 @@
                 <div class="tile-info">
                     <h4><?= $business_card['name'] ?></h4>
                     <p class="tile-desc"><?= $business_card['introParagraph'] ?></p>
-                    <a class="btn btn-otternaut btn-sm" href="<?= $business_card['link'] ?>"><?= lang('System.home.view-more') ?> <i class="bi bi-chevron-double-right"></i></a>
+                    <a class="btn btn-otternaut btn-sm" href="<?= base_url($locale . '/@' . $business_card['slug']) ?>"><?= lang('System.home.view-more') ?> <i class="bi bi-chevron-double-right"></i></a>
                 </div>
             </div>
         </div>
