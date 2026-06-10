@@ -13,7 +13,7 @@
                                 <label for="business-name"><?= lang('System.home.business-name') ?></label>
                                 <input type="text" class="form-control my-3" name="business-name" id="business-name" placeholder="<?= lang('System.home.business-name') ?>" required="" value="<?= @$results['query'] ?>" autocomplete="off">
                                 <div class="text-end">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-otternaut">
                                         <span><?= lang('System.home.search') ?></span> <i class="bi bi-arrow-right"></i>
                                     </button>
                                 </div>

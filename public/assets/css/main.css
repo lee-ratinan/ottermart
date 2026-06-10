@@ -28,6 +28,7 @@
   --default-color: #5a6577; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #10243d; /* Color for headings, subheadings and title throughout the website */
   --accent-color: #ff7533; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-hover-color: #ff5700;
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -13922,4 +13923,15 @@ section,
   .filter-widget-3 .brand-list {
     max-height: 200px;
   }
+}
+
+.btn-otternaut {
+  color: #fff;
+  background-color: var(--accent-color);
+  border: var(--accent-color);
+}
+.btn-otternaut:hover {
+  color: #eee;
+  background-color: var(--accent-hover-color);
+  border: var(--accent-hover-color);
 }
