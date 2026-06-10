@@ -9,6 +9,7 @@ return [
     'description'          => 'OtterNova is a smart booking and scheduling system for businesses. Replace paper chaos with an organized dashboard for appointments, staff, and services.',
     'keywords'             => 'booking system, appointment software, scheduling SaaS, reservation platform, business scheduling, online booking, staff scheduling, OtterNova',
     'footer-note'          => 'OtterNova is the service provider for online booking and e-commerce for businesses.',
+    'follow-us'            => 'Follow {0}',
     'terms-and-conditions' => 'Terms & Conditions',
     'privacy-policy'       => 'Privacy Policy',
     'locales'              => [
@@ -17,13 +18,14 @@ return [
         'th'    => 'ภาษาไทย',
     ],
     'home'                 => [
-        'title'         => 'Welcome to OtterNova Marketplace!',
+        'title'         => 'Welcome to OtterMart!',
         'subtitle'      => 'You may search for the store you would like to visit.',
-        'business-name' => 'Business Name',
+        'business-name' => 'Search for Business Name',
         'search'        => 'Search',
         'results'       => 'Search results for: {0}',
         'not-found'     => 'Sorry, cannot find what you are looking for.',
-        'view-more'     => 'View store'
+        'view-more'     => 'View store',
+        'no-image'      => 'No image available',
     ],
     'pricing'              => [
         'from'   => 'From {0}',

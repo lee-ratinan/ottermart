@@ -316,6 +316,8 @@ class Home extends BaseController
         $results = [];
         if (!empty($query)) {
             $results = $this->call_api('business/search?query=' . urlencode($query));
+        } else {
+            $results = $this->call_api('business/search?mode=random&limit=5');
         }
         $data    = [
             'page_title'  => lang('System.home-page'),

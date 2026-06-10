@@ -40,6 +40,7 @@ $cart         = $session->get('cart');
     <link href="<?= base_url('assets/vendor/swiper/swiper-bundle.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/drift-zoom/drift-basic.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/flag-icons-main/css/flag-icons.min.css') ?>" rel="stylesheet">
     <!-- Main CSS File -->
     <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
     <!-- Link Languages -->
@@ -171,7 +172,7 @@ $cart         = $session->get('cart');
                         <form class="search-bar">
                             <label for="search-field" class="d-none"><?= lang('System.home.search') ?></label>
                             <i class="bi bi-search search-icon"></i>
-                            <input id="search-field" type="text" name="business-name" class="search-field" placeholder="<?= lang('System.home.search') ?>">
+                            <input id="search-field" type="text" name="business-name" class="search-field" placeholder="<?= lang('System.home.search') ?>" value="<?= @$results['query'] ?>">
                             <button class="search-submit" type="submit"><?= lang('System.home.search') ?></button>
                         </form>
                     <?php endif; ?>
@@ -912,136 +913,86 @@ $cart         = $session->get('cart');
                                     <i class="bi bi-geo-alt"></i>
                                     <span>123 Fashion Street, New York, NY 10001</span>
                                 </div>
-                                <div class="contact-item d-none">
+                                <div class="contact-item">
                                     <i class="bi bi-telephone"></i>
-                                    <span>+1 (555) 123-4567</span>
+                                    <span><?= format_phone_number(getenv('CONTACT_PHONE')) ?></span>
                                 </div>
                                 <div class="contact-item">
                                     <i class="bi bi-envelope"></i>
-                                    <span><?= getenv('CONTACT_PHONE') ?></span>
+                                    <span><a href="mailto:<?= getenv('CONTACT_EMAIL') ?>"><?= getenv('CONTACT_EMAIL') ?></a></span>
                                 </div>
                             </div>
                         <?php endif; ?>
                     </div>
                 </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Shop</h4>
-                        <ul class="footer-links">
-                            <li><a href="category.html">New Arrivals</a></li>
-                            <li><a href="category.html">Bestsellers</a></li>
-                            <li><a href="category.html">Women's Clothing</a></li>
-                            <li><a href="category.html">Men's Clothing</a></li>
-                            <li><a href="category.html">Accessories</a></li>
-                            <li><a href="category.html">Sale</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Support</h4>
-                        <ul class="footer-links">
-                            <li><a href="support.html">Help Center</a></li>
-                            <li><a href="account.html">Order Status</a></li>
-                            <li><a href="shiping-info.html">Shipping Info</a></li>
-                            <li><a href="return-policy.html">Returns &amp; Exchanges</a></li>
-                            <li><a href="#">Size Guide</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Company</h4>
-                        <ul class="footer-links">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="about.html">Careers</a></li>
-                            <li><a href="about.html">Press</a></li>
-                            <li><a href="about.html">Affiliates</a></li>
-                            <li><a href="about.html">Responsibility</a></li>
-                            <li><a href="about.html">Investors</a></li>
-                        </ul>
-                    </div>
-                </div>
-
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer-widget">
-                        <h4>Download Our App</h4>
-                        <p>Shop on the go with our mobile app</p>
-                        <div class="app-buttons">
-                            <a href="#" class="app-btn">
-                                <i class="bi bi-apple"></i>
-                                <span>App Store</span>
-                            </a>
-                            <a href="#" class="app-btn">
-                                <i class="bi bi-google-play"></i>
-                                <span>Google Play</span>
-                            </a>
+                        <?php if (isset($business)) : ?>
+                        <h4>(business)</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">#</a></li>
+                        </ul>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-widget">
+                        <h4><?= lang('System.site-name') ?></h4>
+                        <ul class="footer-links">
+                            <li><a href="<?= getenv('main_site') ?>">OtterNova.com</a></li>
+                            <li><a href="<?= getenv('main_site') . $locale ?>/contact"><?= lang('System.contact-us') ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-widget">
+                        <div class="social-links">
+                            <?php if (isset($business)) : ?>
+                                <h5><?= lang('System.follow-us', ['']) ?></h5>
+                            <?php else: ?>
+                                <h5><?= lang('System.follow-us', [lang('System.site-name')]) ?></h5>
+                                <div class="social-icons">
+                                    <?php foreach (get_social_list() as $icon => $url) : ?>
+                                        <a href="<?= $url ?>" aria-label="<?= $icon ?>"><i class="bi bi-<?= $icon ?>"></i></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="social-links mt-4">
-                            <h5>Follow Us</h5>
-                            <div class="social-icons">
-                                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-                                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                                <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
-                                <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
-                                <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-                            </div>
+                        <div class="footer-widget mt-4">
+                            <h5><?= lang('System.locales.title') ?></h5>
+                            <ul class="footer-links">
+                                <?php foreach (get_locale($country) as $lc => $label) : ?>
+                                    <li><a href="<?= base_url($lc . '-' . $country) ?>"><?= $label ?></a></li>
+                                <?php endforeach; ?>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="footer-bottom">
         <div class="container">
-
-            <div class="payment-methods d-flex align-items-center justify-content-center">
-                <span>We Accept:</span>
-                <div class="payment-icons">
-                    <i class="bi bi-credit-card" aria-label="Credit Card"></i>
-                    <i class="bi bi-paypal" aria-label="PayPal"></i>
-                    <i class="bi bi-apple" aria-label="Apple Pay"></i>
-                    <i class="bi bi-google" aria-label="Google Pay"></i>
-                    <i class="bi bi-shop" aria-label="Shop Pay"></i>
-                    <i class="bi bi-cash" aria-label="Cash on Delivery"></i>
-                </div>
-            </div>
-
-            <div class="legal-links">
-                <a href="tos.html">Terms of Service</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="tos.html">Cookies Settings</a>
-            </div>
-
             <div class="copyright text-center">
-                <p>© <span>Copyright</span> <strong class="sitename">ShopWise</strong>. All Rights Reserved.</p>
+                <p>
+                    <?= lang('System.copyright-message', [date('Y')]) ?> <span class="mx-3">|</span>
+                    <a href="<?= getenv('main_site') . $locale ?>/terms-and-conditions"><?= lang('System.terms-and-conditions') ?></a> <span class="mx-3">|</span>
+                    <a href="<?= getenv('main_site') . $locale ?>/privacy-policy"><?= lang('System.privacy-policy') ?></a>
+                </p>
             </div>
-
         </div>
-
     </div>
 </footer>
-
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
 <!-- Vendor JS Files -->
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="assets/vendor/drift-zoom/Drift.min.js"></script>
-<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-
+<script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/php-email-form/validate.js') ?>'"></script>
+<script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/drift-zoom/Drift.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/purecounter/purecounter_vanilla.js') ?>"></script>
 <!-- Main JS File -->
-<script src="assets/js/main.js"></script>
-
+<script src="<?= base_url('assets/js/main.js') ?>"></script>
 </body>
-
 </html>

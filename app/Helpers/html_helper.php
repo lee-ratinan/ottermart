@@ -1,4 +1,9 @@
 <?php
+
+use libphonenumber\PhoneNumberUtil;
+use libphonenumber\PhoneNumberFormat;
+use libphonenumber\NumberParseException;
+
 if (!function_exists('format_price')) {
     /**
      * @param float $price
@@ -83,10 +88,60 @@ if (!function_exists('get_timezone')) {
 if (!function_exists('get_country')) {
     function get_country(string $code, string $locale = ''): string|array
     {
+        $code  = strtoupper($code);
         $codes = [
             'TH' => [
                 'en' => 'Thailand',
                 'th' => 'ประเทศไทย',
+            ],
+            'SG' => [
+                'en' => 'Singapore',
+            ],
+            'MY' => [
+                'en' => 'Malaysia',
+                'ms' => 'Malaysia',
+            ],
+            'JP' => [
+                'en' => 'Japan',
+                'ja' => '日本',
+            ],
+            'TW' => [
+                'en' => 'Taiwan',
+                'zh' => '台灣',
+            ]
+        ];
+        if (isset($codes[$code][$locale])) {
+            return $codes[$code][$locale];
+        } else if (isset($codes[$code])) {
+            return $codes[$code];
+        }
+        return $codes;
+    }
+}
+
+if (!function_exists('get_locale')) {
+    function get_locale(string $code, string $locale = ''): string|array
+    {
+        $code  = strtolower($code);
+        $codes = [
+            'th' => [
+                'en' => 'Thailand (English)',
+                'th' => 'ประเทศไทย (ภาษาไทย)',
+            ],
+            'sg' => [
+                'en' => 'Singapore (English)',
+            ],
+            'my' => [
+                'en' => 'Malaysia (English)',
+                'ms' => 'Malaysia (Bahasa Malaysia)',
+            ],
+            'jp' => [
+                'en' => 'Japan (English)',
+                'ja' => '日本 (日本語)',
+            ],
+            'tw' => [
+                'en' => 'Taiwan (English)',
+                'zh' => '台灣 (guoyu)',
             ]
         ];
         if (isset($codes[$code][$locale])) {
@@ -302,4 +357,28 @@ function get_social_list(): array
         }
     }
     return $social;
+}
+
+/**
+ * Formats an E.164 number to its national standard using libphonenumber.
+ * Automatically handles complex area codes for JP, MY, TH, SG, TW.
+ */
+function format_phone_number(string $e164Number): string
+{
+    $phoneUtil = PhoneNumberUtil::getInstance();
+
+    try {
+        // libphonenumber automatically detects the country from the E.164 '+' prefix
+        $numberProto = $phoneUtil->parse($e164Number, null);
+        if ($phoneUtil->isValidNumber($numberProto)) {
+            // NATIONAL format converts +813XXXX -> 03-XXXX-XXXX (handles all 400+ JP codes)
+            $countryCode = strtolower($phoneUtil->getRegionCodeForNumber($numberProto));
+            return '<span class="fi fi-' . $countryCode . '"></span> ' . $phoneUtil->format($numberProto, PhoneNumberFormat::NATIONAL);
+        }
+    } catch (NumberParseException $e) {
+        // If parsing fails, log it or handle quietly
+        log_message('debug', 'Phone parsing failed: ' . $e->getMessage());
+    }
+    // Fallback to original input if invalid or parsing fails
+    return $e164Number;
 }
