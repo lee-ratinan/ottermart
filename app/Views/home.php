@@ -48,6 +48,19 @@
                             <?php endif; ?>
                         </div>
                     </div>
+                    <pre>
+                        <?php print_r($page_title); ?>
+
+                        <?php print_r($description); ?>
+
+                        <?php print_r($keywords); ?>
+
+                        <?php print_r($url_part); ?>
+
+                        <?php print_r($locale); ?>
+
+                        <?php print_r($results); ?>
+                    </pre>
                 </div>
             </div>
         </section>

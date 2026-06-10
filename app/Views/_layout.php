@@ -3,6 +3,7 @@
 <?php
 $locale_split = explode('-', $locale);
 $country      = $locale_split[1];
+$language     = $locale_split[0];
 $session      = \Config\Services::session();
 $cart         = $session->get('cart');
 ?>
@@ -114,7 +115,7 @@ $cart         = $session->get('cart');
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 </head>
-<body class="index-page">
+<body class="index-page country-<?= $country ?> language-<?= $language ?>">
 <header id="header" class="header position-relative">
     <!-- Top Utility Bar -->
     <div class="utility-bar">
@@ -880,24 +881,47 @@ $cart         = $session->get('cart');
             <div class="row gy-4">
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="footer-widget footer-about">
-                        <a href="index.html" class="logo">
-                            <span class="sitename">ShopWise</span>
-                        </a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in nibh vehicula, facilisis magna ut, consectetur lorem.</p>
-                        <div class="footer-contact mt-4">
-                            <div class="contact-item">
-                                <i class="bi bi-geo-alt"></i>
-                                <span>123 Fashion Street, New York, NY 10001</span>
+                        <?php if (isset($business)) : ?>
+                            <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo">
+                                <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>" class="img-fluid" style="height:1em;">
+                                <h1 class="sitename"><?= $page_title ?></h1>
+                            </a>
+                            <p>@<?= lang('System.site-name') ?> - <?= lang('System.footer-note') ?></p>
+                            <div class="footer-contact mt-4">
+                                <div class="contact-item">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span>123 Fashion Street, New York, NY 10001</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+1 (555) 123-4567</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span>hello@example.com</span>
+                                </div>
                             </div>
-                            <div class="contact-item">
-                                <i class="bi bi-telephone"></i>
-                                <span>+1 (555) 123-4567</span>
+                        <?php else: ?>
+                            <a href="<?= base_url($locale) ?>" class="logo">
+                                <img src="<?= base_url('assets/img/logo-dark.png') ?>" alt="<?= lang('System.site-name') ?>">
+                                <span class="sitename"><?= lang('System.site-name') ?></span>
+                            </a>
+                            <p><?= lang('System.footer-note') ?></p>
+                            <div class="footer-contact mt-4">
+                                <div class="contact-item d-none">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span>123 Fashion Street, New York, NY 10001</span>
+                                </div>
+                                <div class="contact-item d-none">
+                                    <i class="bi bi-telephone"></i>
+                                    <span>+1 (555) 123-4567</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="bi bi-envelope"></i>
+                                    <span><?= getenv('CONTACT_PHONE') ?></span>
+                                </div>
                             </div>
-                            <div class="contact-item">
-                                <i class="bi bi-envelope"></i>
-                                <span>hello@example.com</span>
-                            </div>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
