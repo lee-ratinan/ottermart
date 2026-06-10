@@ -168,7 +168,7 @@ class Home extends BaseController
      */
     private function call_api(string $endpoint, string $method = 'GET', array $request_body = []): array
     {
-        $locale = $this->splitLocale();
+        $locale       = $this->split_locale();
         $languageCode = strtolower($locale['languageCode']);
         $countryCode  = strtolower($locale['countryCode']);
         $url = sprintf(
@@ -210,12 +210,13 @@ class Home extends BaseController
             curl_close($ch);
             throw new RuntimeException("cURL error: {$error}");
         }
-        log_message('debug', $body);
         curl_close($ch);
-        return json_decode($body, true);
+        $return_value = json_decode($body, true);
+        log_message('debug', print_r($body, true));
+        return $return_value;
     }
 
-    private function splitLocale(): array
+    private function split_locale(): array
     {
         $locale = $this->request->getLocale();
         $split  = explode('-', $locale);
@@ -227,7 +228,7 @@ class Home extends BaseController
 
     private function get_business_info(string $slug): array
     {
-        $locale    = $this->splitLocale();
+        $locale    = $this->split_locale();
         $lang      = $locale['languageCode'];
         $cacheKey  = 'business-' . $lang . '-' . $slug;
         $cache = Services::cache();
