@@ -11,7 +11,7 @@
                 <div class="tile-image">
                     <a href="<?= $business_card['link'] ?>">
                         <?php if (empty($business_card['businessLogo'])) : ?>
-                            <img src="<?= base_url('assets/img/business-logo-missing.webp') ?>" class="img-fluid" alt="">
+                            <img src="<?= base_url('assets/img/no-image-800x.webp') ?>" class="img-fluid" alt="">
                         <?php else : ?>
                             <img src="<?= $business_card['businessLogo'] ?>" class="img-fluid" alt="<?= $business_card['name'] ?>">
                         <?php endif; ?>
