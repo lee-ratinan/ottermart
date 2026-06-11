@@ -132,7 +132,7 @@ $cart         = $session->get('cart');
                             <span class="utility-divider"></span>
                             <a href="<?= base_url($locale) ?>" class="utility-link">
                                 <i class="bi bi-house"></i>
-                                <span><?= lang('System.site-name') ?></span>
+                                <span><?= lang('System.home-page') ?></span>
                             </a>
                         <?php endif; ?>
                         <span class="utility-divider"></span>
@@ -156,7 +156,9 @@ $cart         = $session->get('cart');
                 <div class="col-auto">
                     <?php if (isset($business)) : ?>
                         <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo d-flex align-items-center">
-                            <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
+                            <?php if (!empty($business['business_logo'])) : ?>
+                                <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
+                            <?php endif; ?>
                             <h1 class="sitename"><?= $page_title ?></h1>
                         </a>
                     <?php else: ?>
@@ -293,7 +295,9 @@ $cart         = $session->get('cart');
                     <div class="footer-widget footer-about">
                         <?php if (isset($business)) : ?>
                             <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo">
-                                <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
+                                <?php if (!empty($business['business_logo'])) : ?>
+                                    <img src="<?= $business['business_logo'] ?>" alt="<?= $business['business_name'] ?>">
+                                <?php endif; ?>
                                 <span class="sitename"><?= $business['business_name'] ?></span>
                             </a>
                         <?php else: ?>

@@ -3,9 +3,6 @@
     <main class="main business">
         <section class="section pt-0">
             <?php include '_business_header.php'; ?>
-            <pre>
-                <?= print_r($business, true) ?>
-            </pre>
             <div class="container">
                 <!-- NAV -->
                 <div class="row my-3">
@@ -164,6 +161,9 @@
             </div>
         </section>
     </main>
+    <pre>
+        <?= print_r($business, true) ?>
+    </pre>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             $('.btn-tab').click(function (e) {
