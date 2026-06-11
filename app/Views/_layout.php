@@ -57,18 +57,8 @@ $cart         = $session->get('cart');
             .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom-color:<?= '#'.$business['mart_primary_color'] ?>;}
             .cards .product-card .product-thumb .new-badge {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
             .hero .intro-content .badge-label {background: color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 90%);color: <?= '#'.$business['mart_primary_color'] ?>;border: 1px solid color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 70%);}
-
-            /*.business .section-title h2::after {background: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;}*/
-            /*.business .btn-dark {background-color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;}*/
-            /*.business .btn-dark:hover {filter: brightness(0.9);}*/
-            /*.business .btn-outline-dark {border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;}*/
-            /*.business .btn-outline-dark:hover {background-color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;}*/
-            /*.business .card-body {color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
-            /*.business .card {border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important; background-color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
-            /*.business table td, .business table th {background-color: transparent !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important; border-bottom: 1px solid */<?php //= '#'.$business['mart_primary_color'] ?>/*;}*/
-            /*.business input, .business select, .business textarea, .input-group-text {background-color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
-            /*.business .header-div {width:100%; background-size:cover; background-position:center; height:400px;}*/
-            /*@media only screen and (max-width: 600px) { .business .header-div {height:300px;} }*/
+            .btn-otternaut {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .btn-otternaut:hover {background-color: <?= '#'.$business['mart_text_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
@@ -341,7 +331,7 @@ $cart         = $session->get('cart');
                             <?php if (isset($business)) : ?>
                                 <?php if (is_array($business['social_media'])) : ?>
                                     <h5><?= lang('System.follow-us', [$business['business_name']]) ?></h5>
-                                    <div class="social-icons">
+                                    <div class="my-2">
                                         <?php foreach ($business['social_media'] as $social_key => $social_link) : ?>
                                             <?php if (!empty($social_link)) : ?>
                                                 <a class="btn btn-outline-dark me-2" href="<?= $social_link ?>" target="_blank"><i class="bi bi-<?= $social_key ?>"></i></a>
@@ -351,9 +341,9 @@ $cart         = $session->get('cart');
                                 <?php endif; ?>
                             <?php else: ?>
                                 <h5><?= lang('System.follow-us', [lang('System.site-name')]) ?></h5>
-                                <div class="social-icons">
+                                <div class="my-2">
                                     <?php foreach (get_social_list() as $icon => $url) : ?>
-                                        <a href="<?= $url ?>" aria-label="<?= $icon ?>"><i class="bi bi-<?= $icon ?>"></i></a>
+                                        <a class="btn btn-outline-dark me-2" href="<?= $url ?>" aria-label="<?= $icon ?>"><i class="bi bi-<?= $icon ?>"></i></a>
                                     <?php endforeach; ?>
                                 </div>
                             <?php endif; ?>
@@ -362,7 +352,8 @@ $cart         = $session->get('cart');
                             <h5><?= lang('System.locales.title') ?></h5>
                             <ul class="footer-links">
                                 <?php foreach (get_locale($country) as $lc => $label) : ?>
-                                    <li><a href="<?= base_url($lc . '-' . $country) ?>"><?= $label ?></a></li>
+                                    <?php $business_path = (isset($business)) ? '/@' . $business['business_slug'] : ''; ?>
+                                    <li><a href="<?= base_url($lc . '-' . $country . $business_path) ?>"><?= $label ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

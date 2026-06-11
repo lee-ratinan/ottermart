@@ -11,7 +11,7 @@ function printBusinessHead($business) {
     if (is_array($business['social_media'])) {
         foreach ($business['social_media'] as $social_key => $social_link) {
             if (!empty($social_link)) {
-                echo '<a class="btn btn-otternaut me-2" href="' . $social_link . '" target="_blank" title="' . strtoupper($social_key) . '"><i class="bi bi-' . $social_key . '"></i></a>';
+                echo '<a class="btn btn-otternaut me-4" href="' . $social_link . '" target="_blank" title="' . strtoupper($social_key) . '"><i class="bi bi-' . $social_key . '"></i></a>';
             }
         }
     }
