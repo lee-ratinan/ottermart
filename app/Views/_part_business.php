@@ -9,7 +9,7 @@
         <div class="row g-0">
             <div class="col-sm-4">
                 <div class="tile-image">
-                    <a href="<?= $business_card['link'] ?>">
+                    <a href="<?= base_url($locale . '/@' . $business_card['slug']) ?>">
                         <?php if (empty($business_card['businessLogo'])) : ?>
                             <img src="<?= base_url('assets/img/no-image-800x.webp') ?>" class="img-fluid" alt="">
                         <?php else : ?>

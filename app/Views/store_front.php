@@ -2,77 +2,14 @@
 <?= $this->section('content') ?>
     <main class="main business">
         <section class="section pt-0">
-            <?php include '_business_header.php'; ?>
+            <?php include '_part_business_header.php'; ?>
+            <?php include '_part_product_service_tabs.php'; ?>
             <div class="container">
                 <!-- NAV -->
-                <div class="row my-3">
-                    <div class="col">
-                        <?php if (!empty($business['services'])) : ?>
-                            <button class="btn btn-outline-dark btn-tab" data-target="services"><?= lang('System.store.services') ?></button>
-                        <?php endif; ?>
-                        <?php if (!empty($business['products'])) : ?>
-                            <button class="btn btn-outline-dark btn-tab" data-target="products"><?= lang('System.store.products') ?></button>
-                        <?php endif; ?>
-                        <?php if (!empty($business['branches'])) : ?>
-                            <button class="btn btn-outline-dark btn-tab" data-target="branches"><?= lang('System.store.branches') ?></button>
-                        <?php endif; ?>
-                    </div>
-                </div>
                 <!-- ITEMS -->
                 <div class="row">
                     <div class="col-12 tab-content">
                         <div class="row">
-                            <!-- SERVICES -->
-                            <?php foreach ($business['services'] as $service) : ?>
-                                <?php if ('A' == $service['is_active']) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4 card-services the-card">
-                                        <div class="card mb-3">
-                                            <?php if (!empty($service['service_image'])) : ?>
-                                                <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>">
-                                                    <img class="card-img-top" src="<?= $service['service_image'] ?>" alt="<?= $service['service_name'] ?>">
-                                                </a>
-                                            <?php endif; ?>
-                                            <div class="card-body">
-                                                <h3>
-                                                    <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= $service['service_name'] ?></a>
-                                                </h3>
-                                                <?php if (!empty($service['service_description'])) : ?>
-                                                    <p><?= $service['service_description'] ?></p>
-                                                <?php endif; ?>
-                                                <p><?= lang('System.pricing.from', [$service['price_active_lowest']]) ?></p>
-                                                <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/services/' . $service['service_slug']) ?>"><?= lang('System.store.view-more') ?></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                            <!-- PRODUCTS -->
-                            <?php foreach ($business['products'] as $product) : ?>
-                                <?php if ('A' == $product['is_active']) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4 card-products the-card">
-                                        <div class="card mb-3">
-                                            <?php if (!empty($product['product_image'])) : ?>
-                                                <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>">
-                                                    <img class="card-img-top" src="<?= $product['product_image'] ?>" alt="<?= $product['product_name'] ?>">
-                                                </a>
-                                            <?php endif; ?>
-                                            <div class="card-body">
-                                                <?php if ('-' != $product['product_tag']) : ?>
-                                                    <div class="badge text-bg-danger"><?= lang('System.store.tag-' . $product['product_tag']) ?></div>
-                                                <?php endif; ?>
-                                                <h3>
-                                                    <a href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= $product['product_name'] ?></a>
-                                                </h3>
-                                                <?php if (!empty($product['product_description'])) : ?>
-                                                    <p><?= $product['product_description'] ?></p>
-                                                <?php endif; ?>
-                                                <p><?= lang('System.pricing.from', [$product['price_active_lowest']]) ?></p>
-                                                <a class="btn btn-dark" href="<?= base_url($locale . '/@' . $business['business_slug'] . '/products/' . $product['product_slug']) ?>"><?= lang('System.store.view-more') ?></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
                             <!-- BRANCHES -->
                             <?php foreach ($business['branches'] as $branch) : ?>
                                 <div class="col-12 col-md-6 col-lg-4 card-branches the-card">

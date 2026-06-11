@@ -50,20 +50,25 @@ $cart         = $session->get('cart');
     <link rel="canonical" href="<?= current_url() ?>">
     <?php if (!empty($business)) : ?>
         <style>
-            body, section, header {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business a, .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-            .business .section-title h2::after {background: <?= '#'.$business['mart_primary_color'] ?> !important;}
-            .business .btn-dark {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-            .business .btn-dark:hover {filter: brightness(0.9);}
-            .business .btn-outline-dark {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-            .business .btn-outline-dark:hover {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;}
-            .business .card-body {color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business .card {border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business table td, .business table th {background-color: transparent !important; color: <?= '#'.$business['mart_text_color'] ?> !important; border-bottom: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
-            .business input, .business select, .business textarea, .input-group-text {background-color: <?= '#'.$business['mart_background_color'] ?> !important;border: solid 1px <?= '#'.$business['mart_primary_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .business .page-logo {max-width:120px}
-            .business .header-div {width:100%; background-size:cover; background-position:center; height:400px;}
-            @media only screen and (max-width: 600px) { .business .header-div {height:300px;} }
+            .header .main-bar, section {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
+            .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .business a,  {color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .business a:hover {color: <?= '#'.$business['mart_text_color'] ?>;}
+            .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom-color:<?= '#'.$business['mart_primary_color'] ?>;}
+            .cards .product-card .product-thumb .new-badge {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
+            .hero .intro-content .badge-label {background: color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 90%);color: <?= '#'.$business['mart_primary_color'] ?>;border: 1px solid color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 70%);}
+
+            /*.business .section-title h2::after {background: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;}*/
+            /*.business .btn-dark {background-color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;}*/
+            /*.business .btn-dark:hover {filter: brightness(0.9);}*/
+            /*.business .btn-outline-dark {border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;}*/
+            /*.business .btn-outline-dark:hover {background-color: */<?php //= '#'.$business['mart_primary_color'] ?>/* !important;color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;}*/
+            /*.business .card-body {color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
+            /*.business .card {border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important; background-color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
+            /*.business table td, .business table th {background-color: transparent !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important; border-bottom: 1px solid */<?php //= '#'.$business['mart_primary_color'] ?>/*;}*/
+            /*.business input, .business select, .business textarea, .input-group-text {background-color: */<?php //= '#'.$business['mart_background_color'] ?>/* !important;border: solid 1px */<?php //= '#'.$business['mart_primary_color'] ?>/* !important; color: */<?php //= '#'.$business['mart_text_color'] ?>/* !important;}*/
+            /*.business .header-div {width:100%; background-size:cover; background-position:center; height:400px;}*/
+            /*@media only screen and (max-width: 600px) { .business .header-div {height:300px;} }*/
         </style>
     <?php endif; ?>
     <script type="application/ld+json">

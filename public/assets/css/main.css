@@ -3210,7 +3210,7 @@ section,
 }
 
 .cards .product-card .product-info .product-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--heading-color);
   margin: 0;
@@ -13926,7 +13926,7 @@ section,
 }
 
 .btn-otternaut {
-  color: #fff;
+  color: #fff !important;
   background-color: var(--accent-color);
   border: var(--accent-color);
 }
@@ -13935,6 +13935,7 @@ section,
   background-color: var(--accent-hover-color);
   border: var(--accent-hover-color);
 }
+.page-logo {max-width:120px}
 .store-img-mask {
   -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
   mask-image: linear-gradient(to right, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
