@@ -4,48 +4,353 @@
         <section class="section pt-0">
             <?php include '_part_business_header.php'; ?>
             <?php include '_part_product_service_tabs.php'; ?>
+            <div class="container product-details section py-0">
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <div class="info-tabs">
+                            <ul class="tab-nav nav" role="tablist">
+                                <li><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#product-details-tab-desc" type="button" aria-selected="true" role="tab">Description</button></li>
+                                <li><button class="nav-link" data-bs-toggle="tab" data-bs-target="#product-details-tab-specs" type="button" aria-selected="false" role="tab" tabindex="-1">Specifications</button></li>
+                                <li><button class="nav-link" data-bs-toggle="tab" data-bs-target="#product-details-tab-feedback" type="button" aria-selected="false" role="tab" tabindex="-1">Feedback (143)</button></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <!-- Description Tab -->
+                                <div class="tab-pane fade active show" id="product-details-tab-desc" role="tabpanel">
+                                    <div class="desc-content">
+                                        <div class="row g-4">
+                                            <div class="col-lg-8">
+                                                <h3>About This Product</h3>
+                                                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores.</p>
+
+                                                <h4>Feature Highlights</h4>
+                                                <div class="row g-3">
+                                                    <div class="col-sm-6">
+                                                        <div class="highlight-card">
+                                                            <i class="bi bi-soundwave"></i>
+                                                            <div>
+                                                                <h5>Premium Sound</h5>
+                                                                <p>Temporibus autem quibusdam officiis debitis rerum</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="highlight-card">
+                                                            <i class="bi bi-battery-full"></i>
+                                                            <div>
+                                                                <h5>Extended Battery</h5>
+                                                                <p>Saepe eveniet ut et voluptates repudiandae sint</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="highlight-card">
+                                                            <i class="bi bi-bluetooth"></i>
+                                                            <div>
+                                                                <h5>Seamless Pairing</h5>
+                                                                <p>Itaque earum rerum hic tenetur sapiente delectus</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="highlight-card">
+                                                            <i class="bi bi-gem"></i>
+                                                            <div>
+                                                                <h5>Ergonomic Design</h5>
+                                                                <p>Aut reiciendis voluptatibus maiores alias consequatur</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="included-box">
+                                                    <h4><i class="bi bi-box-seam"></i> What's Included</h4>
+                                                    <ul>
+                                                        <li><i class="bi bi-check2-circle"></i> Premium Audio Device</li>
+                                                        <li><i class="bi bi-check2-circle"></i> Protective Travel Case</li>
+                                                        <li><i class="bi bi-check2-circle"></i> USB-C Charging Cable</li>
+                                                        <li><i class="bi bi-check2-circle"></i> 3.5mm AUX Connector</li>
+                                                        <li><i class="bi bi-check2-circle"></i> Setup Manual</li>
+                                                        <li><i class="bi bi-check2-circle"></i> Warranty Certificate</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Description Tab -->
+
+                                <!-- Specifications Tab -->
+                                <div class="tab-pane fade" id="product-details-tab-specs" role="tabpanel">
+                                    <div class="specs-content">
+                                        <div class="row g-4">
+                                            <div class="col-md-6">
+                                                <div class="spec-block">
+                                                    <h4>Audio Performance</h4>
+                                                    <table class="data-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Frequency Range</td>
+                                                            <td>15Hz - 25kHz</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Driver Size</td>
+                                                            <td>50mm Dynamic</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Sensitivity</td>
+                                                            <td>98dB SPL</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Impedance</td>
+                                                            <td>24 Ohm</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>THD</td>
+                                                            <td>&lt; 0.5%</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="spec-block">
+                                                    <h4>Wireless &amp; Power</h4>
+                                                    <table class="data-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Protocol</td>
+                                                            <td>Bluetooth 5.3</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Range</td>
+                                                            <td>Up to 30ft (10m)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Battery</td>
+                                                            <td>800mAh Li-ion</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Playtime</td>
+                                                            <td>35+ hours</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Charge Time</td>
+                                                            <td>2.5 hours</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="spec-block">
+                                                    <h4>Build &amp; Dimensions</h4>
+                                                    <table class="data-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Weight</td>
+                                                            <td>285g</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Dimensions</td>
+                                                            <td>190 x 165 x 82mm</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cushion Material</td>
+                                                            <td>Memory Foam</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Frame</td>
+                                                            <td>Adjustable Steel</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="spec-block">
+                                                    <h4>Smart Features</h4>
+                                                    <table class="data-table">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Noise Cancelling</td>
+                                                            <td>Hybrid ANC</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Voice Assistant</td>
+                                                            <td>Siri &amp; Google</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Microphone</td>
+                                                            <td>Dual Array</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Water Resistance</td>
+                                                            <td>IPX5</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- End Specifications Tab -->
+
+                                <!-- Feedback Tab -->
+                                <div class="tab-pane fade" id="product-details-tab-feedback" role="tabpanel">
+                                    <div class="feedback-content">
+                                        <div class="row g-4 mb-4">
+                                            <div class="col-lg-3 col-md-4">
+                                                <div class="rating-overview">
+                                                    <div class="big-number">4.6</div>
+                                                    <div class="star-row">
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-fill"></i>
+                                                        <i class="bi bi-star-half"></i>
+                                                    </div>
+                                                    <span class="count-label">Based on 143 ratings</span>
+                                                    <button class="btn review-cta">Write a Review</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <div class="distribution-chart">
+                                                    <div class="dist-row">
+                                                        <span class="dist-label">5 <i class="bi bi-star-fill"></i></span>
+                                                        <div class="dist-track">
+                                                            <div class="dist-fill" style="width:68%;"></div>
+                                                        </div>
+                                                        <span class="dist-count">97</span>
+                                                    </div>
+                                                    <div class="dist-row">
+                                                        <span class="dist-label">4 <i class="bi bi-star-fill"></i></span>
+                                                        <div class="dist-track">
+                                                            <div class="dist-fill" style="width:22%;"></div>
+                                                        </div>
+                                                        <span class="dist-count">31</span>
+                                                    </div>
+                                                    <div class="dist-row">
+                                                        <span class="dist-label">3 <i class="bi bi-star-fill"></i></span>
+                                                        <div class="dist-track">
+                                                            <div class="dist-fill" style="width:6%;"></div>
+                                                        </div>
+                                                        <span class="dist-count">9</span>
+                                                    </div>
+                                                    <div class="dist-row">
+                                                        <span class="dist-label">2 <i class="bi bi-star-fill"></i></span>
+                                                        <div class="dist-track">
+                                                            <div class="dist-fill" style="width:3%;"></div>
+                                                        </div>
+                                                        <span class="dist-count">4</span>
+                                                    </div>
+                                                    <div class="dist-row">
+                                                        <span class="dist-label">1 <i class="bi bi-star-fill"></i></span>
+                                                        <div class="dist-track">
+                                                            <div class="dist-fill" style="width:1%;"></div>
+                                                        </div>
+                                                        <span class="dist-count">2</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Rating Overview -->
+
+                                        <div class="reviews-list">
+                                            <article class="review-entry">
+                                                <div class="entry-top">
+                                                    <img src="assets/img/person/person-m-8.webp" alt="Reviewer" class="avatar-img">
+                                                    <div class="entry-meta">
+                                                        <strong>Marcus Bennett</strong>
+                                                        <div class="meta-line">
+                              <span class="inline-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                              </span>
+                                                            <span class="entry-date">April 12, 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h5>Exceptional clarity and comfortable wear</h5>
+                                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.</p>
+                                                <div class="entry-actions">
+                                                    <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (14)</button>
+                                                    <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
+                                                </div>
+                                            </article><!-- End Review Entry -->
+
+                                            <article class="review-entry">
+                                                <div class="entry-top">
+                                                    <img src="assets/img/person/person-f-11.webp" alt="Reviewer" class="avatar-img">
+                                                    <div class="entry-meta">
+                                                        <strong>Olivia Torres</strong>
+                                                        <div class="meta-line">
+                              <span class="inline-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                              </span>
+                                                            <span class="entry-date">March 5, 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h5>Solid performance with minor quirks</h5>
+                                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis. Generally pleased with my purchase.</p>
+                                                <div class="entry-actions">
+                                                    <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (9)</button>
+                                                    <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
+                                                </div>
+                                            </article><!-- End Review Entry -->
+
+                                            <article class="review-entry">
+                                                <div class="entry-top">
+                                                    <img src="assets/img/person/person-m-12.webp" alt="Reviewer" class="avatar-img">
+                                                    <div class="entry-meta">
+                                                        <strong>Jason Kimura</strong>
+                                                        <div class="meta-line">
+                              <span class="inline-stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                              </span>
+                                                            <span class="entry-date">January 18, 2024</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h5>Ideal companion for remote professionals</h5>
+                                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.</p>
+                                                <div class="entry-actions">
+                                                    <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (18)</button>
+                                                    <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
+                                                </div>
+                                            </article><!-- End Review Entry -->
+
+                                            <div class="load-wrap">
+                                                <button class="btn load-btn">Load More Reviews</button>
+                                            </div>
+                                        </div><!-- End Reviews List -->
+                                    </div>
+                                </div><!-- End Feedback Tab -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="container d-none">
                 <pre>
-                    [id] => 9
-    [business_type_id] => 1
-    [business_name] => โรงเรียนภาษาญี่ปุ่นริกิกาวะ
-    [business_slug] => eikin-japanese-school
-    [country_code] => TH
     [currency_code] => THB
     [tax_percentage] => 7.00
     [tax_inclusive] => I
-    [mart_primary_color] => 0400ff
-    [mart_text_color] => 18287c
-    [mart_background_color] => fafafa
-    [mart_meta_description] => In non metus turpis. Curabitur vitae dignissim mauris. Fusce vitae metus non mi sagittis pulvinar in consequat neque. Curabitur eget enim magna. Donec imperdiet pretium nisi, ac imperdiet erat sagittis a.
-    [mart_meta_keywords] => Vivamus vitae mauris fringilla, suscipit lectus eget, varius lacus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas porta at nunc nec sodales.
-    [mart_store_intro_paragraph] => ขอต้อนรับสู่โรงเรียนสอนภาษาญี่ปุ่นริกิกาวะ โรงเรียนที่จะทำให้คุณเก่งญี่ปุ่นได้ดั่งใจฝัน!
-    [social_media] => Array
-        (
-            [facebook] => https://www.facebook.com/lee.ratinan
-            [line] => https://line.me/ti/p/ME2Tsnm9nr
-            [instagram] => https://www.instagram.com/ratinanlee/
-            [youtube] => https://www.youtube.com/@RatinanLee
-        )
-
-    [business_logo] => http://localhost:8100/file/business_logo_eikin-japanese-school.webp
-    [business_header] => http://localhost:8100/file/business_header_eikin-japanese-school.webp
     [shipping_options] => BOTH
     [shipping_fee_taxable] => Y
-    [contract_anchor_day] =>
-    [contract_expiry] => 2027-02-27
-    [allow_advance_booking] => 2
-    [contact_email_address] => support@otternova.com
-    [contact_phone_number] => +66814566882
-    [contact_website] => https://example.com
-    [live_status] => Y
-    [created_by] =>
-    [created_at] => 2026-01-28 11:22:29
-    [updated_at] => 2026-06-11 14:43:15
-    [type_name] => โรงเรียนภาษา
-    [country] => ประเทศไทย
-    [contact_phone_number_shown] => 081 456 6882
     [branches] => Array
         (
             [4] => Array
@@ -115,7 +420,7 @@
 
                 )
 
-                    [payments] => Array
+    [payments] => Array
         (
             [cash] => Array
                 (
