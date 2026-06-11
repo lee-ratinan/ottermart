@@ -16,15 +16,15 @@ $cart         = $session->get('cart');
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="<?= $page_title . ' | ' . lang('System.site-name') ?>">
     <meta property="og:description" content="<?= $description ?>">
-    <meta property="og:image" content="<?= $og_image ?? base_url('assets/img/otternova-greeting.jpg') ?>">
+    <meta property="og:image" content="<?= $og_image ?? base_url('assets/img/otternova-greeting.webp') ?>">
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:type" content="website" />
     <!-- Favicons -->
     <?php if (!empty($business['business_logo'])) : ?>
         <link href="<?= $business['business_logo'] ?>" rel="icon">
     <?php else: ?>
-        <link href="<?= base_url('assets/img/favicon.png') ?>" rel="icon">
-        <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+        <link href="<?= base_url('assets/img/favicon.webp') ?>" rel="icon">
+        <link href="<?= base_url('assets/img/apple-touch-icon.webp') ?>" rel="apple-touch-icon">
     <?php endif ?>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -74,7 +74,7 @@ $cart         = $session->get('cart');
             "@type": "Organization",
             "name": "OtterNova",
             "url": "https://otternova.com/",
-            "logo": "https://otternova.com/assets/img/logo-original.png"
+            "logo": "https://otternova.com/assets/img/logo-original.webp"
         }
     </script>
     <script type="application/ld+json">
@@ -128,7 +128,7 @@ $cart         = $session->get('cart');
             </a>
         <?php else: ?>
             <a href="<?= base_url($locale) ?>" class="logo d-flex align-items-center me-auto me-xl-0">
-                <img src="<?= base_url('assets/img/logo-dark.png') ?>" alt="<?= lang('System.site-name') ?>">
+                <img src="<?= base_url('assets/img/logo-dark.webp') ?>" alt="<?= lang('System.site-name') ?>">
                 <h1 class="sitename"><?= lang('System.site-name') ?></h1>
             </a>
         <?php endif; ?>

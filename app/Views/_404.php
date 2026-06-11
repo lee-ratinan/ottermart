@@ -8,8 +8,8 @@
         <?= lang('System.site-name') ?>
     </title>
     <!-- Favicons -->
-    <link href="<?= base_url('assets/img/favicon.png') ?>" rel="icon">
-    <link href="<?= base_url('assets/img/apple-touch-icon.png') ?>" rel="apple-touch-icon">
+    <link href="<?= base_url('assets/img/favicon.webp') ?>" rel="icon">
+    <link href="<?= base_url('assets/img/apple-touch-icon.webp') ?>" rel="apple-touch-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <?php if ('th' == $lang) : ?>
@@ -37,7 +37,7 @@
             <h1 class="display-1" style="font-weight:bold; color:#c97232">404</h1>
             <h2 class="my-3" style="color:#c97232"><?= lang('System.404.got-lost') ?></h2>
             <a class="btn btn-dark mb-3" href="<?= base_url() ?>"><?= lang('System.404.return-to-safety') ?></a>
-            <img src="<?= base_url('assets/img/not-found.png') ?>" class="img-fluid py-5" alt="<?= lang('System.404.title') ?>" />
+            <img src="<?= base_url('assets/img/not-found.webp') ?>" class="img-fluid py-5" alt="<?= lang('System.404.title') ?>" />
         </section>
     </div>
 </main><!-- End #main -->
