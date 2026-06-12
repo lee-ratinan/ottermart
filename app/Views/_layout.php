@@ -320,7 +320,7 @@ $cart         = $session->get('cart');
                                 <?php if (!empty($business['contact_website'])) : ?>
                                     <li><a href="<?= $business['contact_website'] ?>" target="_blank"><i class="bi bi-globe-americas"></i> <?= $business['contact_website'] ?></a></li>
                                 <?php endif; ?>
-                                <li><i class="bi bi-geo-alt"></i> <span class="fi fi-<?= strtolower($business['country_code']) ?>"></span> <?= $business['country'] ?></li>
+                                <li><i class="bi bi-geo-alt"></i> <?= $business['country'] ?></li>
                             <?php else: ?>
                                 <li><a href="tel:<?= getenv('CONTACT_PHONE') ?>"><i class="bi bi-telephone"></i> <?= format_phone_number(getenv('CONTACT_PHONE')) ?></a></li>
                                 <li><a href="mailto:<?= getenv('CONTACT_EMAIL') ?>"><i class="bi bi-envelope"></i> <?= getenv('CONTACT_EMAIL') ?></a></li>
