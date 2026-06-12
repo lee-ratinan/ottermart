@@ -140,27 +140,28 @@ $cart         = $session->get('cart');
             <div class="row align-items-center">
                 <div class="col-auto">
                     <div class="utility-links">
-                        <a href="<?= getenv('main_site') ?>" class="utility-link">
-                            <i class="bi bi-arrow-left-circle-fill"></i>
-                            <span><?= lang('System.main-site') ?></span>
-                        </a>
-                        <span class="utility-divider"></span>
-                        <a href="<?= getenv('main_site') . $locale ?>/contact" class="utility-link">
-                            <i class="bi bi-headset"></i>
-                            <span><?= lang('System.contact-us') ?></span>
-                        </a>
+                        <?php if (isset($business)) : ?>
+                            <a href="<?= base_url($locale) ?>" class="utility-link"><i class="bi bi-reply"></i> <span><?= lang('System.back-to-ottermart') ?></span></a>
+                        <?php endif; ?>
+
+
+
+
                     </div>
                 </div>
                 <div class="col text-end">
                     <span class="promo-text d-none">...</span>
-                    <?php if (isset($business)) : ?>
                     <div class="utility-links d-inline text-end">
-                        <a href="<?= base_url($locale) ?>" class="utility-link">
-                            <i class="bi bi-house"></i>
-                            <span><?= lang('System.home-page') ?></span>
+                        <a href="<?= getenv('main_site') ?>" class="utility-link float-end">
+                            <i class="bi bi-arrow-left-circle"></i>
+                            <span><?= lang('System.main-site') ?></span>
+                        </a>
+                        <span class="utility-divider"></span>
+                        <a href="<?= getenv('main_site') . $locale ?>/contact" class="utility-link float-end">
+                            <i class="bi bi-headset"></i>
+                            <span><?= lang('System.contact-us') ?></span>
                         </a>
                     </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
