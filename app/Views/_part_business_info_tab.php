@@ -165,10 +165,10 @@
                                                 <?php foreach ($business['shipping_rates'] as $values) : ?>
                                                     <tr>
                                                         <td>
-                                                            <?= $values['price_range_from'] ?>
-                                                            - <?= $values['price_range_to'] ?>
+                                                            <?= (0 == $values['price_range_from'] ? '&lt;= ' : format_price($values['price_range_from'], $business['currency_code']) . ' - ') ?>
+                                                            <?= (0 < $values['price_range_to'] ? format_price($values['price_range_to'], $business['currency_code']) : '∞') ?>
                                                         </td>
-                                                        <td><?= $values['shipping_rate'] ?></td>
+                                                        <td><?= (0 < $values['shipping_rate'] ? format_price($values['shipping_rate'], $business['currency_code']) : lang('System.store.business-tab.shipping.free')) ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                                 </tbody>

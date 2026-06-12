@@ -369,7 +369,9 @@ $cart         = $session->get('cart');
         <div class="container">
             <div class="copyright text-center">
                 <p>
-                    <?= lang('System.copyright-message', [date('Y')]) ?> <span class="mx-3">|</span>
+                    <?= lang('System.copyright-message', [date('Y')]) ?>
+                </p>
+                <p>
                     <a href="<?= getenv('main_site') . $locale ?>/terms-and-conditions"><?= lang('System.terms-and-conditions') ?></a> <span class="mx-3">|</span>
                     <a href="<?= getenv('main_site') . $locale ?>/privacy-policy"><?= lang('System.privacy-policy') ?></a>
                 </p>

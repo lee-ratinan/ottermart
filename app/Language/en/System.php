@@ -5,7 +5,7 @@ return [
     'home-page'            => 'OtterMart',
     'main-site'            => 'Back to Main OtterNova Site',
     'contact-us'           => 'Contact OtterNova',
-    'copyright-message'    => 'Copyright © 2025-{0} <b>OtterNova</b>. All Rights Reserved.',
+    'copyright-message'    => 'Copyright © 2025-{0} <b>OtterNova</b>. <br class="d-md-none"/> All Rights Reserved.',
     'description'          => 'OtterNova is a smart booking and scheduling system for businesses. Replace paper chaos with an organized dashboard for appointments, staff, and services.',
     'keywords'             => 'booking system, appointment software, scheduling SaaS, reservation platform, business scheduling, online booking, staff scheduling, OtterNova',
     'footer-note'          => 'OtterNova is the service provider for online booking and e-commerce for businesses.',
@@ -72,25 +72,25 @@ return [
         'modified-hour-changed-today' => '{0} - opens {1} - {2}',
         'check-order'                 => 'Check Order',
         'business-tab'                => [
-            'detail' => [
-                'title' => 'Detail',
-                'generic' => 'Generic Information',
-                'currency' => 'Currency',
-                'tax-collection' => 'Tax Collection',
-                'tax-collection-types' => [
+            'detail'   => [
+                'title'                  => 'Detail',
+                'generic'                => 'Generic Information',
+                'currency'               => 'Currency',
+                'tax-collection'         => 'Tax Collection',
+                'tax-collection-types'   => [
                     'I' => 'Included in the price',
                     'E' => 'Excluded in the price',
                     'X' => 'Not Applicable',
                 ],
-                'shipping' => 'Shipping Options',
-                'shipping-options' => [
-                    'SHIPPING' => 'Home Delivery',
+                'shipping'               => 'Shipping Options',
+                'shipping-options'       => [
+                    'SHIPPING'        => 'Home Delivery',
                     'SELF-COLLECTION' => 'Self Collection',
-                    'BOTH' => 'Home Delivery, Self Collection',
+                    'BOTH'            => 'Home Delivery, Self Collection',
                 ],
-                'supporting' => 'Supporting',
-                'business-of' => 'Business of {0}',
-                'payment-methods' => 'Payment Methods',
+                'supporting'             => 'Supporting',
+                'business-of'            => 'Business of {0}',
+                'payment-methods'        => 'Payment Methods',
                 'payment-method-options' => [
                     'cash_on_delivery' => 'Cash-on-delivery (for delivery of products only)',
                     'cash'             => 'Cash',
@@ -100,19 +100,20 @@ return [
                 ]
             ],
             'branches' => [
-                'title' => 'Branches',
+                'title'          => 'Branches',
                 'branch-address' => 'Address',
-                'store-type' => 'Store Type',
-                'online-store' => 'Online Store',
-                'timezone-code' => 'Timezone',
-                'opening-hours' => 'Opening Hours',
+                'store-type'     => 'Store Type',
+                'online-store'   => 'Online Store',
+                'timezone-code'  => 'Timezone',
+                'opening-hours'  => 'Opening Hours',
                 'modified-hours' => 'Irregular Opening Hours',
-                'store-closed' => 'Closed'
+                'store-closed'   => 'Closed'
             ],
             'shipping' => [
                 'title' => 'Shipping Rates',
+                'free'  => 'Free Shipping',
             ],
-            'reviews' => [
+            'reviews'  => [
                 'title' => 'Reviews ({0})',
             ],
         ]

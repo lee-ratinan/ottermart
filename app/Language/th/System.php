@@ -44,6 +44,8 @@ return [
         'product-unavailable'         => 'ขออภัย สินค้านี้ยังไม่พร้อมให้บริการ',
         'branches-unavailable'        => 'ขออภัย ไม่มีข้อมูลสาขาสำหรับธุรกิจนี้',
         'option-unavailable'          => 'ขออภัย ตัวเลือกนี้ไม่สามารถเลือกได้ในตอนนี้',
+        'payment-methods-unavailable' => 'ขออภัย ไม่มีข้อมูลช่องทางการชำระเงินในตอนนี้',
+        'shipping-rates-unavailable'  => 'ขออภัย ไม่มีข้อมูลค่าจัดส่งในตอนนี้',
         'tag-new'                     => 'ใหม่',
         'tag-popular'                 => 'ยอดนิยม',
         'tag-recommended'             => 'แนะนำ',
@@ -69,6 +71,52 @@ return [
         'modified-hour-closed-today'  => '{0} - ปิด',
         'modified-hour-changed-today' => '{0} - เปิดเวลา {1} - {2}',
         'check-order'                 => 'ตรวจสอบออร์เดอร์',
+        'business-tab'                => [
+            'detail'   => [
+                'title'                  => 'ข้อมูลธุรกิจ',
+                'generic'                => 'ข้อมูลทั่วไป',
+                'currency'               => 'สกุลเงิน',
+                'tax-collection'         => 'การจัดเก็บภาษี',
+                'tax-collection-types'   => [
+                    'I' => 'รวมในราคา',
+                    'E' => 'ยังไม่รวมในราคา',
+                    'X' => 'ไม่มีภาษี',
+                ],
+                'shipping'               => 'ช่องทางการจัดส่ง',
+                'shipping-options'       => [
+                    'SHIPPING'        => 'ส่งถึงบ้าน',
+                    'SELF-COLLECTION' => 'รับของด้วยตนเอง',
+                    'BOTH'            => 'ส่งถึงบ้าน, รับของด้วยตนเอง',
+                ],
+                'supporting'             => 'สนับสนุน',
+                'business-of'            => 'ธุรกิจของ{0}',
+                'payment-methods'        => 'ช่องทางการชำระเงิน',
+                'payment-method-options' => [
+                    'cash_on_delivery' => 'เงินสดตอนจัดส่ง',
+                    'cash'             => 'เงินสด',
+                    'bank_transfer'    => 'โอนเงินผ่านธนาคาร',
+                    'promptpay_static' => 'พร้อมเพย์ QR',
+                    'paypal_me'        => 'PayPal Me',
+                ]
+            ],
+            'branches' => [
+                'title'          => 'สาขา',
+                'branch-address' => 'ที่อยู่',
+                'store-type'     => 'ประเภทของสาขา',
+                'online-store'   => 'ออนไลน์',
+                'timezone-code'  => 'โซนเวลา',
+                'opening-hours'  => 'เวลาทำการ',
+                'modified-hours' => 'เวลาทำการที่ต่างไปจากปกติ',
+                'store-closed'   => 'ปิด'
+            ],
+            'shipping' => [
+                'title' => 'ค่าจัดส่ง',
+                'free'  => 'จัดส่งฟรี',
+            ],
+            'reviews'  => [
+                'title' => 'รีวิว ({0})',
+            ],
+        ]
     ],
     'form'                 => [
         'filter' => [
