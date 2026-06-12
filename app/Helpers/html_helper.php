@@ -419,3 +419,34 @@ function format_phone_number(string $e164Number): string
     // Fallback to original input if invalid or parsing fails
     return $e164Number;
 }
+
+/**
+ * Determines whether a HEX color is dark or bright,
+ * and returns the ideal text color ('#000000' or '#FFFFFF').
+ *
+ * @param string $hex The background color in HEX format (e.g., '#FFFFFF' or '333')
+ * @param string $transparency The transparency of the background color (e.g., '0.5')
+ * @return string The contrasting text color
+ */
+function getContrastColor(string $hex, string $transparency = '0.1'): string
+{
+    // 1. Clean up the input: remove the '#' if present
+    $hex = ltrim($hex, '#');
+
+    // 2. Expand short HEX codes (e.g., "FFF" to "FFFFFF")
+    if (strlen($hex) == 3) {
+        $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+    }
+
+    // 3. Convert HEX to RGB decimal values
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+
+    // 4. Calculate perceived brightness using the YIQ formula
+    // Weights: Red = 29.9%, Green = 58.7%, Blue = 11.4%
+    $brightness = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+    // 5. Return white for dark backgrounds, black for bright backgrounds
+    return ($brightness > 128) ? "rgba(0, 0, 0, {$transparency})" : "rgba(255, 255, 255, {$transparency})";
+}

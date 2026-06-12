@@ -20,7 +20,7 @@
                                                 <i class="bi bi-cash-coin"></i>
                                                 <div>
                                                     <h5><?= lang('System.store.business-tab.detail.currency') ?></h5>
-                                                    <?= get_currency_name($business['currency_code'], substr($locale, 0, 2)) ?>
+                                                    <p><?= get_currency_name($business['currency_code'], substr($locale, 0, 2)) ?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -29,9 +29,7 @@
                                                 <i class="bi bi-bank"></i>
                                                 <div>
                                                     <h5><?= lang('System.store.business-tab.detail.tax-collection') ?></h5>
-                                                    <p>
-                                                        <?= number_format($business['tax_percentage'], 1) ?>% (<?= lang('System.store.business-tab.detail.tax-collection-types.' . $business['tax_inclusive']) ?>)
-                                                    </p>
+                                                    <p><?= number_format($business['tax_percentage'], 1) ?>% (<?= lang('System.store.business-tab.detail.tax-collection-types.' . $business['tax_inclusive']) ?>)</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,7 +59,7 @@
                                     <div class="included-box">
                                         <h4><i class="bi bi-cash-coin"></i> <?= lang('System.store.business-tab.detail.payment-methods') ?></h4>
                                         <?php if (empty($business['payments'])) : ?>
-                                            <p class="alert alert-danger"><?= lang('System.store.payment-methods-unavailable') ?></p>
+                                            <p class="alert alert-danger"><i class="bi bi-cone-striped"></i> <?= lang('System.store.payment-methods-unavailable') ?></p>
                                         <?php else: ?>
                                         <ul>
                                             <?php foreach ($business['payments'] as $key => $values) : ?>
@@ -84,7 +82,7 @@
                                 <?php if (empty($business['branches'])) : ?>
                                     <div class="col-md-12">
                                         <div class="spec-block">
-                                            <p class="alert alert-danger"><?= lang('System.store.branches-unavailable') ?></p>
+                                            <p class="alert alert-danger"><i class="bi bi-cone-striped"></i> <?= lang('System.store.branches-unavailable') ?></p>
                                         </div>
                                     </div>
                                 <?php else: ?>
@@ -155,7 +153,7 @@
                         <div class="specs-content">
                             <div class="row g-4">
                                 <?php if (empty($business['shipping_rates'])) : ?>
-                                    <p class="alert alert-danger"><?= lang('System.store.shipping-rates-unavailable') ?></p>
+                                    <p class="alert alert-danger"><i class="bi bi-cone-striped"></i> <?= lang('System.store.shipping-rates-unavailable') ?></p>
                                 <?php else: ?>
                                     <div class="col-md-6">
                                         <div class="spec-block">
@@ -240,7 +238,7 @@
                             <div class="reviews-list">
                                 <article class="review-entry">
                                     <div class="entry-top">
-                                        <img src="assets/img/person/person-m-8.webp" alt="Reviewer" class="avatar-img">
+                                        <img src="" alt="Reviewer" class="avatar-img">
                                         <div class="entry-meta">
                                             <strong>Marcus Bennett</strong>
                                             <div class="meta-line">
@@ -265,7 +263,7 @@
 
                                 <article class="review-entry">
                                     <div class="entry-top">
-                                        <img src="assets/img/person/person-f-11.webp" alt="Reviewer" class="avatar-img">
+                                        <img src="" alt="Reviewer" class="avatar-img">
                                         <div class="entry-meta">
                                             <strong>Olivia Torres</strong>
                                             <div class="meta-line">
@@ -290,7 +288,7 @@
 
                                 <article class="review-entry">
                                     <div class="entry-top">
-                                        <img src="assets/img/person/person-m-12.webp" alt="Reviewer" class="avatar-img">
+                                        <img src="" alt="Reviewer" class="avatar-img">
                                         <div class="entry-meta">
                                             <strong>Jason Kimura</strong>
                                             <div class="meta-line">

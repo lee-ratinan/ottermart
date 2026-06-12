@@ -13,7 +13,7 @@ function printProductServiceCard($productTitle, $productLink, $description, $cur
     }
     echo '<a href="' . $productLink . '"><h3 class="product-title">' . $productTitle . '</h3></a>';
     if (!empty($description)) {
-        echo '<p class="text-muted">' . $description . '</p>';
+        echo '<p>' . $description . '</p>';
     }
     echo '<div class="product-price"><span class="current-price">' . format_price($priceFrom, $currencyCode) . '</span>';
     if (0 < $priceOriginal) {
@@ -45,7 +45,7 @@ function printProductServiceCard($productTitle, $productLink, $description, $cur
                 <div class="row g-3">
                     <?php
                     if (empty($business['services'])) {
-                        echo '<p class="alert alert-danger">' . lang('System.store.services-unavailable') . '</p>';
+                        echo '<p class="alert alert-danger"><i class="bi bi-cone-striped"></i> ' . lang('System.store.services-unavailable') . '</p>';
                     } else {
                         foreach ($business['services'] as $thisService) {
                             printProductServiceCard(
@@ -68,7 +68,7 @@ function printProductServiceCard($productTitle, $productLink, $description, $cur
                 <div class="row g-3">
                     <?php
                     if (empty($business['products'])) {
-                        echo '<p class="alert alert-danger">' . lang('System.store.products-unavailable') . '</p>';
+                        echo '<p class="alert alert-danger"><i class="bi bi-cone-striped"></i> ' . lang('System.store.products-unavailable') . '</p>';
                     } else {
                         foreach ($business['products'] as $thisProduct) {
                             printProductServiceCard(

@@ -50,15 +50,36 @@ $cart         = $session->get('cart');
     <link rel="canonical" href="<?= current_url() ?>">
     <?php if (!empty($business)) : ?>
         <style>
+            <?php
+            $contrastColor = getContrastColor($business['mart_background_color']);
+            $contrastColor2 = getContrastColor($business['mart_background_color'], '0.2');
+            $contrastColor3 = getContrastColor($business['mart_background_color'], '0.5');
+            ?>
             .header .main-bar, section {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
             .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
-            .business a,  {color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .business a, .product-details .info-tabs .desc-content .highlight-card>i, .product-details .info-tabs .desc-content .included-box h4 i, .cards .product-card .product-info .product-price .current-price, .cards .product-card .product-info .product-price .original-price {color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .product-details .info-tabs .desc-content .highlight-card p,
+            .product-details .info-tabs .desc-content .included-box ul li,
+            .product-details .info-tabs .specs-content .spec-block .data-table tr td:first-child,
+            .product-details .info-tabs .specs-content .spec-block .data-table tr td:last-child {color: <?= '#'.$business['mart_text_color'] ?>;}
+            .tab-content, .product-details .info-tabs {background-color: <?= '#'.$business['mart_background_color'] ?>;border-color: <?= $contrastColor2 ?>;}
             .business a:hover {color: <?= '#'.$business['mart_text_color'] ?>;}
-            .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom-color:<?= '#'.$business['mart_primary_color'] ?>;}
+            .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .cards .tab-nav-wrapper {border-bottom: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
             .cards .product-card .product-thumb .new-badge {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
+            .cards .product-card, .cards .product-card:hover {border-color: <?= $contrastColor2 ?>;}
             .hero .intro-content .badge-label {background: color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 90%);color: <?= '#'.$business['mart_primary_color'] ?>;border: 1px solid color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 70%);}
             .btn-otternaut {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .btn-otternaut:hover {background-color: <?= '#'.$business['mart_text_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
+            .product-details .info-tabs .specs-content .spec-block h4 {border-left: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
+            .product-details .info-tabs .tab-nav .nav-link {color: <?= $contrastColor3 ?>;}
+            .product-details .info-tabs .tab-nav .nav-link:hover {color: <?= $contrastColor2 ?>;}
+            .product-details .info-tabs .tab-nav .nav-link.active {color: <?= '#'.$business['mart_primary_color'] ?>;background-color: <?= $contrastColor2 ?>;border-bottom-color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .cards .product-card {background-color: <?= '#'.$business['mart_background_color'] ?>;color: <?= '#'.$business['mart_text_color'] ?>;}
+            .product-details .info-tabs .desc-content .highlight-card,
+            .product-details .info-tabs .desc-content .included-box,
+            .product-details .info-tabs .specs-content .spec-block .data-table tr:nth-child(even),
+            .product-details .info-tabs .tab-nav {background-color: <?= $contrastColor ?>;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
@@ -199,7 +220,7 @@ $cart         = $session->get('cart');
                                     <!-- Cart Item 1 -->
                                     <div class="flyout-item">
                                         <div class="flyout-item-thumb">
-                                            <img src="assets/img/product/product-5.webp" alt="Product" class="img-fluid">
+                                            <img src="" alt="Product" class="img-fluid">
                                         </div>
                                         <div class="flyout-item-details">
                                             <h6>Woven Tote Handbag</h6>
@@ -217,7 +238,7 @@ $cart         = $session->get('cart');
                                     <!-- Cart Item 2 -->
                                     <div class="flyout-item">
                                         <div class="flyout-item-thumb">
-                                            <img src="assets/img/product/product-8.webp" alt="Product" class="img-fluid">
+                                            <img src="" alt="Product" class="img-fluid">
                                         </div>
                                         <div class="flyout-item-details">
                                             <h6>Slim Fit Denim Jacket</h6>
@@ -235,7 +256,7 @@ $cart         = $session->get('cart');
                                     <!-- Cart Item 3 -->
                                     <div class="flyout-item">
                                         <div class="flyout-item-thumb">
-                                            <img src="assets/img/product/product-11.webp" alt="Product" class="img-fluid">
+                                            <img src="" alt="Product" class="img-fluid">
                                         </div>
                                         <div class="flyout-item-details">
                                             <h6>Canvas Low-Top Sneakers</h6>
@@ -296,7 +317,9 @@ $cart         = $session->get('cart');
                                 <?php endif; ?>
                                 <span class="sitename"><?= $business['business_name'] ?></span>
                             </a>
-                            <div><a href="<?= base_url($locale) ?>"><i class="bi bi-house"></i> <span><?= lang('System.back-to-ottermart') ?></span></a></div>
+                            <ul class="footer-links">
+                                <li><a href="<?= base_url($locale) ?>"><i class="bi bi-reply"></i> <span><?= lang('System.back-to-ottermart') ?></span></a></li>
+                            </ul>
                         <?php else: ?>
                             <a href="<?= base_url($locale) ?>" class="logo">
                                 <img src="<?= base_url('assets/img/logo-dark.webp') ?>" alt="<?= lang('System.site-name') ?>">
@@ -383,7 +406,7 @@ $cart         = $session->get('cart');
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 <!-- Vendor JS Files -->
 <script src="<?= base_url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
-<script src="<?= base_url('assets/vendor/php-email-form/validate.js') ?>'"></script>
+<!--<script src="--><?php //= base_url('assets/vendor/php-email-form/validate.js') ?><!--'"></script>-->
 <script src="<?= base_url('assets/vendor/swiper/swiper-bundle.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/drift-zoom/Drift.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
