@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/@(:segment)/clear-cache', 'Home::clear_cache/$1');
+$routes->get('/@(:segment)/clear-cache', 'Home::clear_cache/$1', ['filter' => 'cors']);
 // SERVICES
 $routes->get('/@(:segment)/service-booking/(:segment)/(:segment)/slots', 'Home::service_booking_slots/$1/$2/$3'); // @(biz slug)/service-booking/(service slug)/(variant slug)/slots
 $routes->get('/@(:segment)/service-booking/(:segment)/(:segment)/schedules', 'Home::service_booking_schedules/$1/$2/$3'); // @(biz slug)/service-booking/(service slug)/(variant slug)/schedules
