@@ -123,13 +123,6 @@ $cart         = $session->get('cart');
                             <i class="bi bi-arrow-left-circle-fill"></i>
                             <span><?= lang('System.main-site') ?></span>
                         </a>
-                        <?php if (isset($business)) : ?>
-                            <span class="utility-divider"></span>
-                            <a href="<?= base_url($locale) ?>" class="utility-link">
-                                <i class="bi bi-house"></i>
-                                <span><?= lang('System.home-page') ?></span>
-                            </a>
-                        <?php endif; ?>
                         <span class="utility-divider"></span>
                         <a href="<?= getenv('main_site') . $locale ?>/contact" class="utility-link">
                             <i class="bi bi-headset"></i>
@@ -139,6 +132,14 @@ $cart         = $session->get('cart');
                 </div>
                 <div class="col text-end">
                     <span class="promo-text d-none">...</span>
+                    <?php if (isset($business)) : ?>
+                    <div class="utility-links d-inline text-end">
+                        <a href="<?= base_url($locale) ?>" class="utility-link">
+                            <i class="bi bi-house"></i>
+                            <span><?= lang('System.home-page') ?></span>
+                        </a>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -286,7 +287,7 @@ $cart         = $session->get('cart');
     <div class="footer-main">
         <div class="container">
             <div class="row gy-4">
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-12 col-lg-4">
                     <div class="footer-widget footer-about">
                         <?php if (isset($business)) : ?>
                             <a href="<?= base_url($locale . '/@' . $business['business_slug']) ?>" class="logo">
@@ -295,6 +296,7 @@ $cart         = $session->get('cart');
                                 <?php endif; ?>
                                 <span class="sitename"><?= $business['business_name'] ?></span>
                             </a>
+                            <div><a href="<?= base_url($locale) ?>"><i class="bi bi-house"></i> <span><?= lang('System.back-to-ottermart') ?></span></a></div>
                         <?php else: ?>
                             <a href="<?= base_url($locale) ?>" class="logo">
                                 <img src="<?= base_url('assets/img/logo-dark.webp') ?>" alt="<?= lang('System.site-name') ?>">
@@ -304,7 +306,7 @@ $cart         = $session->get('cart');
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="footer-widget">
                         <h4><?= lang('System.contact') ?></h4>
                         <ul class="footer-links">
@@ -326,7 +328,7 @@ $cart         = $session->get('cart');
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-12 col-md-6 col-lg-4">
                     <div class="footer-widget">
                         <div class="social-links">
                             <?php if (isset($business)) : ?>

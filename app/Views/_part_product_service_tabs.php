@@ -23,8 +23,8 @@ function printProductServiceCard($productTitle, $productLink, $description, $cur
     echo '</div></div></div>';
 }
 ?>
-<section id="cards" class="cards section">
-    <div class="container">
+<div id="cards" class="cards mt-5">
+    <div class="container px-3">
         <div class="tab-nav-wrapper">
             <ul class="nav nav-tabs filter-tabs" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -90,4 +90,4 @@ function printProductServiceCard($productTitle, $productLink, $description, $cur
             </div>
         </div>
     </div>
-</section>
+</div>

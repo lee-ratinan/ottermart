@@ -21,10 +21,10 @@ function printBusinessHead($business) {
     }
 }
 ?>
-<div class="container px-0" data-aos="fade-up">
+<div class="container px-0 px-md-3" data-aos="fade-up">
     <div class="row hero py-0">
         <?php if (empty($business['business_header'])) : /* NO BANNER, use col-12*/ ?>
-            <div class="col-12 pt-3 intro-content">
+            <div class="col-12 px-4 pt-3 intro-content">
                 <?php printBusinessHead($business); ?>
             </div>
         <?php else: /* BANNER, use col-12 col-lg-6 */ ?>

@@ -119,6 +119,47 @@ if (!function_exists('get_country')) {
     }
 }
 
+if (!function_exists('get_currency_name')) {
+    function get_currency_name(string $currency_code, string $locale = ''): string|array
+    {
+        $currency_code  = strtoupper($currency_code);
+        $codes = [
+            'THB' => [
+                'en' => 'Thai Baht',
+                'th' => 'บาทไทย',
+            ],
+            'USD' => [
+                'en' => 'US Dollar',
+                'th' => 'ดอลลาร์สหรัฐ',
+                'ms' => 'US Dollar',
+                'ja' => '米ドル',
+                'zh' => '美元',
+            ],
+            'SGD' => [
+                'en' => 'Singapore Dollar',
+            ],
+            'MYR' => [
+                'en' => 'Malaysian Ringgit',
+                'ms' => 'Ringgit Malaysia',
+            ],
+            'JPY' => [
+                'en' => 'Japanese Yen',
+                'ja' => '円',
+            ],
+            'TWD' => [
+                'en' => 'Taiwan New Dollar',
+                'zh' => '新台幣',
+            ]
+        ];
+        if (isset($codes[$currency_code][$locale])) {
+            return $codes[$currency_code][$locale];
+        } else if (isset($codes[$currency_code])) {
+            return $codes[$currency_code];
+        }
+        return $codes;
+    }
+}
+
 if (!function_exists('get_locale')) {
     function get_locale(string $code, string $locale = ''): string|array
     {
