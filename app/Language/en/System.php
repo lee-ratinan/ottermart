@@ -36,7 +36,9 @@ return [
     'store'                => [
         'view-more'                   => 'View more',
         'services'                    => 'Services',
+        'service'                     => 'Service',
         'products'                    => 'Products',
+        'product'                     => 'Product',
         'branches'                    => 'Branches',
         'services-unavailable'        => 'Sorry, there are no services available at the moment.',
         'service-unavailable'         => 'Sorry, this service is not available at the moment.',

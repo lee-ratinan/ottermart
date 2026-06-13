@@ -36,7 +36,9 @@ return [
     'store'                => [
         'view-more'                   => 'ดูเพิ่มเติม',
         'services'                    => 'บริการ',
+        'service'                     => 'บริการ',
         'products'                    => 'สินค้า',
+        'product'                     => 'สินค้า',
         'branches'                    => 'สาขา',
         'services-unavailable'        => 'ขออภัย ยังไม่มีบริการสำหรับธุรกิจนี้',
         'service-unavailable'         => 'ขออภัย บริการนี้ยังไม่พร้อมให้บริการ',

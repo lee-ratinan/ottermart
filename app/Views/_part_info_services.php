@@ -9,7 +9,7 @@
                 <div class="image-showcase">
                     <div class="main-image-container">
                         <!-- <span class="discount-badge">-21%</span> -->
-                        <img id="main-product-image" src="assets/img/product/product-details-7.webp" data-zoom="assets/img/product/product-details-7.webp" alt="Product" class="img-fluid">
+                        <img id="main-product-image" src="<?= $services['service_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" data-zoom="assets/img/product/product-details-7.webp" alt="Product" class="img-fluid">
                         <?php /* <div class="image-zoom-container"></div>
                                 <button class="image-nav-btn prev-image" type="button"><i class="bi bi-chevron-left"></i></button>
                                 <button class="image-nav-btn next-image" type="button"><i class="bi bi-chevron-right"></i></button> */ ?>
