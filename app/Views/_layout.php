@@ -85,6 +85,7 @@ $cart         = $session->get('cart');
             .product-details .product-detail-card .pricing-area {background-color: <?= $contrastColor ?>;}
             .accordion-button:not(.collapsed) {background-color: <?= $primaryFaded ?>;color: <?= '#'.$business['mart_primary_color'] ?>;}
             .product-details .image-showcase .thumb-strip .thumb-cell:hover, .product-details .image-showcase .thumb-strip .thumb-cell.active {border-color: <?= '#'.$business['mart_primary_color'] ?>;box-shadow: 0 0 0 2px color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 80%);}
+            .product-details .product-detail-card .detail-header .type-badge {background-color: <?= $primaryFaded ?>;border-color:<?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_primary_color'] ?>;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">

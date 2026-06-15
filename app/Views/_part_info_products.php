@@ -8,19 +8,19 @@
             <div class="col-lg-7">
                 <div class="image-showcase">
                     <div class="main-image-container">
-                        <img id="main-product-image" src="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" data-zoom="assets/img/product/product-details-7.webp" alt="Product" class="img-fluid">
+                        <img id="main-product-image" src="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" data-zoom="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" alt="<?= $products['product_name'] ?>" class="img-fluid">
                         <div class="image-zoom-container"></div>
                         <button class="image-nav-btn prev-image" type="button"><i class="bi bi-chevron-left"></i></button>
                         <button class="image-nav-btn next-image" type="button"><i class="bi bi-chevron-right"></i></button>
                     </div>
                     <div class="thumb-strip">
-                        <div class="thumb-cell thumbnail-item" data-image="<?= @$products['product_image'] ?>">
-                            <img src="<?= @$products['product_image'] ?>" alt="<?= $products['product_name'] ?> 1" class="img-fluid">
+                        <div class="thumb-cell thumbnail-item" data-image="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>">
+                            <img src="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" alt="<?= $products['product_name'] ?> - 1" class="img-fluid">
                         </div>
                         <?php if (!empty($products['product_image_array'])) : ?>
                             <?php foreach ($products['product_image_array'] as $i => $image_url) : ?>
                                 <div class="thumb-cell thumbnail-item" data-image="<?= $image_url ?>">
-                                    <img src="<?= $image_url ?>" alt="<?= $products['product_name'] . ' ' . ($i + 2) ?>" class="img-fluid">
+                                    <img src="<?= $image_url ?>" alt="<?= $products['product_name'] . ' - ' . ($i + 2) ?>" class="img-fluid">
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -40,13 +40,17 @@
                         $products['reviews']['stars']   = 1.4; // should be coming from the database
                         $products['reviews']['ratings'] = 12345;
                         $products['purchase_count']     = 6543;
-                        echo printStars($products['reviews']['stars']);
                         ?>
-                        <span class="score-text"><?= number_format($products['reviews']['stars'], 1) ?></span>
-                        <span class="divider-dot">·</span>
-                        <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['reviews']['ratings'])]) ?></a>
-                        <span class="divider-dot">·</span>
-                        <span class="units-left"><?= lang('System.store.purchase-count', [number_format($products['purchase_count'])]) ?></span>
+                        <?php if (0 < $products['reviews']['ratings']) : ?>
+                            <?= printStars($products['reviews']['stars']); ?>
+                            <span class="score-text"><?= number_format($products['reviews']['stars'], 1) ?></span>
+                            <span class="divider-dot">·</span>
+                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['reviews']['ratings'])]) ?></a>
+                        <?php endif; ?>
+                        <?php if (1 < $products['purchase_count']) : ?>
+                            <span class="divider-dot">·</span>
+                            <span class="units-left"><?= lang('System.store.purchase-count', [number_format($products['purchase_count'])]) ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="pricing-area">
                         <div class="price-row">
