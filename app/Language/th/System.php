@@ -51,6 +51,7 @@ return [
         'tag-new'                     => 'ใหม่',
         'tag-popular'                 => 'ยอดนิยม',
         'tag-recommended'             => 'แนะนำ',
+        'sku'                         => 'SKU',
         'duration'                    => 'ระยะเวลา: <b>{0}</b>',
         'find-sessions'               => 'ค้นหาเซสชั่นของบริการนี้',
         'find-available-slots'        => 'จองบริการนี้',

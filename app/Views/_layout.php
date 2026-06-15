@@ -51,9 +51,10 @@ $cart         = $session->get('cart');
     <?php if (!empty($business)) : ?>
         <style>
             <?php
-            $contrastColor = getContrastColor($business['mart_background_color']);
-            $contrastColor2 = getContrastColor($business['mart_background_color'], '0.2');
-            $contrastColor3 = getContrastColor($business['mart_background_color'], '0.5');
+            $contrastColor  = getContrastColor($business['mart_background_color']); echo '/* contrast1 ' . $contrastColor . ' */';
+            $contrastColor2 = getContrastColor($business['mart_background_color'], '0.2'); echo '/* contrast2 ' . $contrastColor2 . ' */';
+            $contrastColor3 = getContrastColor($business['mart_background_color'], '0.5'); echo '/* contrast3 ' . $contrastColor3 . ' */';
+            $primaryFaded   = addTransparency($business['mart_primary_color'], '0.2'); echo '/* primaryFaded ' . $primaryFaded . ' */';
             ?>
             .header .main-bar, section {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
             .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
@@ -64,6 +65,7 @@ $cart         = $session->get('cart');
             .product-details .info-tabs .specs-content .spec-block .data-table tr td:last-child {color: <?= '#'.$business['mart_text_color'] ?>;}
             .tab-content, .product-details .info-tabs {background-color: <?= '#'.$business['mart_background_color'] ?>;border-color: <?= $contrastColor2 ?>;}
             .business a:hover {color: <?= '#'.$business['mart_text_color'] ?>;}
+            .product-details .info-tabs .desc-content .included-box ul li i {color: <?= '#'.$business['mart_text_color'] ?>;}
             .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .cards .tab-nav-wrapper {border-bottom: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
             .cards .product-card .product-thumb .new-badge {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
@@ -73,8 +75,8 @@ $cart         = $session->get('cart');
             .btn-otternaut:hover {background-color: <?= '#'.$business['mart_text_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
             .product-details .info-tabs .specs-content .spec-block h4 {border-left: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .product-details .info-tabs .tab-nav .nav-link {color: <?= $contrastColor3 ?>;}
-            .product-details .info-tabs .tab-nav .nav-link:hover {color: <?= $contrastColor2 ?>;}
-            .product-details .info-tabs .tab-nav .nav-link.active {color: <?= '#'.$business['mart_primary_color'] ?>;background-color: <?= $contrastColor2 ?>;border-bottom-color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .product-details .info-tabs .tab-nav .nav-link:hover {background-color: <?= $primaryFaded ?>;color: <?= '#'.$business['mart_primary_color']  ?>;}
+            .product-details .info-tabs .tab-nav .nav-link.active {color: <?= '#'.$business['mart_primary_color'] ?>;background-color: <?= $primaryFaded ?>;border-bottom-color: <?= '#'.$business['mart_primary_color'] ?>;}
             .cards .product-card {background-color: <?= '#'.$business['mart_background_color'] ?>;color: <?= '#'.$business['mart_text_color'] ?>;}
             .product-details .info-tabs .desc-content .highlight-card,
             .product-details .info-tabs .desc-content .included-box,

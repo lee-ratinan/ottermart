@@ -8,52 +8,45 @@
             <div class="col-lg-7">
                 <div class="image-showcase">
                     <div class="main-image-container">
-                        <!-- <span class="discount-badge">-21%</span> -->
                         <img id="main-product-image" src="<?= $products['product_image'] ?? base_url('assets/img/no-image-1000x.webp') ?>" data-zoom="assets/img/product/product-details-7.webp" alt="Product" class="img-fluid">
-                        <?php /* <div class="image-zoom-container"></div>
-                                <button class="image-nav-btn prev-image" type="button"><i class="bi bi-chevron-left"></i></button>
-                                <button class="image-nav-btn next-image" type="button"><i class="bi bi-chevron-right"></i></button> */ ?>
+                        <div class="image-zoom-container"></div>
+                        <button class="image-nav-btn prev-image" type="button"><i class="bi bi-chevron-left"></i></button>
+                        <button class="image-nav-btn next-image" type="button"><i class="bi bi-chevron-right"></i></button>
                     </div>
-                    <?php /* <div class="thumb-strip d-none">
-                                <div class="thumb-cell thumbnail-item" data-image="assets/img/product/product-details-3.webp">
-                                    <img src="#" alt="View 1" class="img-fluid">
+                    <div class="thumb-strip">
+                        <div class="thumb-cell thumbnail-item" data-image="<?= @$products['product_image'] ?>">
+                            <img src="<?= @$products['product_image'] ?>" alt="<?= $products['product_name'] ?> 1" class="img-fluid">
+                        </div>
+                        <?php if (!empty($products['product_image_array'])) : ?>
+                            <?php foreach ($products['product_image_array'] as $i => $image_url) : ?>
+                                <div class="thumb-cell thumbnail-item" data-image="<?= $image_url ?>">
+                                    <img src="<?= $image_url ?>" alt="<?= $products['product_name'] . ' ' . ($i + 2) ?>" class="img-fluid">
                                 </div>
-                                <div class="thumb-cell thumbnail-item" data-image="assets/img/product/product-details-4.webp">
-                                    <img src="#" alt="View 2" class="img-fluid">
-                                </div>
-                                <div class="thumb-cell thumbnail-item" data-image="assets/img/product/product-details-5.webp">
-                                    <img src="#" alt="View 3" class="img-fluid">
-                                </div>
-                                <div class="thumb-cell thumbnail-item" data-image="assets/img/product/product-details-6.webp">
-                                    <img src="#" alt="View 4" class="img-fluid">
-                                </div>
-                                <div class="thumb-cell thumbnail-item active" data-image="assets/img/product/product-details-7.webp">
-                                    <img src="#" alt="View 5" class="img-fluid">
-                                </div>
-                            </div><!-- End Thumb Strip --> */ ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div><!-- End Product Gallery -->
             <!-- Product Details -->
             <div class="col-lg-5">
                 <div class="product-detail-card">
                     <div class="detail-header">
-                        <span class="type-badge"><?= lang('System.store.product') ?></span>
+                        <span class="type-badge"><?= $products['product_tag_label'] ?></span>
                         <span class="stock-indicator d-none"><i class="bi bi-circle-fill"></i> In Stock</span>
                     </div>
                     <h1 class="product-heading"><?= $products['product_name'] ?></h1>
-                    <div class="review-summary d-none">
-                        <div class="stars-inline">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                        </div>
-                        <span class="score-text">(stars)</span>
+                    <div class="review-summary">
+                        <?php
+                        $products['reviews']['stars']   = 1.4; // should be coming from the database
+                        $products['reviews']['ratings'] = 12345;
+                        $products['purchase_count']     = 6543;
+                        echo printStars($products['reviews']['stars']);
+                        ?>
+                        <span class="score-text"><?= number_format($products['reviews']['stars'], 1) ?></span>
                         <span class="divider-dot">·</span>
-                        <a href="#" class="reviews-anchor">(ratings) ratings</a>
+                        <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['reviews']['ratings'])]) ?></a>
                         <span class="divider-dot">·</span>
-                        <span class="units-left">(count) remaining / (count) booked</span>
+                        <span class="units-left"><?= lang('System.store.purchase-count', [number_format($products['purchase_count'])]) ?></span>
                     </div>
                     <div class="pricing-area">
                         <div class="price-row">
@@ -77,7 +70,10 @@
                                         <div id="collapse-<?= $variant['variant_slug'] ?>" class="accordion-collapse collapse <?= 0 == $i ? 'show' : '' ?>" data-bs-parent="#productAccordion">
                                             <div class="accordion-body">
                                                 <?php if (!empty($variant['variant_sku'])) : ?>
-                                                    <p>SKU: <?= $variant['variant_sku'] ?></p>
+                                                    <p><?= lang('System.store.sku') ?>: <?= $variant['variant_sku'] ?></p>
+                                                <?php endif; ?>
+                                                <?php if (!empty($variant['variant_description'])) : ?>
+                                                    <p><?= $variant['variant_description'] ?></p>
                                                 <?php endif; ?>
                                                 <?php if ('A' == $variant['is_active']) : ?>
                                                     <p>
@@ -87,35 +83,23 @@
                                                         <?php endif; ?>
                                                     </p>
                                                     <?php if (0 < $variant['inventory_count']) : ?>
-                                                        <div class="input-group mb-2">
-                                                            <span class="input-group-text"><label for="quantity-<?= $products['id'] ?>-<?= $variant['id'] ?>"><?= lang('System.store.quantity') ?></label></span>
-                                                            <input type="number" class="form-control" id="quantity-<?= $products['id'] ?>-<?= $variant['id'] ?>" name="quantity" value="1" min="1" max="<?= min(10, $variant['inventory_count']) ?>" />
+                                                        <div class="action-row">
+                                                            <div class="quantity-selector">
+                                                                <label for="quantity-input-<?= $variant['id'] ?>" class="d-none"><?= lang('System.store.quantity') ?></label>
+                                                                <button class="quantity-btn decrease" data-variant-id="<?= $variant['id'] ?>" type="button"><i class="bi bi-dash"></i></button>
+                                                                <input type="number" class="quantity-input" id="quantity-input-<?= $variant['id'] ?>" value="1" min="1" max="<?= min(10, $variant['inventory_count']) ?>">
+                                                                <button class="quantity-btn increase" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>" type="button"><i class="bi bi-plus"></i></button>
+                                                            </div>
+                                                            <button class="btn primary-action-btn btn-add-to-cart" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>">
+                                                                <i class="bi bi-bag-plus"></i> <?= lang('System.store.add-to-cart') ?>
+                                                            </button>
                                                         </div>
-                                                        <button class="btn btn-dark w-100 btn-add-to-cart"
-                                                                data-product-id="<?= $products['id'] ?>" data-variant-id="<?= $variant['id'] ?>"
-                                                                data-product-name="<?= $products['product_name'] ?>" data-variant-name="<?= $variant['variant_name'] ?>"
-                                                                data-price="<?= $variant['price_active'] ?>" data-product-type="<?= $products['product_type'] ?>"
-                                                        ><?= lang('System.store.add-to-cart') ?></button>
                                                     <?php else: ?>
                                                         <p class="alert alert-danger"><?= lang('System.store.out-of-stock') ?></p>
                                                     <?php endif; ?>
                                                 <?php else: ?>
                                                     <p class="alert alert-danger"><?= lang('System.store.option-unavailable') ?></p>
                                                 <?php endif; ?>
-
-
-                                                <p>Price: ฿150.00 ฿180.00</p>
-                                                <div class="action-row">
-                                                    <div class="quantity-selector">
-                                                        <label for="quantity-input" class="d-none">quantity</label>
-                                                        <button class="quantity-btn decrease" type="button"><i class="bi bi-dash"></i></button>
-                                                        <input type="number" class="quantity-input" id="quantity-input" value="1" min="1" max="18">
-                                                        <button class="quantity-btn increase" type="button"><i class="bi bi-plus"></i></button>
-                                                    </div>
-                                                    <button class="btn primary-action-btn">
-                                                        <i class="bi bi-bag-plus"></i> Add to Cart
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>

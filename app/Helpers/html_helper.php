@@ -450,3 +450,37 @@ function getContrastColor(string $hex, string $transparency = '0.1'): string
     // 5. Return white for dark backgrounds, black for bright backgrounds
     return ($brightness > 128) ? "rgba(0, 0, 0, {$transparency})" : "rgba(255, 255, 255, {$transparency})";
 }
+
+function addTransparency(string $hex, float $transparency = 0.5): string
+{
+    // 1. Clean up the input: remove the '#' if present
+    $hex = ltrim($hex, '#');
+
+    // 2. Expand short HEX codes (e.g., "FFF" to "FFFFFF")
+    if (strlen($hex) == 3) {
+        $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+    }
+
+    // 3. Convert HEX to RGB decimal values
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+
+    return "rgba({$r}, {$g}, {$b}, {$transparency})";
+}
+
+function printStars(float $stars): string
+{
+    if ($stars < 0 || $stars > 5) {
+        return '';
+    }
+    $full_star_count                = floor($stars);
+    $half_star_count                = ($full_star_count == $stars ? 0 : 1);
+    $blank_star_count               = 5 - $full_star_count - $half_star_count;
+    $string  = '<div class="stars-inline">';
+    $string .= str_repeat('<i class="bi bi-star-fill"></i>', $full_star_count);
+    $string .= str_repeat('<i class="bi bi-star-half"></i>', $half_star_count);
+    $string .= str_repeat('<i class="bi bi-star"></i>', $blank_star_count);
+    $string .= '</div>';
+    return $string;
+}
