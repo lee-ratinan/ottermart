@@ -65,7 +65,7 @@
                                 <?php foreach ($products['variants'] as $i => $variant) : ?>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $variant['variant_slug'] ?>" aria-expanded="true" aria-controls="collapse<?= $variant['variant_slug'] ?>"><b><?= $variant['variant_name'] ?></b></button>
+                                            <button class="accordion-button <?= (0 < $i ? 'collapsed' : '') ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?= $variant['variant_slug'] ?>" aria-expanded="<?= (0 == $i ? 'true' : 'false') ?>" aria-controls="collapse-<?= $variant['variant_slug'] ?>"><b><?= $variant['variant_name'] ?></b></button>
                                         </h2>
                                         <div id="collapse-<?= $variant['variant_slug'] ?>" class="accordion-collapse collapse <?= 0 == $i ? 'show' : '' ?>" data-bs-parent="#productAccordion">
                                             <div class="accordion-body">
@@ -90,7 +90,7 @@
                                                                 <input type="number" class="quantity-input" id="quantity-input-<?= $variant['id'] ?>" value="1" min="1" max="<?= min(10, $variant['inventory_count']) ?>">
                                                                 <button class="quantity-btn increase" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>" type="button"><i class="bi bi-plus"></i></button>
                                                             </div>
-                                                            <button class="btn primary-action-btn btn-add-to-cart" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>">
+                                                            <button class="btn btn-otternaut primary-action-btn btn-add-to-cart" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>">
                                                                 <i class="bi bi-bag-plus"></i> <?= lang('System.store.add-to-cart') ?>
                                                             </button>
                                                         </div>

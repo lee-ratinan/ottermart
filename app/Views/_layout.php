@@ -65,14 +65,14 @@ $cart         = $session->get('cart');
             .product-details .info-tabs .specs-content .spec-block .data-table tr td:last-child {color: <?= '#'.$business['mart_text_color'] ?>;}
             .tab-content, .product-details .info-tabs {background-color: <?= '#'.$business['mart_background_color'] ?>;border-color: <?= $contrastColor2 ?>;}
             .business a:hover {color: <?= '#'.$business['mart_text_color'] ?>;}
-            .product-details .info-tabs .desc-content .included-box ul li i {color: <?= '#'.$business['mart_text_color'] ?>;}
+            .product-details .info-tabs .desc-content .included-box ul li i, .product-details .product-detail-card .review-summary .reviews-anchor, .product-details .product-detail-card .review-summary .units-left, .product-details .product-detail-card .review-summary .divider-dot {color: <?= '#'.$business['mart_text_color'] ?>;}
             .cards .filter-tabs .nav-item .nav-link.active {color:<?= '#'.$business['mart_primary_color'] ?>;border-bottom: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .cards .tab-nav-wrapper {border-bottom: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
             .cards .product-card .product-thumb .new-badge {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
             .cards .product-card, .cards .product-card:hover {border-color: <?= $contrastColor2 ?>;}
             .hero .intro-content .badge-label {background: color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 90%);color: <?= '#'.$business['mart_primary_color'] ?>;border: 1px solid color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 70%);}
-            .btn-otternaut {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_primary_color'] ?>;}
-            .btn-otternaut:hover {background-color: <?= '#'.$business['mart_text_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;border: 1px solid <?= '#'.$business['mart_text_color'] ?>;}
+            .btn-otternaut, .primary-action-btn {background-color: <?= '#'.$business['mart_primary_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;border: 1px solid <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .btn-otternaut:hover, .primary-action-btn:hover {background-color: <?= '#'.$business['mart_text_color'] ?> !important;color: <?= '#'.$business['mart_background_color'] ?> !important;border: 1px solid <?= '#'.$business['mart_text_color'] ?> !important;}
             .product-details .info-tabs .specs-content .spec-block h4 {border-left: 3px solid <?= '#'.$business['mart_primary_color'] ?>;}
             .product-details .info-tabs .tab-nav .nav-link {color: <?= $contrastColor3 ?>;}
             .product-details .info-tabs .tab-nav .nav-link:hover {background-color: <?= $primaryFaded ?>;color: <?= '#'.$business['mart_primary_color']  ?>;}
@@ -81,7 +81,10 @@ $cart         = $session->get('cart');
             .product-details .info-tabs .desc-content .highlight-card,
             .product-details .info-tabs .desc-content .included-box,
             .product-details .info-tabs .specs-content .spec-block .data-table tr:nth-child(even),
-            .product-details .info-tabs .tab-nav {background-color: <?= $contrastColor ?>;}
+            .product-details .info-tabs .tab-nav,
+            .product-details .product-detail-card .pricing-area {background-color: <?= $contrastColor ?>;}
+            .accordion-button:not(.collapsed) {background-color: <?= $primaryFaded ?>;color: <?= '#'.$business['mart_primary_color'] ?>;}
+            .product-details .image-showcase .thumb-strip .thumb-cell:hover, .product-details .image-showcase .thumb-strip .thumb-cell.active {border-color: <?= '#'.$business['mart_primary_color'] ?>;box-shadow: 0 0 0 2px color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 80%);}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
