@@ -36,20 +36,17 @@
                     </div>
                     <h1 class="product-heading"><?= $products['product_name'] ?></h1>
                     <div class="review-summary">
-                        <?php
-                        $products['reviews']['stars']   = 1.4; // should be coming from the database
-                        $products['reviews']['ratings'] = 12345;
-                        $products['purchase_count']     = 6543;
-                        ?>
-                        <?php if (0 < $products['reviews']['ratings']) : ?>
-                            <?= printStars($products['reviews']['stars']); ?>
-                            <span class="score-text"><?= number_format($products['reviews']['stars'], 1) ?></span>
+                        <?php if (0 < $products['review_count']) : ?>
+                            <?= printStars($products['review_stars']); ?>
+                            <span class="score-text"><?= number_format($products['review_stars'], 1) ?></span>
                             <span class="divider-dot">·</span>
-                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['reviews']['ratings'])]) ?></a>
+                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['review_count'])]) ?></a>
+                            <span class="divider-dot">·</span>
                         <?php endif; ?>
                         <?php if (1 < $products['purchase_count']) : ?>
-                            <span class="divider-dot">·</span>
                             <span class="units-left"><?= lang('System.store.purchase-count', [number_format($products['purchase_count'])]) ?></span>
+                        <?php else: ?>
+                            <span class="units-left"><?= lang('System.store.new') ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="pricing-area">

@@ -36,20 +36,17 @@
                     </div>
                     <h1 class="product-heading"><?= $services['service_name'] ?></h1>
                     <div class="review-summary">
-                        <?php
-                        $services['reviews']['stars']   = 5; // should be coming from the database
-                        $services['reviews']['ratings'] = 12345;
-                        $services['book_count']         = 6543;
-                        ?>
-                        <?php if (0 < $services['reviews']['ratings']) : ?>
-                            <?= printStars($services['reviews']['stars']); ?>
-                            <span class="score-text"><?= number_format($services['reviews']['stars'], 1) ?></span>
+                        <?php if (0 < $services['review_count']) : ?>
+                            <?= printStars($services['review_stars']); ?>
+                            <span class="score-text"><?= number_format($services['review_stars'], 1) ?></span>
                             <span class="divider-dot">·</span>
-                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($services['reviews']['ratings'])]) ?></a>
+                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($services['review_count'])]) ?></a>
+                            <span class="divider-dot">·</span>
                         <?php endif; ?>
                         <?php if (1 < $services['book_count']) : ?>
-                            <span class="divider-dot">·</span>
                             <span class="units-left"><?= lang('System.store.book-count', [number_format($services['book_count'])]) ?></span>
+                        <?php else: ?>
+                            <span class="units-left"><?= lang('System.store.new') ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="pricing-area">
