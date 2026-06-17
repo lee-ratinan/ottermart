@@ -44,8 +44,8 @@ $cart         = $session->get('cart');
     <!-- Main CSS File -->
     <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
     <!-- Link Languages -->
-    <link rel="alternate" hreflang="en-th" href="<?= base_url('en-th/' . $url_part) ?>">
-    <link rel="alternate" hreflang="th-th" href="<?= base_url('th-th/' . $url_part) ?>">
+    <link rel="alternate" hreflang="en-TH" href="<?= base_url('en-TH/' . $url_part) ?>">
+    <link rel="alternate" hreflang="th-TH" href="<?= base_url('th-TH/' . $url_part) ?>">
     <link rel="alternate" hreflang="x-default" href="<?= base_url($url_part) ?>">
     <link rel="canonical" href="<?= current_url() ?>">
     <?php if (!empty($business)) : ?>
@@ -57,7 +57,7 @@ $cart         = $session->get('cart');
             $primaryFaded   = addTransparency($business['mart_primary_color'], '0.2'); echo '/* primaryFaded ' . $primaryFaded . ' */';
             ?>
             .header .main-bar, section {background-color: <?= '#'.$business['mart_background_color'] ?> !important; color: <?= '#'.$business['mart_text_color'] ?> !important;}
-            .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6 {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
+            .navmenu a, .business h1, h1.sitename, .business h2, .business h3, .business h4, .business h5, .business h6, .header .main-bar .action-group .action-btn:hover {color: <?= '#'.$business['mart_primary_color'] ?> !important;}
             .business a, .product-details .info-tabs .desc-content .highlight-card>i, .product-details .info-tabs .desc-content .included-box h4 i, .cards .product-card .product-info .product-price .current-price, .cards .product-card .product-info .product-price .original-price {color: <?= '#'.$business['mart_primary_color'] ?>;}
             .product-details .info-tabs .desc-content .highlight-card p,
             .product-details .info-tabs .desc-content .included-box ul li,
@@ -230,7 +230,7 @@ $cart         = $session->get('cart');
                                     <!-- Cart Item 1 -->
                                     <div class="flyout-item">
                                         <div class="flyout-item-thumb">
-                                            <img src="" alt="Product" class="img-fluid">
+                                            <img src="#" alt="Product" class="img-fluid">
                                         </div>
                                         <div class="flyout-item-details">
                                             <h6>Woven Tote Handbag</h6>
@@ -349,7 +349,7 @@ $cart         = $session->get('cart');
                             <ul class="footer-links">
                                 <?php foreach (get_locale($country) as $lc => $label) : ?>
                                     <?php $business_path = (isset($business)) ? '/@' . $business['business_slug'] : ''; ?>
-                                    <li><a href="<?= base_url($lc . '-' . $country . $business_path) ?>"><?= $label ?></a></li>
+                                    <li><a href="<?= base_url($lc . '-' . strtoupper($country) . $business_path) ?>"><?= $label ?></a></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

@@ -170,7 +170,7 @@ class Home extends BaseController
     {
         $locale       = $this->split_locale();
         $languageCode = strtolower($locale['languageCode']);
-        $countryCode  = strtolower($locale['countryCode']);
+        $countryCode  = strtoupper($locale['countryCode']);
         $url = sprintf(
             '%s/api/v1.0/%s/%s/%s',
             rtrim(getenv('otterplex'), '/'),
