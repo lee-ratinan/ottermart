@@ -6,7 +6,7 @@
                     <li><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#detail-tab" type="button" aria-selected="true" role="tab"><?= lang('System.store.business-tab.detail.title') ?></button></li>
                     <li><button class="nav-link" data-bs-toggle="tab" data-bs-target="#branch-tab" type="button" aria-selected="false" role="tab" tabindex="-1"><?= lang('System.store.business-tab.branches.title') ?></button></li>
                     <li><button class="nav-link" data-bs-toggle="tab" data-bs-target="#shipping-tab" type="button" aria-selected="false" role="tab" tabindex="-1"><?= lang('System.store.business-tab.shipping.title') ?></button></li>
-                    <li class="d-none"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#review-tab" type="button" aria-selected="false" role="tab" tabindex="-1"><?= lang('System.store.business-tab.review.title', [0]) ?></button></li>
+                    <li><button class="nav-link" data-bs-toggle="tab" data-bs-target="#review-tab" type="button" aria-selected="false" role="tab" tabindex="-1"><?= lang('System.store.business-tab.reviews.title', [$business['review_count']]) ?></button></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="detail-tab" role="tabpanel">
@@ -178,144 +178,12 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="review-tab" role="tabpanel">
-                        <div class="feedback-content">
-                            <div class="row g-4 mb-4">
-                                <div class="col-lg-3 col-md-4">
-                                    <div class="rating-overview">
-                                        <div class="big-number">4.6</div>
-                                        <div class="star-row">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i>
-                                        </div>
-                                        <span class="count-label">Based on 143 ratings</span>
-                                        <button class="btn review-cta">Write a Review</button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-8">
-                                    <div class="distribution-chart">
-                                        <div class="dist-row">
-                                            <span class="dist-label">5 <i class="bi bi-star-fill"></i></span>
-                                            <div class="dist-track">
-                                                <div class="dist-fill" style="width:68%;"></div>
-                                            </div>
-                                            <span class="dist-count">97</span>
-                                        </div>
-                                        <div class="dist-row">
-                                            <span class="dist-label">4 <i class="bi bi-star-fill"></i></span>
-                                            <div class="dist-track">
-                                                <div class="dist-fill" style="width:22%;"></div>
-                                            </div>
-                                            <span class="dist-count">31</span>
-                                        </div>
-                                        <div class="dist-row">
-                                            <span class="dist-label">3 <i class="bi bi-star-fill"></i></span>
-                                            <div class="dist-track">
-                                                <div class="dist-fill" style="width:6%;"></div>
-                                            </div>
-                                            <span class="dist-count">9</span>
-                                        </div>
-                                        <div class="dist-row">
-                                            <span class="dist-label">2 <i class="bi bi-star-fill"></i></span>
-                                            <div class="dist-track">
-                                                <div class="dist-fill" style="width:3%;"></div>
-                                            </div>
-                                            <span class="dist-count">4</span>
-                                        </div>
-                                        <div class="dist-row">
-                                            <span class="dist-label">1 <i class="bi bi-star-fill"></i></span>
-                                            <div class="dist-track">
-                                                <div class="dist-fill" style="width:1%;"></div>
-                                            </div>
-                                            <span class="dist-count">2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- End Rating Overview -->
-
-                            <div class="reviews-list">
-                                <article class="review-entry">
-                                    <div class="entry-top">
-                                        <img src="" alt="Reviewer" class="avatar-img">
-                                        <div class="entry-meta">
-                                            <strong>Marcus Bennett</strong>
-                                            <div class="meta-line">
-                              <span class="inline-stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                              </span>
-                                                <span class="entry-date">April 12, 2024</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5>Exceptional clarity and comfortable wear</h5>
-                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati.</p>
-                                    <div class="entry-actions">
-                                        <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (14)</button>
-                                        <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
-                                    </div>
-                                </article><!-- End Review Entry -->
-
-                                <article class="review-entry">
-                                    <div class="entry-top">
-                                        <img src="" alt="Reviewer" class="avatar-img">
-                                        <div class="entry-meta">
-                                            <strong>Olivia Torres</strong>
-                                            <div class="meta-line">
-                              <span class="inline-stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star"></i>
-                              </span>
-                                                <span class="entry-date">March 5, 2024</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5>Solid performance with minor quirks</h5>
-                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis. Generally pleased with my purchase.</p>
-                                    <div class="entry-actions">
-                                        <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (9)</button>
-                                        <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
-                                    </div>
-                                </article><!-- End Review Entry -->
-
-                                <article class="review-entry">
-                                    <div class="entry-top">
-                                        <img src="" alt="Reviewer" class="avatar-img">
-                                        <div class="entry-meta">
-                                            <strong>Jason Kimura</strong>
-                                            <div class="meta-line">
-                              <span class="inline-stars">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                              </span>
-                                                <span class="entry-date">January 18, 2024</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h5>Ideal companion for remote professionals</h5>
-                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.</p>
-                                    <div class="entry-actions">
-                                        <button class="action-btn"><i class="bi bi-hand-thumbs-up"></i> Helpful (18)</button>
-                                        <button class="action-btn"><i class="bi bi-reply"></i> Reply</button>
-                                    </div>
-                                </article><!-- End Review Entry -->
-
-                                <div class="load-wrap">
-                                    <button class="btn load-btn">Load More Reviews</button>
-                                </div>
-                            </div><!-- End Reviews List -->
-                        </div>
+                        <?php
+                        $stars            = $business['review_stars'];
+                        $review_count     = $business['review_count'];
+                        $review_breakdown = $business['review_breakdown'];
+                        include '_part_review_app.php';
+                        ?>
                     </div>
                 </div>
             </div>

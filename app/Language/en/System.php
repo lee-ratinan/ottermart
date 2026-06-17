@@ -120,7 +120,9 @@ return [
                 'free'  => 'Free Shipping',
             ],
             'reviews'  => [
-                'title' => 'Reviews ({0})',
+                'title'        => 'Reviews ({0})',
+                'review-count' => 'Based on {0} reviews',
+                'load-more'    => 'Load more reviews',
             ],
         ]
     ],
