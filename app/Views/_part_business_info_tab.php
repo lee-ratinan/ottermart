@@ -182,6 +182,8 @@
                         $stars            = $business['review_stars'];
                         $review_count     = $business['review_count'];
                         $review_breakdown = $business['review_breakdown'];
+                        $entity           = 'business';
+                        $entity_id        = $business['id'];
                         include '_part_review_app.php';
                         ?>
                     </div>

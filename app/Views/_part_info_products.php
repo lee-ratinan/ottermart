@@ -40,7 +40,7 @@
                             <?= printStars($products['review_stars']); ?>
                             <span class="score-text"><?= number_format($products['review_stars'], 1) ?></span>
                             <span class="divider-dot">·</span>
-                            <a href="#" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['review_count'])]) ?></a>
+                            <a href="#feedback-content" class="reviews-anchor"><?= lang('System.store.ratings', [number_format($products['review_count'])]) ?></a>
                             <span class="divider-dot">·</span>
                         <?php endif; ?>
                         <?php if (1 < $products['purchase_count']) : ?>
@@ -108,6 +108,27 @@
                             </div>
                         <?php endif; ?>
                     <?php endif ?>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-12">
+                <div class="info-tabs">
+                    <ul class="tab-nav nav" role="tablist">
+                        <li><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#review-tab" type="button" aria-selected="false" role="tab" tabindex="-1"><?= lang('System.store.business-tab.reviews.title', [$products['review_count']]) ?></button></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="review-tab" role="tabpanel">
+                            <?php
+                            $stars            = $products['review_stars'];
+                            $review_count     = $products['review_count'];
+                            $review_breakdown = $products['review_breakdown'];
+                            $entity           = 'product';
+                            $entity_id        = $products['id'];
+                            include '_part_review_app.php';
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

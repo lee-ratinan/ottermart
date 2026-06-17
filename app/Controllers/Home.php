@@ -346,6 +346,34 @@ class Home extends BaseController
         return view('store_front', $data);
     }
 
+    public function get_reviews(): ResponseInterface
+    {
+        $reviews = [
+            [
+                'customer_name' => 'Harry Potter',
+                'stars'         => 5,
+                'date'          => '2026-05-04',
+                'title'         => 'Lorem ipsum dolor sit amet',
+                'body'          => 'Consectetur adipiscing elit. Donec vestibulum quam mauris, quis pretium nibh laoreet ac. In venenatis sagittis mauris. Fusce erat elit, cursus in maximus ut.'
+            ],
+            [
+                'customer_name' => 'Percy Jackson',
+                'stars'         => 4,
+                'date'          => '2026-06-01',
+                'title'         => 'Aliquam erat volutpat',
+                'body'          => 'Sed facilisis massa neque, in dictum massa lacinia fermentum. Phasellus et pellentesque lorem, eu lacinia lorem.'
+            ],
+            [
+                'customer_name' => 'Peter Parker',
+                'stars'         => 5,
+                'date'          => '2026-04-02',
+                'title'         => 'Nullam pulvinar nunc',
+                'body'          => 'Vestibulum suscipit tortor sit amet est porta bibendum. Phasellus est dui, ultrices dignissim turpis vel, placerat viverra sapien.'
+            ],
+        ];
+        return $this->response->setJSON($reviews);
+    }
+
     public function shop_info_page(string $shop_slug, string $info_type, string $product_slug): string
     {
         if (!in_array($info_type, ['products', 'services'])) {

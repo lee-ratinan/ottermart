@@ -120,9 +120,15 @@ return [
                 'free'  => 'Free Shipping',
             ],
             'reviews'  => [
-                'title'        => 'Reviews ({0})',
-                'review-count' => 'Based on {0} reviews',
-                'load-more'    => 'Load more reviews',
+                'title'         => 'Reviews ({0})',
+                'review-count'  => 'Based on {0} reviews',
+                'load-more'     => 'Load more reviews',
+                'sort-by'       => 'Sort by:',
+                'sort-relevant' => 'Relevant',
+                'sort-recent'   => 'Most Recent',
+                'sort-oldest'   => 'Oldest First',
+                'sort-highest'  => 'Highest Rating First',
+                'sort-lowest'   => 'Lowest Rating First',
             ],
         ]
     ],
