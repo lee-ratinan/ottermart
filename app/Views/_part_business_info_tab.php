@@ -111,6 +111,13 @@
                                                         <td><?= lang('System.store.business-tab.branches.timezone-code') ?></td>
                                                         <td><?= $branch['timezone_code'] ?></td>
                                                     </tr>
+                                                    <?php if (!empty($branch['google_map_url'])) : ?>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <iframe src="<?= $branch['google_map_url'] ?>" style="border:0;width:100%;height:250px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                        </td>
+                                                    </tr>
+                                                    <?php endif; ?>
                                                     <?php if (!empty($branch['hours'])) : ?>
                                                         <tr>
                                                             <td><?= lang('System.store.business-tab.branches.opening-hours') ?></td>
