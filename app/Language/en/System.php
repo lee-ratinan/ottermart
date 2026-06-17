@@ -60,6 +60,7 @@ return [
         'find-available-slots'        => 'Find available slots',
         'quantity'                    => 'Quantity',
         'add-to-cart'                 => 'Add to Cart',
+        'go-to-cart'                  => 'Go to Cart',
         'out-of-stock'                => 'Sorry, this variant is out of stock.',
         'opening-hours'               => 'Opening Hours',
         'modified-hours'              => 'Irregular Opening Hours',
@@ -156,6 +157,8 @@ return [
     ],
     'cart'                 => [
         'title'                   => 'Cart',
+        'your-cart'               => 'Your Cart',
+        'items-count'             => '{0, plural, =0{Empty Cart} =1{1 item} other{# items}}',
         'item-added'              => 'The item has been added to your cart.',
         'cart-updated'            => 'Your cart has been updated.',
         'item-add-failed'         => 'The item could not be added to your cart.',

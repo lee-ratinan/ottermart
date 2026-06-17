@@ -87,6 +87,7 @@ $cart         = $session->get('cart');
             .product-details .image-showcase .thumb-strip .thumb-cell:hover, .product-details .image-showcase .thumb-strip .thumb-cell.active {border-color: <?= '#'.$business['mart_primary_color'] ?>;box-shadow: 0 0 0 2px color-mix(in srgb, <?= '#'.$business['mart_primary_color'] ?>, transparent 80%);}
             .product-details .product-detail-card .detail-header .type-badge {background-color: <?= $primaryFaded ?>;border-color:<?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_primary_color'] ?>;}
             .product-details .info-tabs .feedback-content .distribution-chart .dist-row .dist-track .dist-fill {background: <?= '#'.$business['mart_primary_color'] ?>;}
+            .header .main-bar .action-group .action-btn .badge-count {background-color: <?= '#'.$business['mart_primary_color'] ?>;color: <?= '#'.$business['mart_background_color'] ?>;}
         </style>
     <?php endif; ?>
     <script type="application/ld+json">
@@ -222,8 +223,8 @@ $cart         = $session->get('cart');
                             </button>
                             <div class="dropdown-menu cart-flyout">
                                 <div class="flyout-top">
-                                    <h6>Your Bag</h6>
-                                    <span class="items-label">3 items</span>
+                                    <h6><?= lang('System.cart.your-cart') ?></h6>
+                                    <span class="items-label"><?= lang('System.cart.items-count', [2]) ?></span>
                                 </div>
                                 <div class="flyout-items">
                                     <!-- Cart Item 1 -->
@@ -239,54 +240,14 @@ $cart         = $session->get('cart');
                                                 <span class="item-qty">x1</span>
                                             </div>
                                         </div>
-                                        <button class="item-dismiss" aria-label="Remove item">
-                                            <i class="bi bi-trash3"></i>
-                                        </button>
-                                    </div><!-- End Cart Item -->
-
-                                    <!-- Cart Item 2 -->
-                                    <div class="flyout-item">
-                                        <div class="flyout-item-thumb">
-                                            <img src="" alt="Product" class="img-fluid">
-                                        </div>
-                                        <div class="flyout-item-details">
-                                            <h6>Slim Fit Denim Jacket</h6>
-                                            <span class="item-option">Indigo / L</span>
-                                            <div class="item-bottom">
-                                                <span class="item-price">$145.00</span>
-                                                <span class="item-qty">x1</span>
-                                            </div>
-                                        </div>
-                                        <button class="item-dismiss" aria-label="Remove item">
-                                            <i class="bi bi-trash3"></i>
-                                        </button>
-                                    </div><!-- End Cart Item -->
-
-                                    <!-- Cart Item 3 -->
-                                    <div class="flyout-item">
-                                        <div class="flyout-item-thumb">
-                                            <img src="" alt="Product" class="img-fluid">
-                                        </div>
-                                        <div class="flyout-item-details">
-                                            <h6>Canvas Low-Top Sneakers</h6>
-                                            <span class="item-option">Off-White / 40</span>
-                                            <div class="item-bottom">
-                                                <span class="item-price">$68.00</span>
-                                                <span class="item-qty">x1</span>
-                                            </div>
-                                        </div>
-                                        <button class="item-dismiss" aria-label="Remove item">
-                                            <i class="bi bi-trash3"></i>
-                                        </button>
                                     </div><!-- End Cart Item -->
                                 </div>
                                 <div class="flyout-bottom">
                                     <div class="subtotal-row">
-                                        <span>Subtotal</span>
+                                        <span><?= lang('System.cart.table.subtotal') ?></span>
                                         <span class="subtotal-value">$302.00</span>
                                     </div>
-                                    <a href="checkout.html" class="btn btn-proceed">Proceed to Checkout</a>
-                                    <a href="cart.html" class="link-viewbag">View full bag →</a>
+                                    <a href="#" class="btn btn-otternaut w-100 mb-2"><?= lang('System.store.go-to-cart') ?></a>
                                 </div>
                             </div>
                         </div>
