@@ -242,6 +242,9 @@ $cart         = $session->get('cart');
                                         </div>
                                     </div><!-- End Cart Item -->
                                 </div>
+                                <pre>
+                                    <?php print_r(@$_SESSION['cart']); ?>
+                                </pre>
                                 <div class="flyout-bottom">
                                     <div class="subtotal-row">
                                         <span><?= lang('System.cart.table.subtotal') ?></span>
@@ -381,6 +384,8 @@ $cart         = $session->get('cart');
 <script src="<?= base_url('assets/vendor/drift-zoom/Drift.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/glightbox/js/glightbox.min.js') ?>"></script>
 <script src="<?= base_url('assets/vendor/purecounter/purecounter_vanilla.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/Luxon/luxon.min.js') ?>"></script>
+<script src="<?= base_url('assets/vendor/toastrjs/toastr.min.js') ?>"></script>
 <!-- Main JS File -->
 <script src="<?= base_url('assets/js/main.js') ?>"></script>
 </body>
