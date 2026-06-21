@@ -158,7 +158,6 @@ return [
     'cart'                 => [
         'title'                   => 'Cart',
         'your-cart'               => 'Your Cart',
-        'items-count'             => '{0, plural, =0{Empty Cart} =1{1 item} other{# items}}',
         'item-added'              => 'The item has been added to your cart.',
         'cart-updated'            => 'Your cart has been updated.',
         'item-add-failed'         => 'The item could not be added to your cart.',

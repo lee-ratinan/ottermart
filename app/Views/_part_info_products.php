@@ -88,10 +88,13 @@
                                                             <div class="quantity-selector">
                                                                 <label for="quantity-input-<?= $variant['id'] ?>" class="d-none"><?= lang('System.store.quantity') ?></label>
                                                                 <button class="quantity-btn decrease" data-variant-id="<?= $variant['id'] ?>" type="button"><i class="bi bi-dash"></i></button>
-                                                                <input type="number" class="quantity-input" id="quantity-input-<?= $variant['id'] ?>" value="1" min="1" max="<?= min(10, $variant['inventory_count']) ?>">
+                                                                <input type="number" class="quantity-input" id="quantity-input-<?= $variant['id'] ?>" value="1" min="1" max="<?= max(10, $variant['inventory_count']) ?>">
                                                                 <button class="quantity-btn increase" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>" type="button"><i class="bi bi-plus"></i></button>
                                                             </div>
-                                                            <button class="btn btn-otternaut primary-action-btn btn-add-to-cart" data-variant-id="<?= $variant['id'] ?>" data-variant-slug="<?= $variant['variant_slug'] ?>">
+                                                            <button class="btn btn-otternaut primary-action-btn btn-add-to-cart"
+                                                                    data-product-id="<?= $products['id'] ?>" data-product-name="<?= $products['product_name'] ?>"
+                                                                    data-variant-id="<?= $variant['id'] ?>" data-variant-name="<?= $variant['variant_name'] ?>"
+                                                                    data-price="<?= $variant['price_active'] ?>" data-product-type="<?= $products['product_type'] ?>">
                                                                 <i class="bi bi-bag-plus"></i> <?= lang('System.store.add-to-cart') ?>
                                                             </button>
                                                         </div>
@@ -140,7 +143,7 @@
             e.preventDefault();
             let product_id    = $(this).data('product-id'),
                 variant_id    = $(this).data('variant-id'),
-                quantity      = $('#quantity-'+product_id+'-'+variant_id).val(),
+                quantity      = $('#quantity-input-'+variant_id).val(),
                 product_name  = $(this).data('product-name'),
                 variant_name  = $(this).data('variant-name'),
                 price         = $(this).data('price'),
@@ -163,8 +166,7 @@
                 function (response, status) {
                     if (response.status === "OK") {
                         toastr.success('<?= lang('System.cart.item-added') ?>');
-                        // $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
-                        // $('#cart-count').html('('+response.cart.item_count+')');
+                        generateCartItems(response.cart.item_count, response.cart.line_items, response.cart.scheduled_service, response.cart.adhoc_service, response.cart.order_total);
                     } else {
                         toastr.error('<?= lang('System.cart.item-add-failed') ?>');
                     }

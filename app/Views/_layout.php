@@ -41,6 +41,7 @@ $cart         = $session->get('cart');
     <link href="<?= base_url('assets/vendor/drift-zoom/drift-basic.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/glightbox/css/glightbox.min.css') ?>" rel="stylesheet">
     <link href="<?= base_url('assets/vendor/flag-icons-main/css/flag-icons.min.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/vendor/toastrjs/toastr.min.css') ?>" rel="stylesheet">
     <!-- Main CSS File -->
     <link href="<?= base_url('assets/css/main.css') ?>" rel="stylesheet">
     <!-- Link Languages -->
@@ -152,10 +153,6 @@ $cart         = $session->get('cart');
                         <?php if (isset($business)) : ?>
                             <a href="<?= base_url($locale) ?>" class="utility-link"><i class="bi bi-reply"></i> <span><?= lang('System.back-to-ottermart') ?></span></a>
                         <?php endif; ?>
-
-
-
-
                     </div>
                 </div>
                 <div class="col text-end">
@@ -219,36 +216,17 @@ $cart         = $session->get('cart');
                         <div class="dropdown">
                             <button class="action-btn" data-bs-toggle="dropdown" aria-label="Cart">
                                 <i class="bi bi-bag"></i>
-                                <span class="badge-count">3</span>
+                                <span class="badge-count" id="header-cart-counter">#</span>
                             </button>
                             <div class="dropdown-menu cart-flyout">
                                 <div class="flyout-top">
                                     <h6><?= lang('System.cart.your-cart') ?></h6>
-                                    <span class="items-label"><?= lang('System.cart.items-count', [2]) ?></span>
                                 </div>
-                                <div class="flyout-items">
-                                    <!-- Cart Item 1 -->
-                                    <div class="flyout-item">
-                                        <div class="flyout-item-thumb">
-                                            <img src="#" alt="Product" class="img-fluid">
-                                        </div>
-                                        <div class="flyout-item-details">
-                                            <h6>Woven Tote Handbag</h6>
-                                            <span class="item-option">Beige / Medium</span>
-                                            <div class="item-bottom">
-                                                <span class="item-price">$89.00</span>
-                                                <span class="item-qty">x1</span>
-                                            </div>
-                                        </div>
-                                    </div><!-- End Cart Item -->
-                                </div>
-                                <pre>
-                                    <?php print_r(@$_SESSION['cart']); ?>
-                                </pre>
+                                <div class="flyout-items" id="header-cart-items-area"></div>
                                 <div class="flyout-bottom">
                                     <div class="subtotal-row">
                                         <span><?= lang('System.cart.table.subtotal') ?></span>
-                                        <span class="subtotal-value">$302.00</span>
+                                        <span class="subtotal-value" id="header-cart-total">###</span>
                                     </div>
                                     <a href="#" class="btn btn-otternaut w-100 mb-2"><?= lang('System.store.go-to-cart') ?></a>
                                 </div>
@@ -388,5 +366,59 @@ $cart         = $session->get('cart');
 <script src="<?= base_url('assets/vendor/toastrjs/toastr.min.js') ?>"></script>
 <!-- Main JS File -->
 <script src="<?= base_url('assets/js/main.js') ?>"></script>
+<?php if (isset($business)) : ?>
+<script>
+    let formatPrice = function (price) {
+        let storeCurrency = '<?= $business['currency_code'] ?>';
+        if ('THB' === storeCurrency) {
+            return '฿ ' + price.toLocaleString('th', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+        return price.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    let formatCartItem = function (item_name, item_detail, line_price, qty) {
+        let amount = formatPrice(line_price),
+            template = `<div class="flyout-item">
+                      <div class="flyout-item-details">
+                        <div class="float-end item-bottom"><span class="item-qty">x${qty} :</span><span class="item-price">${amount}</span></div>
+                        <h6>${item_name}</h6>
+                        <span class="item-option">${item_detail}</span>
+                      </div>
+                    </div>`;
+        $('#header-cart-items-area').append(template);
+    };
+    let generateCartItems = function (itemCount, lineItems, scheduledServices, adhocServices, totalPrice) {
+        $('#header-cart-counter').html(itemCount);
+        $('#header-cart-total').html(formatPrice(totalPrice));
+        scheduledServices = Object.values(scheduledServices);
+        adhocServices = Object.values(adhocServices);
+        lineItems = Object.values(lineItems);
+        $('#header-cart-items-area').html('');
+        if (scheduledServices) {
+            scheduledServices.forEach(function (item) {
+                formatCartItem(item.service_name, item.service_variant_name, item.booking_subtotal, item.booking_quantity);
+            });
+        }
+        if (adhocServices) {
+            adhocServices.forEach(function (item) {
+                formatCartItem(item.service_name, item.service_variant_name, item.booking_subtotal, item.booking_quantity);
+            });
+        }
+        if (lineItems) {
+            lineItems.forEach(function (item) {
+                formatCartItem(item.product_name, item.product_variant_name, item.line_subtotal, item.line_quantity);
+            });
+        }
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        generateCartItems(
+            <?= $cart['item_count'] ?? 0 ?>,
+            <?= json_encode($cart['line_items'] ?? []) ?>,
+            <?= json_encode($cart['scheduled_service'] ?? []) ?>,
+            <?= json_encode($cart['adhoc_service'] ?? []) ?>,
+            <?= $cart['order_total'] ?? 0 ?>
+        );
+    });
+</script>
+<?php endif; ?>
 </body>
 </html>

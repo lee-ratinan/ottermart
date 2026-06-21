@@ -126,7 +126,7 @@ foreach ($service['variants'] as $row) {
                 let service_variant_id = <?= $business['service_variant_slugs'][$variant_slug] ?>,
                     service_id = <?= $business['service_slugs'][$service_slug] ?>,
                     service_name = '<?= $business['services'][$business['service_slugs'][$service_slug]]['service_name'] ?>',
-                    service_variant_name = '',
+                    service_variant_name = '<?= $variant['variant_name'] ?>',
                     unit_price = $(this).data('unit-price'),
                     user_id = $(this).data('user-id'),
                     user_name = $(this).data('user-name'),
@@ -154,8 +154,7 @@ foreach ($service['variants'] as $row) {
                     function (response, status) {
                         if (response.status === "OK") {
                             toastr.success('<?= lang('System.cart.item-added') ?>');
-                            // $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
-                            // $('#cart-count').html('('+response.cart.item_count+')');
+                            generateCartItems(response.cart.item_count, response.cart.line_items, response.cart.scheduled_service, response.cart.adhoc_service, response.cart.order_total);
                         } else {
                             toastr.error('<?= lang('System.cart.item-add-failed') ?>');
                         }

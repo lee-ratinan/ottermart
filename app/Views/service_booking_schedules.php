@@ -121,8 +121,8 @@ foreach ($service['variants'] as $row) {
                 let service_variant_id = <?= $business['service_variant_slugs'][$variant_slug] ?>,
                     service_id = <?= $business['service_slugs'][$service_slug] ?>,
                     session_id = $(this).data('session-id'),
-                    service_name = '<?= @$business['services'][@$business['service_slugs'][$service_slug]]['service_name'] ?>',
-                    service_variant_name = '<?= @$business['services'][@$business['service_slugs'][$service_slug]]['variants'][$business['service_variant_slugs'][$variant_slug]]['variant_name'] ?>',
+                    service_name = '<?= $business['services'][$business['service_slugs'][$service_slug]]['service_name'] ?>',
+                    service_variant_name = '<?= $variant['variant_name'] ?>',
                     booking_quantity = $('#quantity-'+session_id).val(),
                     unit_price = $(this).data('unit-price'),
                     short_description = $(this).data('short-description'),
@@ -146,8 +146,7 @@ foreach ($service['variants'] as $row) {
                     function (response, status) {
                         if (response.status === "OK") {
                             toastr.success('<?= lang('System.cart.item-added') ?>');
-                            // $('#header-cart-icon').removeClass('bi-cart').addClass('bi-cart-check-fill');
-                            // $('#cart-count').html('('+response.cart.item_count+')');
+                            generateCartItems(response.cart.item_count, response.cart.line_items, response.cart.scheduled_service, response.cart.adhoc_service, response.cart.order_total);
                         } else {
                             toastr.error('<?= lang('System.cart.item-add-failed') ?>');
                         }
@@ -160,13 +159,4 @@ foreach ($service['variants'] as $row) {
             });
         });
     </script>
-    <pre>
-    <?= print_r($service, true) ?>
-        <?= print_r($variant, true) ?>
-    svc slug <?= $service_slug ?>
-    var slug <?= $variant_slug ?>
-        <?= $business['service_slugs'][$service_slug] ?>
-        <?= $business['service_variant_slugs'][$variant_slug] ?>
-        <?= print_r($business['service_variant_slugs'], true) ?>
-    </pre>
 <?php $this->endSection() ?>
