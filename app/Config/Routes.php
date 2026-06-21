@@ -34,6 +34,7 @@ $routes->group('{locale}', ['filter' => 'localeGuard'], static function($routes)
     $routes->get('@(:segment)/get-cart', 'Home::get_cart/$1'); // (@(biz slug)/get-cart
     $routes->get('@(:segment)/clear-cart', 'Home::clear_cart/$1'); // (@(biz slug)/clear-cart
     $routes->get('@(:segment)/cart', 'Home::cart/$1'); // (@(biz slug)/clear-cart
+    $routes->get('@(:segment)/get-reviews', 'Home::get_reviews/$1');
     // CHECKOUT
     $routes->get('@(:segment)/checkout', 'Home::checkout/$1'); // @(biz slug)/checkout
     $routes->post('@(:segment)/confirm-checkout', 'Home::confirm_checkout/$1');
