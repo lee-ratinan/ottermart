@@ -296,8 +296,12 @@ $cart         = $session->get('cart');
                                 <?php endif; ?>
                                 <li><i class="bi bi-geo-alt"></i> <?= $business['country'] ?></li>
                             <?php else: ?>
-                                <li><a href="tel:<?= getenv('CONTACT_PHONE') ?>"><i class="bi bi-telephone"></i> <?= format_phone_number(getenv('CONTACT_PHONE')) ?></a></li>
-                                <li><a href="mailto:<?= getenv('CONTACT_EMAIL') ?>"><i class="bi bi-envelope"></i> <?= getenv('CONTACT_EMAIL') ?></a></li>
+                                <?php if (getenv('CONTACT_PHONE')) : ?>
+                                    <li><a href="tel:<?= getenv('CONTACT_PHONE') ?>"><i class="bi bi-telephone"></i> <?= format_phone_number(getenv('CONTACT_PHONE')) ?></a></li>
+                                <?php endif; ?>
+                                <?php if (getenv('CONTACT_EMAIL')) : ?>
+                                    <li><a href="mailto:<?= getenv('CONTACT_EMAIL') ?>"><i class="bi bi-envelope"></i> <?= getenv('CONTACT_EMAIL') ?></a></li>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </ul>
                     </div>
@@ -306,7 +310,7 @@ $cart         = $session->get('cart');
                     <div class="footer-widget">
                         <div class="social-links">
                             <?php if (isset($business)) : ?>
-                                <?php if (is_array($business['social_media'])) : ?>
+                                <?php if (is_array($business['social_media']) && !empty($business['social_media'])) : ?>
                                     <h5><?= lang('System.follow-us', [$business['business_name']]) ?></h5>
                                     <div class="my-2">
                                         <?php foreach ($business['social_media'] as $social_key => $social_link) : ?>
