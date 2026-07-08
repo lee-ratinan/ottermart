@@ -39,7 +39,7 @@
                                                 <div>
                                                     <h5><?= lang('System.store.business-tab.detail.shipping') ?></h5>
                                                     <p>
-                                                        <?=  lang('System.store.business-tab.detail.shipping-options.' . $business['shipping_options']) ?>
+                                                        <?= empty($business['products']) ? '-' : lang('System.store.business-tab.detail.shipping-options.' . $business['shipping_options']) ?>
                                                     </p>
                                                 </div>
                                             </div>
